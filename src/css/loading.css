@@ -1,0 +1,92 @@
+/* Loading animation */
+/* FULL SCREEN CENTER WRAPPER */
+.loader-wrapper {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  z-index: 9999;
+
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+/* ROAD */
+.road {
+  position: absolute;
+  bottom: 35%;
+
+  width: 100%;
+  height: 4px;
+
+  background: repeating-linear-gradient(
+    90deg,
+    #cbd5e1,
+    #cbd5e1 20px,
+    transparent 20px,
+    transparent 40px
+  );
+
+  opacity: 0.6;
+  animation: roadMove 1s linear infinite;
+}
+
+/* VEHICLE */
+.vehicle {
+  position: absolute;
+  bottom: 40%;
+
+  left: -100px;
+
+  animation: moveVehicle 2s linear infinite;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
+}
+
+/* TRAIL EFFECT */
+.trail {
+  position: absolute;
+  bottom: 42%;
+
+  width: 120px;
+  height: 6px;
+
+  left: 20%;
+
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.6), transparent);
+
+  filter: blur(2px);
+  animation: fadeTrail 1.5s ease-in-out infinite;
+}
+
+/* ANIMATIONS */
+@keyframes moveVehicle {
+  0% {
+    transform: translateX(-150px);
+  }
+  100% {
+    transform: translateX(120vw);
+  }
+}
+
+@keyframes roadMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-40px);
+  }
+}
+
+@keyframes fadeTrail {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

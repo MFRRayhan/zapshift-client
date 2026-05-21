@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  default: true; /* set as default */
+  prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
+  color-scheme: light; /* color of browser-provided UI */
+
+  --color-base-100: oklch(98% 0.01 240);
+  --color-base-200: oklch(94% 0.015 240);
+  --color-base-300: oklch(88% 0.02 240);
+  --color-base-content: oklch(20% 0.05 240);
+  /* --color-primary: #caeb66; */
+  --color-primary: #009966;
+  --color-primary-content: #fff;
+  --color-secondary: #03373d;
+  --color-secondary-content: #fff;
+  --color-error: #d92243;
+  --color-error-content: #fff;
+  --color-info-content: #fff;
+}
+
+body {
+  font-family: "Urbanist", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold text-secondary;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.container {
+  @apply mx-auto;
+}
+
+.primary-menu li a.active,
+.dashboard-links li a.active {
+  @apply bg-primary text-white font-semibold rounded-xl;
+}
+
+.form-error {
+  @apply text-error mt-1;
+}
+
+.btn {
+  @apply rounded-xl;
+}
