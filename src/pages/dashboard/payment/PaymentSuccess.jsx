@@ -16,14 +16,8 @@ export default function PaymentSuccess() {
       axiosSecure
         .patch(`/payment-success?session_id=${sessionId}`)
         .then((res) => {
-          // console.log(res.data);
-          setPaymentInfo({
-            transactionId: res.data.transactionId,
-            trackingId: res.data.trackingId,
-            amount: res.data.amount,
-            customerEmail: res.data.customerEmail,
-            parcelName: res.data.parcelName,
-          });
+          console.log(res.data);
+          setPaymentInfo(res.data.payment);
         });
     }
   }, [sessionId, axiosSecure]);
