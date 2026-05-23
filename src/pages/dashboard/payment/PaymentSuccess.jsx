@@ -7,8 +7,8 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
-  const [paymentInfo, setPaymentInfo] = useState({});
   const sessionId = searchParams.get("session_id");
+  const [paymentInfo, setPaymentInfo] = useState({});
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
