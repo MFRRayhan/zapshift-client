@@ -12,13 +12,19 @@ export default function useAxiosSecure() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const reqInterceptor = instance.interceptors.request.use((config) => {
-      if (user?.accessToken) {
-        config.headers.Authorization = `Bearer ${user?.accessToken}`;
-      }
+    const reqInterceptor = instance.interceptors.request.use(
+      (config) => {
+        if (user?.accessToken) {
+          config.headers.Authorization = `Bearer ${user?.accessToken}`;
+        }
 
-      return config;
-    });
+        return config;
+      },
+      (err) => {
+        console.error("request error", err);
+        return Promise.reject(err);
+      },
+    );
 
     const resInterceptor = instance.interceptors.response.use(
       (res) => {
@@ -29,14 +35,13 @@ export default function useAxiosSecure() {
         if (status === 401 || status === 403) {
           logout()
             .then(() => {
-              navigate("login");
+              navigate("/login");
             })
             .catch((err) => {
               console.log(err);
             });
-
-          return Promise.reject(err);
         }
+        return Promise.reject(err);
       },
     );
 
