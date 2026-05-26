@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { FaMotorcycle, FaUsers } from "react-icons/fa";
 import { FaBox, FaCreditCard, FaGear } from "react-icons/fa6";
 import { IoHomeOutline, IoLogOutOutline } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router-dom";
@@ -76,15 +77,47 @@ export default function DashboardLayout() {
               to="/dashboard/payment-history"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
-    ${
-      isActive
-        ? "bg-primary/10 text-primary"
-        : "text-base-content/70 hover:bg-base-200"
-    }`
+                ${
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-base-content/70 hover:bg-base-200"
+                }`
               }
             >
               <FaCreditCard />
               Payment History
+            </NavLink>
+
+            {/* RIDER APPLICATIONS (ADMIN) */}
+            <NavLink
+              to="/dashboard/rider-applications"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+              ${
+                isActive
+                  ? "bg-primary/10 text-primary"
+                  : "text-base-content/70 hover:bg-base-200"
+              }`
+              }
+            >
+              <FaMotorcycle />
+              Rider Applications
+            </NavLink>
+
+            {/* USERS (ADMIN) */}
+            <NavLink
+              to="/dashboard/users"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+              ${
+                isActive
+                  ? "bg-primary/10 text-primary"
+                  : "text-base-content/70 hover:bg-base-200"
+              }`
+              }
+            >
+              <FaUsers />
+              Users
             </NavLink>
           </nav>
         </div>
@@ -119,7 +152,7 @@ export default function DashboardLayout() {
           </h1>
 
           {/* USER */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 border border-primary/30 p-2 rounded-2xl">
             <img
               src={
                 userInfo?.photoURL || "https://i.ibb.co/31m686y/user-avatar.png"
@@ -128,16 +161,16 @@ export default function DashboardLayout() {
             />
             <div className="hidden sm:block">
               <p className="text-sm font-semibold">{userInfo?.displayName}</p>
-              <p className="text-xs text-base-content/50">
-                {userInfo?.role || "Customer"}
+              <p className="text-xs capitalize text-primary font-semibold">
+                {userInfo?.role || "user"}
               </p>
             </div>
           </div>
         </header>
 
         {/* ================= CONTENT (ONLY SCROLL AREA) ================= */}
-        <main className="flex-1 overflow-y-auto p-6 bg-base-200/40">
-          <div className="max-w-7xl mx-auto space-y-6">
+        <main className="flex-1 overflow-y-auto py-6 bg-base-200/40">
+          <div className="px-8 space-y-6">
             {/* HERO BANNER */}
             <div className="relative overflow-hidden rounded-2xl p-8 bg-linear-to-r from-primary/90 via-primary to-secondary/90 text-white shadow-lg">
               {/* Decorative glow */}

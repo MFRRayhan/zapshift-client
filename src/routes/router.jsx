@@ -14,6 +14,8 @@ import Payment from "../pages/dashboard/payment/Payment";
 import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
 import PaymentHistory from "../pages/dashboard/payment/PaymentHistory";
 import PaymentSuccess from "../pages/dashboard/payment/PaymentSuccess";
+import RiderApplications from "../pages/dashboard/RiderApplications";
+import Users from "../pages/dashboard/Users";
 import ForgotPassword from "../pages/ForgotPassword";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -150,6 +152,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <PaymentHistory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "rider-applications",
+        element: (
+          <PrivateRoute>
+            <RiderApplications />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <PrivateRoute>
+            <Users />
           </PrivateRoute>
         ),
       },
