@@ -1,14 +1,14 @@
 import {
-  SlidersHorizontal,
-  Calendar,
-  Download,
-  Truck,
-  Clock,
-  CircleDollarSign,
-  CheckCircle2,
   AlertCircle,
-  XCircle,
+  Calendar,
+  CheckCircle2,
+  CircleDollarSign,
+  Clock,
+  Download,
   MoreVertical,
+  SlidersHorizontal,
+  Truck,
+  XCircle,
 } from "lucide-react";
 
 // Mock Data for UI stability and consistency
@@ -87,7 +87,7 @@ const ordersHistory = [
 
 export default function DashboardHome() {
   return (
-    <div className="min-h-screen bg-[#f3f4f6] p-4 md:p-8 font-sans text-[#1a1a1a]">
+    <div className="min-h-screen p-4 md:p-8 font-sans text-[#1a1a1a]">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

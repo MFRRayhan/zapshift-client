@@ -15,7 +15,7 @@ import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
 import PaymentHistory from "../pages/dashboard/payment/PaymentHistory";
 import PaymentSuccess from "../pages/dashboard/payment/PaymentSuccess";
 import RiderApplications from "../pages/dashboard/RiderApplications";
-import Users from "../pages/dashboard/Users";
+import UsersManagement from "../pages/dashboard/UsersManagement";
 import ForgotPassword from "../pages/ForgotPassword";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -167,7 +167,7 @@ export const router = createBrowserRouter([
         path: "users",
         element: (
           <PrivateRoute>
-            <Users />
+            <UsersManagement />
           </PrivateRoute>
         ),
       },

@@ -1,20 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
+  FaBangladeshiTakaSign,
   FaBoxOpen,
   FaEye,
   FaPen,
   FaTrash,
-  FaBangladeshiTakaSign,
 } from "react-icons/fa6";
-import Swal from "sweetalert2";
+import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import Loading from "../../components/Loading";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function MyParcels() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const modalRef = useRef(null);
+  const patchModalRef = useRef(null);
+  const [selectedParcel, setSelectedParcel] = useState(null);
+  const [patchParcel, setPatchParcel] = useState(null);
 
   const {
     data: parcels = [],
@@ -28,6 +42,55 @@ export default function MyParcels() {
       return res.data;
     },
   });
+
+  const openParcelModal = (parcel) => {
+    setSelectedParcel(parcel);
+    modalRef.current?.showModal();
+  };
+
+  const handlePatchParcelForm = (data) => {
+    if (!patchParcel?._id) return;
+
+    axiosSecure
+      .patch(`/parcels/${patchParcel?._id}`, data)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+
+          patchModalRef.current?.close();
+
+          Swal.fire({
+            icon: "success",
+            title: "Parcel Updated",
+            text: "Receiver information updated successfully.",
+            confirmButtonColor: "#caeb66",
+          });
+        }
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Update Failed",
+          text: "Something went wrong.",
+          confirmButtonColor: "#dc2626",
+        });
+      });
+  };
+
+  const handlePatchParcel = (parcel) => {
+    setPatchParcel(parcel);
+
+    reset({
+      receiverName: parcel?.receiverName || "",
+      receiverPhone: parcel?.receiverPhone || "",
+      receiverEmail: parcel?.receiverEmail || "",
+      receiverAddress: parcel?.receiverAddress || "",
+      receiverDistrict: parcel?.receiverDistrict || "",
+      deliveryInstructions: parcel?.deliveryInstructions || "",
+    });
+
+    patchModalRef.current?.showModal();
+  };
 
   const handleParcelDelete = (parcelId) => {
     Swal.fire({
@@ -75,6 +138,7 @@ export default function MyParcels() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 className="text-xl font-bold text-base-content">My Parcels</h2>
+
             <p className="text-sm text-base-content/60 mt-1">
               Manage and track all your parcel deliveries
             </p>
@@ -82,6 +146,7 @@ export default function MyParcels() {
 
           <div className="px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
             <p className="text-xs text-base-content/60">Total Parcels</p>
+
             <h3 className="text-lg font-bold text-primary text-center">
               {parcels.length}
             </h3>
@@ -154,6 +219,7 @@ export default function MyParcels() {
                     <td>
                       <div>
                         <p className="font-semibold">{parcel.parcelName}</p>
+
                         <p className="text-xs text-base-content/60">
                           {parcel.parcelWeight} KG
                         </p>
@@ -162,13 +228,14 @@ export default function MyParcels() {
 
                     {/* SENDER */}
                     <td>
-                      <p className="font-medium">{parcel.senderDistrict}</p>
+                      <p className="font-medium">{parcel.senderName}</p>
                     </td>
 
                     {/* RECEIVER */}
                     <td>
                       <div>
                         <p className="font-medium">{parcel.receiverName}</p>
+
                         <p className="text-xs text-base-content/60">
                           {parcel.receiverPhone}
                         </p>
@@ -206,11 +273,17 @@ export default function MyParcels() {
                     {/* ACTIONS */}
                     <td>
                       <div className="flex gap-2">
-                        <button className="btn btn-sm btn-square btn-ghost">
+                        <button
+                          onClick={() => openParcelModal(parcel)}
+                          className="btn btn-sm btn-square btn-ghost btn-outline"
+                        >
                           <FaEye />
                         </button>
 
-                        <button className="btn btn-sm btn-square btn-ghost">
+                        <button
+                          onClick={() => handlePatchParcel(parcel)}
+                          className="btn btn-sm btn-square btn-ghost btn-outline"
+                        >
                           <FaPen />
                         </button>
 
@@ -229,6 +302,331 @@ export default function MyParcels() {
           </div>
         </section>
       )}
+
+      {/* DETAILS MODAL */}
+      <dialog ref={modalRef} className="modal">
+        <div className="modal-box max-w-4xl rounded-2xl p-0">
+          {/* HEADER */}
+          <div className="bg-base-200 px-6 py-5 flex items-center justify-between border-b border-base-300">
+            <div>
+              <h3 className="text-xl font-bold text-base-content">
+                Parcel Details
+              </h3>
+
+              <p className="text-sm text-base-content/60 mt-1">
+                Complete information about this parcel delivery
+              </p>
+            </div>
+
+            <form method="dialog">
+              <button className="btn btn-sm btn-square btn-error btn-outline">
+                <ImCross />
+              </button>
+            </form>
+          </div>
+
+          {/* BODY */}
+          {selectedParcel && (
+            <div className="p-6 space-y-6">
+              {/* TOP STATUS */}
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold">
+                    {selectedParcel.parcelName}
+                  </h2>
+
+                  <p className="text-sm text-base-content/60 mt-1">
+                    Tracking ID: {selectedParcel._id}
+                  </p>
+                </div>
+
+                <div className="flex gap-2 flex-wrap">
+                  <span
+                    className={`badge badge-lg capitalize ${
+                      selectedParcel.paymentStatus === "paid"
+                        ? "badge-success"
+                        : "badge-warning"
+                    }`}
+                  >
+                    {selectedParcel.paymentStatus}
+                  </span>
+
+                  <span className="badge badge-primary badge-lg capitalize">
+                    {selectedParcel.deliveryStatus || "Pending"}
+                  </span>
+                </div>
+              </div>
+
+              {/* INFO GRID */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Sender */}
+                <div className="bg-base-200 rounded-2xl p-5 space-y-3">
+                  <h4 className="font-bold text-base">Sender Information</h4>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">Sender Name</p>
+
+                    <p className="font-medium">{selectedParcel.senderName}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Sender Contact
+                    </p>
+
+                    <p className="font-medium">{selectedParcel.senderPhone}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Pickup District
+                    </p>
+
+                    <p className="font-medium">
+                      {selectedParcel.senderDistrict}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Pickup Address
+                    </p>
+
+                    <p className="font-medium">
+                      {selectedParcel.senderAddress}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Receiver */}
+                <div className="bg-base-200 rounded-2xl p-5 space-y-3">
+                  <h4 className="font-bold text-base">Receiver Information</h4>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Receiver Name
+                    </p>
+
+                    <p className="font-medium">{selectedParcel.receiverName}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Receiver Contact
+                    </p>
+
+                    <p className="font-medium">
+                      {selectedParcel.receiverPhone}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Delivery District
+                    </p>
+
+                    <p className="font-medium">
+                      {selectedParcel.receiverDistrict}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Delivery Address
+                    </p>
+
+                    <p className="font-medium">
+                      {selectedParcel.receiverAddress}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* PARCEL INFO */}
+              <div className="bg-base-200 rounded-2xl p-5">
+                <h4 className="font-bold text-base mb-4">Parcel Information</h4>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <p className="text-xs text-base-content/60">Parcel Type</p>
+
+                    <p className="font-medium">{selectedParcel.type}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Parcel Weight
+                    </p>
+
+                    <p className="font-medium">
+                      {selectedParcel.parcelWeight} KG
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-base-content/60">
+                      Delivery Cost
+                    </p>
+
+                    <div className="flex items-center gap-1 font-bold text-primary">
+                      <FaBangladeshiTakaSign />
+                      {selectedParcel.cost}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* DELIVERY INSTRUCTIONS */}
+              <div className="bg-base-200 rounded-2xl p-5">
+                <h4 className="font-bold text-base mb-2">
+                  Delivery Instructions
+                </h4>
+
+                <p className="text-sm leading-relaxed text-base-content/80">
+                  {selectedParcel.deliveryInstruction ||
+                    "No special delivery instructions provided."}
+                </p>
+              </div>
+
+              {/* FOOTER */}
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-base-content/50 border-t border-base-300 pt-4">
+                <span>
+                  Created At:{" "}
+                  {new Date(
+                    selectedParcel.creation_date || selectedParcel.createdAt,
+                  ).toLocaleString()}
+                </span>
+
+                <span>Parcel ID: {selectedParcel._id}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* BACKDROP */}
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      {/* PARCEL EDIT MODAL */}
+
+      <dialog ref={patchModalRef} className="modal">
+        <div className="modal-box">
+          <h2>Update parcel information</h2>
+          <form method="dialog">
+            <button className="btn btn-sm btn-square btn-error btn-outline absolute right-2 top-2">
+              <ImCross />
+            </button>
+          </form>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit(handlePatchParcelForm)(e);
+            }}
+            className="p-6 space-y-6"
+          >
+            {/* RECEIVER INFO SECTION */}
+            <div className="bg-base-200 rounded-2xl p-5 space-y-4">
+              <h4 className="font-bold text-base">Receiver Information</h4>
+
+              {/* NAME */}
+              <div>
+                <label className="text-xs text-base-content/60">
+                  Receiver Name
+                </label>
+                <input
+                  type="text"
+                  {...register("receiverName")}
+                  className="input input-bordered w-full mt-1 focus:outline-none focus:border-primary"
+                  placeholder="Enter receiver name"
+                />
+              </div>
+
+              {/* PHONE */}
+              <div>
+                <label className="text-xs text-base-content/60">
+                  Receiver Phone
+                </label>
+                <input
+                  type="text"
+                  {...register("receiverPhone")}
+                  className="input input-bordered w-full mt-1 focus:outline-none focus:border-primary"
+                  placeholder="Enter receiver phone"
+                />
+              </div>
+
+              {/* EMAIL */}
+              <div>
+                <label className="text-xs text-base-content/60">
+                  Receiver Email
+                </label>
+                <input
+                  type="email"
+                  {...register("receiverEmail")}
+                  className="input input-bordered w-full mt-1 focus:outline-none focus:border-primary"
+                  placeholder="Enter receiver email"
+                />
+              </div>
+
+              {/* ADDRESS */}
+              <div>
+                <label className="text-xs text-base-content/60">
+                  Delivery Address
+                </label>
+                <input
+                  type="text"
+                  {...register("receiverAddress")}
+                  className="input input-bordered w-full mt-1 focus:outline-none focus:border-primary"
+                  placeholder="Enter delivery address"
+                />
+              </div>
+
+              {/* DISTRICT */}
+              <div>
+                <label className="text-xs text-base-content/60">
+                  Delivery District
+                </label>
+                <input
+                  type="text"
+                  {...register("receiverDistrict")}
+                  className="input input-bordered w-full mt-1 focus:outline-none focus:border-primary"
+                  placeholder="Enter delivery district"
+                />
+              </div>
+            </div>
+
+            {/* DELIVERY INSTRUCTIONS */}
+            <div className="bg-base-200 rounded-2xl p-5">
+              <label className="text-xs text-base-content/60">
+                Delivery Instructions
+              </label>
+
+              <textarea
+                {...register("deliveryInstructions")}
+                className="textarea textarea-bordered w-full mt-2 focus:outline-none focus:border-primary"
+                placeholder="Any special instructions..."
+              />
+            </div>
+
+            {/* ACTIONS */}
+            <div className="flex justify-end gap-3 border-t border-base-300 pt-4">
+              <button
+                type="button"
+                onClick={() => patchModalRef.current?.close()}
+                className="btn btn-outline"
+              >
+                Cancel
+              </button>
+
+              <button type="submit" className="btn btn-primary">
+                Update Parcel
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </section>
   );
 }

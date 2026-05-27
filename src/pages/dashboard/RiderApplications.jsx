@@ -166,28 +166,28 @@ export default function RiderApplications() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => openModal(rider)}
-                        className="btn btn-sm btn-ghost btn-outline"
+                        className="btn btn-sm btn-square btn-ghost btn-outline"
                       >
                         <FaEye />
                       </button>
 
                       <button
                         onClick={() => updateRiderStatus(rider, "approved")}
-                        className="btn btn-sm btn-primary btn-outline"
+                        className="btn btn-sm btn-square btn-primary btn-outline"
                       >
                         <FaCheck />
                       </button>
 
                       <button
                         onClick={() => updateRiderStatus(rider, "rejected")}
-                        className="btn btn-sm btn-error btn-outline"
+                        className="btn btn-sm btn-square btn-error btn-outline"
                       >
                         <ImCross />
                       </button>
 
                       <button
                         onClick={() => handleDelete(rider._id)}
-                        className="btn btn-sm btn-error btn-outline"
+                        className="btn btn-sm btn-square btn-error btn-outline"
                       >
                         <FaTrash />
                       </button>
