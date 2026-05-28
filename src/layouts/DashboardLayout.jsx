@@ -115,7 +115,7 @@ export default function DashboardLayout() {
 
                 {/* USERS (ADMIN) */}
                 <NavLink
-                  to="/dashboard/users"
+                  to="/dashboard/users-management"
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
               ${

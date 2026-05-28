@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import Logo from "./Logo";
 import {
   FaFacebookF,
   FaLinkedinIn,
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -36,7 +36,7 @@ export default function Footer() {
             <a
               href="https://www.facebook.com"
               target="_blank"
-              className="bg-primary rounded-full p-2 text-secondary transition-all ease-in-out duration-100 hover:bg-secondary hover:text-primary"
+              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
             >
               <FaFacebookF />
             </a>
@@ -44,7 +44,7 @@ export default function Footer() {
             <a
               href="https://www.x.com"
               target="_blank"
-              className="bg-primary rounded-full p-2 text-secondary transition-all ease-in-out duration-100 hover:bg-secondary hover:text-primary"
+              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
             >
               <FaXTwitter />
             </a>
@@ -52,14 +52,14 @@ export default function Footer() {
             <a
               href="https://www.linkedin.com"
               target="_blank"
-              className="bg-primary rounded-full p-2 text-secondary transition-all ease-in-out duration-100 hover:bg-secondary hover:text-primary"
+              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
             >
               <FaLinkedinIn />
             </a>
             <a
               href="https://www.youtube.com"
               target="_blank"
-              className="bg-primary rounded-full p-2 text-secondary transition-all ease-in-out duration-100 hover:bg-secondary hover:text-primary"
+              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
             >
               <FaYoutube />
             </a>

@@ -167,7 +167,8 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "users",
+        path: "users-management",
+        // Component: UsersManagement,
         element: (
           <PrivateRoute>
             <AdminRoute>
