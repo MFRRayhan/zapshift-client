@@ -24,6 +24,7 @@ import Pricing from "../pages/Pricing";
 import Register from "../pages/Register";
 import SendParcel from "../pages/SendParcel";
 import Services from "../pages/Services";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -159,7 +160,9 @@ export const router = createBrowserRouter([
         path: "rider-applications",
         element: (
           <PrivateRoute>
-            <RiderApplications />
+            <AdminRoute>
+              <RiderApplications />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -167,13 +170,14 @@ export const router = createBrowserRouter([
         path: "users",
         element: (
           <PrivateRoute>
-            <UsersManagement />
+            <AdminRoute>
+              <UsersManagement />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
     ],
   },
-
   {
     path: "*",
     Component: NotFound,
