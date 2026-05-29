@@ -1,8 +1,8 @@
 import { useForm, useWatch } from "react-hook-form";
-import { FaBox, FaUser, FaMapMarkerAlt } from "react-icons/fa";
-import useAuth from "../hooks/useAuth";
+import { FaBox, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 export default function SendParcel() {
@@ -102,7 +102,7 @@ export default function SendParcel() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="container py-10">
       {/* Header */}
       <div className="mb-10">
         <h2 className="text-4xl font-bold text-base-content">Send A Parcel</h2>

@@ -11,7 +11,7 @@ export default function useRole() {
     queryFn: async () => {
       const res = await axiosSecure(`/users/${user?.email}/role`);
 
-      return res.data;
+      return res.data || "user";
     },
   });
 

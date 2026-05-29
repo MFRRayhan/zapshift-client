@@ -61,7 +61,8 @@ export default function UsersManagement() {
                 confirmButtonColor: "#16a34a",
               });
             }
-          });
+          })
+          .catch((err) => console.error(err));
       }
     });
   };
@@ -217,7 +218,7 @@ export default function UsersManagement() {
         </table>
       </div>
 
-      {/* MODAL (MyParcels style UI) */}
+      {/* MODAL */}
       <dialog ref={modalRef} className="modal">
         <div className="modal-box max-w-3xl rounded-2xl p-0 overflow-hidden">
           {/* HEADER */}
@@ -278,9 +279,13 @@ export default function UsersManagement() {
                   </p>
                 </div>
 
-                <div className="bg-base-200 rounded-xl p-4 md:col-span-2">
+                <div className="bg-base-200 rounded-xl p-4 ">
                   <p className="text-xs text-base-content/60">User ID</p>
                   <p className="font-semibold">{selectedUser._id}</p>
+                </div>
+                <div className="bg-base-200 rounded-xl p-4 ">
+                  <p className="text-xs text-base-content/60">Joined At:</p>
+                  <p className="font-semibold">{selectedUser.createdAt}</p>
                 </div>
               </div>
             </div>

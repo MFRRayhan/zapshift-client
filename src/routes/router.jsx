@@ -66,6 +66,7 @@ export const router = createBrowserRouter([
       {
         path: "be-a-rider",
         // Component: BeARider,
+        loader: () => fetch("/warehouses.json").then((res) => res.json()),
         element: (
           <PrivateRoute>
             <BeARider />
@@ -168,7 +169,6 @@ export const router = createBrowserRouter([
       },
       {
         path: "users-management",
-        // Component: UsersManagement,
         element: (
           <PrivateRoute>
             <AdminRoute>
