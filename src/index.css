@@ -36,6 +36,10 @@ h6 {
   @apply font-bold text-secondary;
 }
 
+/* input {
+  @apply w-full focus:outline-none focus:border-primary;
+} */
+
 /* -------------------------------------------------------------------------- */
 
 .container {
@@ -50,7 +54,3 @@ h6 {
 .form-error {
   @apply text-error mt-1;
 }
-
-/* .btn {
-  @apply rounded-xl;
-} */

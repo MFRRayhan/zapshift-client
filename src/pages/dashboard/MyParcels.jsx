@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import Loading from "../../components/Loading";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { FaSearch } from "react-icons/fa";
 
 export default function MyParcels() {
   const { user } = useAuth();
@@ -29,16 +30,19 @@ export default function MyParcels() {
   const patchModalRef = useRef(null);
   const [selectedParcel, setSelectedParcel] = useState(null);
   const [patchParcel, setPatchParcel] = useState(null);
+  const [searchText, setSearchText] = useState("");
 
   const {
     data: parcels = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["myParcels", user?.email],
+    queryKey: ["myParcels", user?.email, searchText],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
+      const res = await axiosSecure.get(
+        `/parcels?email=${user?.email}&search=${searchText}`,
+      );
       return res.data;
     },
   });
@@ -129,8 +133,6 @@ export default function MyParcels() {
     });
   };
 
-  if (isLoading) return <Loading />;
-
   return (
     <section className="space-y-6">
       {/* HEADER */}
@@ -151,6 +153,19 @@ export default function MyParcels() {
               {parcels.length}
             </h3>
           </div>
+        </div>
+      </div>
+
+      {/* search */}
+      <div className="flex justify-end">
+        <div className="relative w-full max-w-sm">
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-base-content/50 z-10" />
+          <input
+            onChange={(e) => setSearchText(e.target.value)}
+            type="search"
+            placeholder="Type to search..."
+            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary"
+          />
         </div>
       </div>
 

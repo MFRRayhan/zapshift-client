@@ -77,30 +77,36 @@ export default function BeARider() {
   return (
     <section className="container py-10">
       {/* HEADER */}
-      <div className="mb-12 text-center max-w-3xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">Become A Rider</h2>
+      <div className="mb-10">
+        <h2 className="text-4xl font-bold text-base-content">Become A Rider</h2>
 
-        <p className="text-base-content/70 text-lg">
-          Join our delivery network and earn by delivering parcels quickly and
-          safely. Flexible schedule, reliable support, and real-time parcel
-          management system.
+        <p className="text-gray-500 mt-2">
+          Join our delivery network and start delivering parcels efficiently
+          with flexible working opportunities.
         </p>
       </div>
 
       {/* CONTENT */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         {/* FORM */}
-        <div className="bg-base-100 border border-base-300 rounded-3xl shadow-sm p-6 md:p-8">
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold">Tell Us About Yourself</h3>
+        <div className="bg-base-100 rounded-3xl shadow-sm border border-base-300 p-6 md:p-8">
+          {/* FORM HEADER */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+              <FaMotorcycle size={20} />
+            </div>
 
-            <p className="text-base-content/60 mt-2">
-              Fill in your information carefully to apply as a rider.
-            </p>
+            <div>
+              <h3 className="text-2xl font-semibold">Tell Us About Yourself</h3>
+
+              <p className="text-sm text-gray-500">
+                Fill in your information carefully to apply as a rider.
+              </p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit(handleRiderForm)}>
-            <fieldset className="space-y-5">
+            <fieldset className="fieldset space-y-6">
               {/* Name */}
               <div>
                 <label className="label mb-1">
@@ -114,7 +120,7 @@ export default function BeARider() {
                   type="text"
                   defaultValue={user?.displayName}
                   readOnly
-                  className={`input input-bordered w-full ${
+                  className={`input input-bordered w-full focus:outline-none focus:border-primary ${
                     errors.riderName ? "input-error" : ""
                   }`}
                   {...register("riderName", {
@@ -142,7 +148,7 @@ export default function BeARider() {
                   type="email"
                   defaultValue={user?.email}
                   readOnly
-                  className={`input input-bordered w-full ${
+                  className={`input input-bordered w-full focus:outline-none focus:border-primary ${
                     errors.riderEmail ? "input-error" : ""
                   }`}
                   {...register("riderEmail", {
@@ -158,7 +164,7 @@ export default function BeARider() {
               </div>
 
               {/* Region + District */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Region */}
                 <div>
                   <label className="label mb-1">
@@ -170,7 +176,7 @@ export default function BeARider() {
 
                   <select
                     defaultValue=""
-                    className={`select select-bordered w-full ${
+                    className={`select select-bordered w-full focus:outline-none focus:border-primary ${
                       errors.region ? "select-error" : ""
                     }`}
                     {...register("region", {
@@ -204,7 +210,7 @@ export default function BeARider() {
 
                   <select
                     defaultValue=""
-                    className={`select select-bordered w-full ${
+                    className={`select select-bordered w-full focus:outline-none focus:border-primary ${
                       errors.district ? "select-error" : ""
                     }`}
                     {...register("district", {
@@ -231,7 +237,7 @@ export default function BeARider() {
               </div>
 
               {/* DL + NID */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* DL */}
                 <div>
                   <label className="label mb-1">
@@ -244,7 +250,7 @@ export default function BeARider() {
                   <input
                     type="text"
                     placeholder="Enter driving license number"
-                    className={`input input-bordered w-full ${
+                    className={`input input-bordered w-full focus:outline-none focus:border-primary ${
                       errors.dlNo ? "input-error" : ""
                     }`}
                     {...register("dlNo", {
@@ -271,7 +277,7 @@ export default function BeARider() {
                   <input
                     type="text"
                     placeholder="Enter NID number"
-                    className={`input input-bordered w-full ${
+                    className={`input input-bordered w-full focus:outline-none focus:border-primary ${
                       errors.nidNo ? "input-error" : ""
                     }`}
                     {...register("nidNo", {
@@ -299,7 +305,7 @@ export default function BeARider() {
                 <input
                   type="tel"
                   placeholder="01XXXXXXXXX"
-                  className={`input input-bordered w-full ${
+                  className={`input input-bordered w-full focus:outline-none focus:border-primary ${
                     errors.phoneNumber ? "input-error" : ""
                   }`}
                   {...register("phoneNumber", {
@@ -326,7 +332,7 @@ export default function BeARider() {
                 <input
                   type="text"
                   placeholder="Bike brand, model & year"
-                  className={`input input-bordered w-full ${
+                  className={`input input-bordered w-full focus:outline-none focus:border-primary ${
                     errors.bikeInfo ? "input-error" : ""
                   }`}
                   {...register("bikeInfo", {
@@ -341,7 +347,7 @@ export default function BeARider() {
                 )}
               </div>
 
-              {/* Bike Reg */}
+              {/* Bike Registration */}
               <div>
                 <label className="label mb-1">
                   <span className="label-text font-medium">
@@ -352,7 +358,7 @@ export default function BeARider() {
                 <input
                   type="text"
                   placeholder="Enter bike registration number"
-                  className={`input input-bordered w-full ${
+                  className={`input input-bordered w-full focus:outline-none focus:border-primary ${
                     errors.regNo ? "input-error" : ""
                   }`}
                   {...register("regNo", {
@@ -378,7 +384,7 @@ export default function BeARider() {
                 <textarea
                   rows={5}
                   placeholder="Tell us about yourself..."
-                  className={`textarea textarea-bordered w-full ${
+                  className={`textarea textarea-bordered w-full focus:outline-none focus:border-primary ${
                     errors.desc ? "textarea-error" : ""
                   }`}
                   {...register("desc", {
@@ -394,9 +400,11 @@ export default function BeARider() {
               </div>
 
               {/* Submit */}
-              <button className="btn btn-primary w-full mt-2">
-                Submit Rider Application
-              </button>
+              <div className="flex justify-end">
+                <button className="btn btn-primary">
+                  Submit Rider Application
+                </button>
+              </div>
             </fieldset>
           </form>
         </div>

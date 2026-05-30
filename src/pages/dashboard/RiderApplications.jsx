@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRef, useState } from "react";
-import { FaCheck, FaEye, FaTrash } from "react-icons/fa";
+import { FaCheck, FaEye, FaSearch, FaTrash } from "react-icons/fa";
 import { FaMotorcycle } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
@@ -11,20 +11,15 @@ export default function RiderApplications() {
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef(null);
   const [selectedRider, setSelectedRider] = useState(null);
+  const [searchText, setSearch] = useState("");
 
-  const {
-    data: riders = [],
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["riders"],
+  const { data: riders = [], refetch } = useQuery({
+    queryKey: ["riders", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get("/riders");
+      const res = await axiosSecure.get(`/riders?search=${searchText}`);
       return res.data;
     },
   });
-
-  if (isLoading) return <Loading />;
 
   const openModal = (rider) => {
     setSelectedRider(rider);
@@ -43,7 +38,10 @@ export default function RiderApplications() {
 
           Swal.fire({
             icon: status === "approved" ? "success" : "warning",
-            title: status === "approved" ? "Rider Approved" : "Rider Rejected",
+            title:
+              status === "approved"
+                ? "Rider Application Approved"
+                : "Rider Application Rejected",
             text: `Application has been ${status} successfully.`,
             confirmButtonColor: status === "approved" ? "#16a34a" : "#dc2626",
           });
@@ -102,6 +100,19 @@ export default function RiderApplications() {
               {riders.length}
             </h3>
           </div>
+        </div>
+      </div>
+
+      {/* Search */}
+      <div className="flex justify-end">
+        <div className="relative w-full max-w-sm">
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-base-content/50 z-10" />
+          <input
+            onChange={(e) => setSearch(e.target.value)}
+            type="search"
+            placeholder="Type to search..."
+            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary"
+          />
         </div>
       </div>
 

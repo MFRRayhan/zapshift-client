@@ -8,7 +8,7 @@ export default function AdminRoute({ children }) {
   const { user, loading } = useAuth();
 
   if (loading || roleLoading) return <Loading />;
-  if (user?.role !== "admin" || role !== "admin") return <Forbidden />;
+  if (role !== "admin") return <Forbidden />;
 
   return children;
 }

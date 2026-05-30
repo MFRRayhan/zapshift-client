@@ -16,7 +16,7 @@ export default function Footer() {
             <Logo></Logo>
             <p className="text-center">
               Enjoy fast, reliable parcel delivery with real-time tracking and
-              zero hassle. From personal packages to business shipments — we
+              zero hassle. From personal packages to business shipments - we
               deliver on time, every time.
             </p>
           </div>

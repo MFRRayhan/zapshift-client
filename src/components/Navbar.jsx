@@ -1,8 +1,8 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Logo from "./Logo";
+import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import Loading from "./Loading";
-import Swal from "sweetalert2";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const { user, loading, logout } = useAuth();

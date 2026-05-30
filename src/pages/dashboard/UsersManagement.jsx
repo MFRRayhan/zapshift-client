@@ -3,34 +3,31 @@ import { useRef, useState } from "react";
 import {
   FaEye,
   FaMotorcycle,
+  FaSearch,
   FaTrash,
   FaUserShield,
   FaUserSlash,
+  FaBoxOpen,
 } from "react-icons/fa";
-import { ImCross } from "react-icons/im";
 import { TbBikeOff } from "react-icons/tb";
+import { ImCross } from "react-icons/im";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import Loading from "../../components/Loading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function UsersManagement() {
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef(null);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [searchText, setSearchText] = useState("");
 
-  const {
-    data: users = [],
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["users"],
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?search=${searchText}`);
       return res.data;
     },
   });
-
-  if (isLoading) return <Loading />;
 
   const openModal = (user) => {
     setSelectedUser(user);
@@ -54,7 +51,6 @@ export default function UsersManagement() {
           .then((res) => {
             if (res.data.modifiedCount) {
               refetch();
-
               Swal.fire({
                 icon: "success",
                 title: "Updated Successfully",
@@ -92,7 +88,6 @@ export default function UsersManagement() {
 
   return (
     <section className="space-y-6">
-      {/* HEADER (MyParcels style) */}
       <div className="bg-base-100 border border-base-300 rounded-2xl p-5">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
@@ -113,115 +108,138 @@ export default function UsersManagement() {
         </div>
       </div>
 
-      {/* TABLE */}
-      <div className="overflow-x-auto bg-base-100 border border-base-300 rounded-2xl">
-        <table className="table w-full">
-          <thead className="bg-base-200 text-sm text-base-content/70">
-            <tr>
-              <th>Index</th>
-              <th>User</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {users.map((user, i) => (
-              <tr key={user._id} className="hover:bg-base-200/40">
-                <td className="text-base-content/70">{i + 1}</td>
-
-                {/* USER INFO */}
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="w-12 h-12 rounded-full">
-                        <img
-                          src={user.photoURL}
-                          alt={user.displayName}
-                          referrerPolicy="no-referrer"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <p className="font-semibold">{user.displayName}</p>
-                    </div>
-                  </div>
-                </td>
-
-                {/* Role */}
-                <td>
-                  <span className="badge badge-primary capitalize">
-                    {user.role}
-                  </span>
-                </td>
-
-                {/* ACTIONS */}
-                <td>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => openModal(user)}
-                      className="btn btn-sm btn-square btn-ghost btn-outline"
-                      title="View User"
-                    >
-                      <FaEye />
-                    </button>
-
-                    {user.role === "admin" ? (
-                      <button
-                        onClick={() => updateUserStatus(user, "user")}
-                        className="btn btn-sm btn-square btn-error btn-outline"
-                        title="Remove Admin"
-                      >
-                        <FaUserSlash />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => updateUserStatus(user, "admin")}
-                        className="btn btn-sm btn-square btn-primary btn-outline"
-                        title="Make Admin"
-                      >
-                        <FaUserShield />
-                      </button>
-                    )}
-
-                    {user?.role === "rider" ? (
-                      <button
-                        onClick={() => updateUserStatus(user, "user")}
-                        className="btn btn-sm btn-square btn-error btn-outline"
-                        title="Remove Rider"
-                      >
-                        <TbBikeOff />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => updateUserStatus(user, "rider")}
-                        className="btn btn-sm btn-square btn-primary btn-outline"
-                        title="Make Rider"
-                      >
-                        <FaMotorcycle />
-                      </button>
-                    )}
-
-                    <button
-                      onClick={() => handleDeleteUser(user)}
-                      className="btn btn-sm btn-square btn-error btn-outline"
-                      title="Delete User"
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Search */}
+      <div className="flex justify-end">
+        <div className="relative w-full max-w-sm">
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-base-content/50 z-10" />
+          <input
+            onChange={(e) => setSearchText(e.target.value)}
+            type="search"
+            placeholder="Type to search..."
+            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary"
+          />
+        </div>
       </div>
 
-      {/* MODAL */}
+      {users.length === 0 ? (
+        <section className="bg-base-100 border border-base-300 rounded-2xl p-10">
+          <div className="flex flex-col items-center justify-center text-center">
+            <div className="w-24 h-24 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
+              <FaBoxOpen className="text-4xl text-primary" />
+            </div>
+
+            <h2 className="text-2xl font-bold text-base-content">
+              No Users Found
+            </h2>
+            <p className="text-base-content/60 mt-3 max-w-md">
+              There are no registered users matching your criteria in the system
+              yet.
+            </p>
+          </div>
+        </section>
+      ) : (
+        <div className="overflow-x-auto bg-base-100 border border-base-300 rounded-2xl">
+          <table className="table w-full">
+            <thead className="bg-base-200 text-sm text-base-content/70">
+              <tr>
+                <th>Index</th>
+                <th>User</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, i) => (
+                <tr key={user._id || i} className="hover:bg-base-200/40">
+                  <td className="text-base-content/70">{i + 1}</td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="w-12 h-12 rounded-full">
+                          <img
+                            src={user.photoURL}
+                            alt={user.displayName}
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <p className="font-semibold">{user.displayName}</p>
+                        <p className="text-gray-500 text-xs">
+                          {user?.userEmail}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span className="badge badge-primary capitalize">
+                      {user.role}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => openModal(user)}
+                        className="btn btn-sm btn-square btn-ghost btn-outline"
+                        title="View User"
+                      >
+                        <FaEye />
+                      </button>
+
+                      {user.role === "admin" ? (
+                        <button
+                          onClick={() => updateUserStatus(user, "user")}
+                          className="btn btn-sm btn-square btn-error btn-outline"
+                          title="Remove Admin"
+                        >
+                          <FaUserSlash />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => updateUserStatus(user, "admin")}
+                          className="btn btn-sm btn-square btn-primary btn-outline"
+                          title="Make Admin"
+                        >
+                          <FaUserShield />
+                        </button>
+                      )}
+
+                      {user?.role === "rider" ? (
+                        <button
+                          onClick={() => updateUserStatus(user, "user")}
+                          className="btn btn-sm btn-square btn-error btn-outline"
+                          title="Remove Rider"
+                        >
+                          <TbBikeOff />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => updateUserStatus(user, "rider")}
+                          className="btn btn-sm btn-square btn-primary btn-outline"
+                          title="Make Rider"
+                        >
+                          <FaMotorcycle />
+                        </button>
+                      )}
+
+                      <button
+                        onClick={() => handleDeleteUser(user)}
+                        className="btn btn-sm btn-square btn-error btn-outline"
+                        title="Delete User"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       <dialog ref={modalRef} className="modal">
         <div className="modal-box max-w-3xl rounded-2xl p-0 overflow-hidden">
-          {/* HEADER */}
           <div className="bg-base-200 px-6 py-4 flex items-center justify-between">
             <div>
               <h3 className="text-xl font-bold">User Details</h3>
@@ -229,7 +247,6 @@ export default function UsersManagement() {
                 Complete user profile information
               </p>
             </div>
-
             <form method="dialog">
               <button className="btn btn-sm btn-square btn-error btn-outline">
                 <ImCross />
@@ -237,10 +254,8 @@ export default function UsersManagement() {
             </form>
           </div>
 
-          {/* BODY */}
           {selectedUser && (
             <div className="p-6 space-y-6">
-              {/* TOP USER INFO */}
               <div className="flex items-center gap-4">
                 <div className="avatar">
                   <div className="w-16 h-16 rounded-full">
@@ -250,7 +265,6 @@ export default function UsersManagement() {
                     />
                   </div>
                 </div>
-
                 <div>
                   <h2 className="text-xl font-bold">
                     {selectedUser.displayName}
@@ -258,32 +272,28 @@ export default function UsersManagement() {
                   <p className="text-sm text-base-content/60">
                     {selectedUser.userEmail}
                   </p>
-
                   <span className="badge badge-primary mt-1 capitalize">
                     {selectedUser.role}
                   </span>
                 </div>
               </div>
 
-              {/* INFO GRID */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-base-200 rounded-xl p-4">
                   <p className="text-xs text-base-content/60">Email</p>
                   <p className="font-semibold">{selectedUser.userEmail}</p>
                 </div>
-
                 <div className="bg-base-200 rounded-xl p-4">
                   <p className="text-xs text-base-content/60">Role</p>
                   <p className="font-semibold capitalize">
                     {selectedUser.role}
                   </p>
                 </div>
-
-                <div className="bg-base-200 rounded-xl p-4 ">
+                <div className="bg-base-200 rounded-xl p-4">
                   <p className="text-xs text-base-content/60">User ID</p>
                   <p className="font-semibold">{selectedUser._id}</p>
                 </div>
-                <div className="bg-base-200 rounded-xl p-4 ">
+                <div className="bg-base-200 rounded-xl p-4">
                   <p className="text-xs text-base-content/60">Joined At:</p>
                   <p className="font-semibold">{selectedUser.createdAt}</p>
                 </div>
@@ -291,7 +301,6 @@ export default function UsersManagement() {
             </div>
           )}
         </div>
-
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
         </form>
