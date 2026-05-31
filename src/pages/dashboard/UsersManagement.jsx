@@ -11,7 +11,6 @@ import {
 } from "react-icons/fa";
 import { TbBikeOff } from "react-icons/tb";
 import { ImCross } from "react-icons/im";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -20,14 +19,22 @@ export default function UsersManagement() {
   const modalRef = useRef(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const limit = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+  const skip = (currentPage - 1) * limit;
 
-  const { data: users = [], refetch } = useQuery({
-    queryKey: ["users", searchText],
+  const { data = { users: [], totalUsers: 0 }, refetch } = useQuery({
+    queryKey: ["users", searchText, currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users?search=${searchText}`);
+      const res = await axiosSecure.get(
+        `/users?search=${searchText}&limit=${limit}&skip=${skip}`,
+      );
       return res.data;
     },
   });
+
+  const { users, totalUsers } = data;
+  const totalPages = Math.ceil(totalUsers / limit);
 
   const openModal = (user) => {
     setSelectedUser(user);
@@ -102,7 +109,7 @@ export default function UsersManagement() {
           <div className="px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
             <p className="text-xs text-base-content/60">Total Users</p>
             <h3 className="text-lg font-bold text-primary text-center">
-              {users.length}
+              {totalUsers}
             </h3>
           </div>
         </div>
@@ -237,6 +244,35 @@ export default function UsersManagement() {
           </table>
         </div>
       )}
+
+      {/* PAGINATION BTN */}
+      <div className="flex items-center justify-center flex-wrap gap-3">
+        {currentPage > 1 && (
+          <button
+            className="btn btn-sm"
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+          >
+            Prev
+          </button>
+        )}
+        {[...Array(totalPages).keys()].map((page) => (
+          <button
+            key={page + 1}
+            onClick={() => setCurrentPage(page + 1)}
+            className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
+          >
+            {page + 1}
+          </button>
+        ))}
+        {currentPage < totalPages && (
+          <button
+            className="btn btn-sm"
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+          >
+            Next
+          </button>
+        )}
+      </div>
 
       <dialog ref={modalRef} className="modal">
         <div className="modal-box max-w-3xl rounded-2xl p-0 overflow-hidden">

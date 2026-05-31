@@ -4,7 +4,6 @@ import { FaCheck, FaEye, FaSearch, FaTrash } from "react-icons/fa";
 import { FaMotorcycle } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
-import Loading from "../../components/Loading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function RiderApplications() {
@@ -12,14 +11,21 @@ export default function RiderApplications() {
   const modalRef = useRef(null);
   const [selectedRider, setSelectedRider] = useState(null);
   const [searchText, setSearch] = useState("");
+  const limit = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+  const skip = (currentPage - 1) * limit;
 
-  const { data: riders = [], refetch } = useQuery({
-    queryKey: ["riders", searchText],
+  const { data = { riders: [], totalRiders: 0 }, refetch } = useQuery({
+    queryKey: ["riders", searchText, currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/riders?search=${searchText}`);
+      const res = await axiosSecure.get(
+        `/riders?search=${searchText}&limit=${limit}&skip=${skip}`,
+      );
       return res.data;
     },
   });
+  const { riders, totalRiders } = data;
+  const totalPages = Math.ceil(totalRiders / limit);
 
   const openModal = (rider) => {
     setSelectedRider(rider);
@@ -97,7 +103,7 @@ export default function RiderApplications() {
           <div className="px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
             <p className="text-xs text-base-content/60">Total Applications</p>
             <h3 className="text-lg font-bold text-primary text-center">
-              {riders.length}
+              {totalRiders}
             </h3>
           </div>
         </div>
@@ -210,6 +216,39 @@ export default function RiderApplications() {
           </table>
         </div>
       )}
+
+      {/* PAGINATION BTN */}
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {currentPage > 1 && (
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            className="btn btn-sm"
+          >
+            Prev
+          </button>
+        )}
+        {[
+          ...Array(totalPages)
+            .keys()
+            .map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+                className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
+              >
+                {page + 1}
+              </button>
+            )),
+        ]}
+        {currentPage < totalPages && (
+          <button
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="btn btn-sm"
+          >
+            Next
+          </button>
+        )}
+      </div>
 
       {/* MODAL */}
       <dialog ref={modalRef} className="modal">

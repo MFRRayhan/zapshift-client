@@ -11,7 +11,6 @@ import {
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import Loading from "../../components/Loading";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaSearch } from "react-icons/fa";
@@ -19,33 +18,30 @@ import { FaSearch } from "react-icons/fa";
 export default function MyParcels() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const modalRef = useRef(null);
   const patchModalRef = useRef(null);
   const [selectedParcel, setSelectedParcel] = useState(null);
   const [patchParcel, setPatchParcel] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const limit = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+  const skip = (currentPage - 1) * limit;
 
-  const {
-    data: parcels = [],
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["myParcels", user?.email, searchText],
+  const { data = { parcels: [], totalParcels: 0 }, refetch } = useQuery({
+    queryKey: ["myParcels", user?.email, searchText, currentPage],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/parcels?email=${user?.email}&search=${searchText}`,
+        `/parcels?email=${user?.email}&search=${searchText}&limit=${limit}&skip=${skip}`,
       );
       return res.data;
     },
   });
+
+  const { parcels, totalParcels } = data;
+  const totalPages = Math.ceil(totalParcels / limit);
 
   const openParcelModal = (parcel) => {
     setSelectedParcel(parcel);
@@ -150,7 +146,7 @@ export default function MyParcels() {
             <p className="text-xs text-base-content/60">Total Parcels</p>
 
             <h3 className="text-lg font-bold text-primary text-center">
-              {parcels.length}
+              {totalParcels}
             </h3>
           </div>
         </div>
@@ -317,6 +313,39 @@ export default function MyParcels() {
           </div>
         </section>
       )}
+
+      {/* PAGINATION BTN */}
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {currentPage > 1 && (
+          <button
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="btn btn-sm"
+          >
+            Prev
+          </button>
+        )}
+        {[
+          ...Array(totalPages)
+            .keys()
+            .map((page) => (
+              <button
+                onClick={() => setCurrentPage(page + 1)}
+                key={page}
+                className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
+              >
+                {page + 1}
+              </button>
+            )),
+        ]}
+        {currentPage < totalPages && (
+          <button
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="btn btn-sm"
+          >
+            Next
+          </button>
+        )}
+      </div>
 
       {/* DETAILS MODAL */}
       <dialog ref={modalRef} className="modal">
