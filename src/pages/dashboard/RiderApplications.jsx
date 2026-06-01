@@ -233,7 +233,7 @@ export default function RiderApplications() {
             .map((page) => (
               <button
                 key={page}
-                onClick={() => setCurrentPage((prev) => prev + 1)}
+                onClick={() => setCurrentPage(page + 1)}
                 className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
               >
                 {page + 1}
