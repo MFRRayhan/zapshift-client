@@ -1,24 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaSearch } from "react-icons/fa";
 import { FaBangladeshiTakaSign, FaCreditCard } from "react-icons/fa6";
-import Loading from "../../../components/Loading";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useState } from "react";
 
 export default function PaymentHistory() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const limit = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const skip = (currentPage - 1) * limit;
+  const [searchText, setSearchText] = useState("");
 
-  const { data: payments = [], isLoading } = useQuery({
-    queryKey: ["payments", user?.email],
+  const { data = { payments: [], totalPayments: 0 } } = useQuery({
+    queryKey: ["payments", user?.email, currentPage, searchText],
     enabled: !!user?.email,
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/payments?email=${user?.email}`);
+      const { data } = await axiosSecure.get(
+        `/payments?email=${user?.email}&limit=${limit}&skip=${skip}&search=${searchText}`,
+      );
       return data;
     },
   });
 
-  if (isLoading) return <Loading />;
+  const { payments, totalPayments } = data;
+  const totalPages = Math.ceil(totalPayments / limit);
 
   return (
     <section className="space-y-6">
@@ -40,6 +47,19 @@ export default function PaymentHistory() {
               {payments.length}
             </h3>
           </div>
+        </div>
+      </div>
+
+      {/* Search */}
+      <div className="flex justify-end">
+        <div className="relative w-full max-w-sm">
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-base-content/50 z-10" />
+          <input
+            onChange={(e) => setSearchText(e.target.value)}
+            type="search"
+            placeholder="Type to search..."
+            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary rounded-full"
+          />
         </div>
       </div>
 
@@ -145,6 +165,37 @@ export default function PaymentHistory() {
           </div>
         </section>
       )}
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {currentPage > 1 && (
+          <button
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="btn btn-sm"
+          >
+            Prev
+          </button>
+        )}
+        {[
+          ...Array(totalPages)
+            .keys()
+            .map((page) => (
+              <button
+                onClick={() => setCurrentPage(page + 1)}
+                key={page}
+                className={`btn btn-sm ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
+              >
+                {page + 1}
+              </button>
+            )),
+        ]}
+        {currentPage < totalPages && (
+          <button
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="btn btn-sm"
+          >
+            Next
+          </button>
+        )}
+      </div>
     </section>
   );
 }

@@ -5,7 +5,7 @@ import Forbidden from "../pages/Forbidden";
 
 export default function AdminRoute({ children }) {
   const { role, roleLoading } = useRole();
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
   if (loading || roleLoading) return <Loading />;
   if (role !== "admin") return <Forbidden />;

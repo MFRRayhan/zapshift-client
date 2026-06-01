@@ -63,7 +63,7 @@ export default function MyParcels() {
             icon: "success",
             title: "Parcel Updated",
             text: "Receiver information updated successfully.",
-            confirmButtonColor: "#caeb66",
+            confirmButtonColor: "#009966",
           });
         }
       })
@@ -160,7 +160,7 @@ export default function MyParcels() {
             onChange={(e) => setSearchText(e.target.value)}
             type="search"
             placeholder="Type to search..."
-            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary"
+            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary rounded-full"
           />
         </div>
       </div>
@@ -204,6 +204,7 @@ export default function MyParcels() {
                   <th>Route</th>
                   <th>Cost</th>
                   <th>Payment</th>
+                  <th>Delivery Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -279,6 +280,21 @@ export default function MyParcels() {
                           Paid
                         </span>
                       )}
+                    </td>
+
+                    {/* DELIVERY STATUS */}
+                    <td>
+                      <span
+                        className={`badge capitalize ${
+                          parcel.deliveryStatus === "delivered"
+                            ? "badge-success"
+                            : parcel.deliveryStatus === "pending_pickup"
+                              ? "badge-warning"
+                              : "badge-error"
+                        }`}
+                      >
+                        {parcel.deliveryStatus}
+                      </span>
                     </td>
 
                     {/* ACTIONS */}

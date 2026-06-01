@@ -117,7 +117,7 @@ export default function RiderApplications() {
             onChange={(e) => setSearch(e.target.value)}
             type="search"
             placeholder="Type to search..."
-            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary"
+            className="input input-bordered w-full pl-11 focus:outline-none focus:border-primary rounded-full"
           />
         </div>
       </div>
