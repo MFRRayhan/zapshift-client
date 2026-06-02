@@ -38,7 +38,7 @@ export default function SendParcel() {
 
     const parcelWeight = parseFloat(data.parcelWeight);
 
-    let cost = 0;
+    let cost;
 
     if (isDocument) {
       cost = isSameDistrict ? 60 : 80;
