@@ -4,7 +4,7 @@ import { FaCheck, FaEye, FaSearch, FaTrash } from "react-icons/fa";
 import { FaMotorcycle } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function RiderApplications() {
   const axiosSecure = useAxiosSecure();
@@ -49,7 +49,7 @@ export default function RiderApplications() {
                 ? "Rider Application Approved"
                 : "Rider Application Rejected",
             text: `Application has been ${status} successfully.`,
-            confirmButtonColor: status === "approved" ? "#16a34a" : "#dc2626",
+            confirmButtonColor: status === "approved" ? "#009966" : "#dc2626",
           });
         }
       })

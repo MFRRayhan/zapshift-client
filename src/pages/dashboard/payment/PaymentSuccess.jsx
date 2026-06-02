@@ -1,26 +1,23 @@
-import { useEffect } from "react";
 import { FaBangladeshiTakaSign, FaCircleCheck } from "react-icons/fa6";
-// import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
-  const [paymentInfo, setPaymentInfo] = useState({});
   const axiosSecure = useAxiosSecure();
 
-  useEffect(() => {
-    if (sessionId) {
-      axiosSecure
-        .patch(`/payment-success?session_id=${sessionId}`)
-        .then((res) => {
-          console.log(res.data);
-          setPaymentInfo(res.data.payment);
-        });
-    }
-  }, [sessionId, axiosSecure]);
+  const { data: paymentInfo = {} } = useQuery({
+    queryKey: ["payment-success", sessionId],
+    queryFn: async () => {
+      const res = await axiosSecure.patch(
+        `/payment-success?session_id=${sessionId}`,
+      );
+      return res.data.payment;
+    },
+    enabled: !!sessionId,
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-100 px-4">

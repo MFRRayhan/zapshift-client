@@ -98,8 +98,7 @@ export default function MyParcels() {
       text: "This action cannot be undone.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#caeb66",
-      cancelButtonColor: "#e5e7eb",
+      confirmButtonColor: "#009966",
       confirmButtonText: "Yes, delete",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -113,7 +112,7 @@ export default function MyParcels() {
                 title: "Deleted",
                 text: "Parcel removed successfully",
                 icon: "success",
-                confirmButtonColor: "#caeb66",
+                confirmButtonColor: "#009966",
               });
             }
           })
@@ -122,7 +121,7 @@ export default function MyParcels() {
               title: "Error",
               text: "Failed to delete parcel",
               icon: "error",
-              confirmButtonColor: "#caeb66",
+              confirmButtonColor: "#009966",
             });
           });
       }

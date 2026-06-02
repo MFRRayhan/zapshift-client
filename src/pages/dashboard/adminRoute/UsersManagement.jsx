@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRef, useState } from "react";
+import moment from "moment";
 import {
   FaEye,
   FaMotorcycle,
@@ -12,7 +13,7 @@ import {
 import { TbBikeOff } from "react-icons/tb";
 import { ImCross } from "react-icons/im";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function UsersManagement() {
   const axiosSecure = useAxiosSecure();
@@ -152,6 +153,7 @@ export default function UsersManagement() {
                 <th>Index</th>
                 <th>User</th>
                 <th>Role</th>
+                <th>Joined At</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -183,6 +185,7 @@ export default function UsersManagement() {
                       {user.role}
                     </span>
                   </td>
+                  <td>{moment(user.createdAt).format("DD/MM/YYYY")}</td>
                   <td>
                     <div className="flex gap-2">
                       <button

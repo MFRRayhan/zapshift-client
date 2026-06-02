@@ -14,8 +14,8 @@ import Payment from "../pages/dashboard/payment/Payment";
 import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
 import PaymentHistory from "../pages/dashboard/payment/PaymentHistory";
 import PaymentSuccess from "../pages/dashboard/payment/PaymentSuccess";
-import RiderApplications from "../pages/dashboard/RiderApplications";
-import UsersManagement from "../pages/dashboard/UsersManagement";
+import RiderApplications from "../pages/dashboard/adminRoute/RiderApplications";
+import UsersManagement from "../pages/dashboard/adminRoute/UsersManagement";
 import ForgotPassword from "../pages/ForgotPassword";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -26,6 +26,7 @@ import SendParcel from "../pages/SendParcel";
 import Services from "../pages/Services";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
+import AssignRiders from "../pages/dashboard/adminRoute/AssignRiders";
 
 export const router = createBrowserRouter([
   {
@@ -163,6 +164,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <RiderApplications />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "assign-riders",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AssignRiders />
             </AdminRoute>
           </PrivateRoute>
         ),

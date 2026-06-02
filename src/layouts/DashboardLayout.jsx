@@ -4,6 +4,7 @@ import {
   FaCreditCard,
   FaGear,
   FaMotorcycle,
+  FaUserCheck,
   FaUsers,
 } from "react-icons/fa6";
 import { IoHomeOutline, IoLogOutOutline } from "react-icons/io5";
@@ -97,32 +98,48 @@ export default function DashboardLayout() {
 
             {role === "admin" && (
               <>
-                {/* RIDER APPLICATIONS (ADMIN) */}
+                {/* RIDER APPLICATIONS */}
                 <NavLink
                   to="/dashboard/rider-applications"
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
-              ${
-                isActive
-                  ? "bg-primary/10 text-primary"
-                  : "text-base-content/70 hover:bg-base-200"
-              }`
+                    ${
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-base-content/70 hover:bg-base-200"
+                    }`
                   }
                 >
                   <FaMotorcycle />
                   Rider Applications
                 </NavLink>
 
-                {/* USERS (ADMIN) */}
+                {/* ASSIGN RIDERS */}
+                <NavLink
+                  to="/dashboard/assign-riders"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+                    ${
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-base-content/70 hover:bg-base-200"
+                    }`
+                  }
+                >
+                  <FaUserCheck />
+                  Assign Riders
+                </NavLink>
+
+                {/* USERS MANAGEMENT */}
                 <NavLink
                   to="/dashboard/users-management"
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
-              ${
-                isActive
-                  ? "bg-primary/10 text-primary"
-                  : "text-base-content/70 hover:bg-base-200"
-              }`
+                    ${
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-base-content/70 hover:bg-base-200"
+                    }`
                   }
                 >
                   <FaUsers />
