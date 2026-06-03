@@ -46,6 +46,19 @@ export default function AssignRiders() {
     setSelectedParcel(parcel);
   };
 
+  const handleAssignRider = (rider) => {
+    console.log(rider);
+    const riderInfo = {
+      riderId: rider._id,
+      riderName,
+      riderEmail,
+      phoneNumber,
+      parcelId: selectedParcel._id,
+    };
+
+    axiosSecure.patch(``, riderInfo);
+  };
+
   return (
     <section className="space-y-6">
       {/* HEADER */}
@@ -167,7 +180,7 @@ export default function AssignRiders() {
                           className="btn btn-primary btn-sm rounded-xl"
                         >
                           <FaUserPlus />
-                          Assign Rider
+                          Find Rider
                         </button>
                       </td>
                     </tr>
@@ -202,7 +215,10 @@ export default function AssignRiders() {
                         <td>{rider.riderName}</td>
                         <td>{rider.riderEmail}</td>
                         <td>
-                          <button className="btn btn-primary btn-sm">
+                          <button
+                            onClick={() => handleAssignRider(rider)}
+                            className="btn btn-primary btn-sm"
+                          >
                             Assign Rider
                           </button>
                         </td>
