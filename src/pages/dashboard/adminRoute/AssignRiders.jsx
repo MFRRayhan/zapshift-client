@@ -9,6 +9,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useRef, useState } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
+import Swal from "sweetalert2";
 
 export default function AssignRiders() {
   const axiosSecure = useAxiosSecure();
@@ -16,7 +17,10 @@ export default function AssignRiders() {
   const riderModalRef = useRef();
   const [selectedParcel, setSelectedParcel] = useState(null);
 
-  const { data: parcelData = { parcels: [], totalParcels: 0 } } = useQuery({
+  const {
+    data: parcelData = { parcels: [], totalParcels: 0 },
+    refetch: parcelRefetch,
+  } = useQuery({
     queryKey: ["riders", "pending-pickup", searchText],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -26,9 +30,12 @@ export default function AssignRiders() {
     },
   });
 
-  const { parcels, totalParcels } = parcelData;
+  const { parcels } = parcelData;
 
-  const { data: riderData = { riders: [], totalRiders: 0 } } = useQuery({
+  const {
+    data: riderData = { riders: [], totalRiders: 0 },
+    refetch: riderRefetch,
+  } = useQuery({
     queryKey: ["riders", "available", selectedParcel?.senderDistrict],
     enabled: !!selectedParcel,
     queryFn: async () => {
@@ -39,7 +46,7 @@ export default function AssignRiders() {
       return res.data;
     },
   });
-  const { riders, totalRiders } = riderData;
+  const { riders } = riderData;
 
   const handleAssignRiderModal = (parcel) => {
     riderModalRef.current.showModal();
@@ -47,16 +54,41 @@ export default function AssignRiders() {
   };
 
   const handleAssignRider = (rider) => {
-    console.log(rider);
-    const riderInfo = {
+    const riderAssignInfo = {
       riderId: rider._id,
-      riderName,
-      riderEmail,
-      phoneNumber,
+      riderName: rider.riderName,
+      riderEmail: rider.riderEmail,
+      phoneNumber: rider.phoneNumber,
       parcelId: selectedParcel._id,
     };
 
-    axiosSecure.patch(``, riderInfo);
+    axiosSecure
+      .patch(`/parcels/assign-rider/${selectedParcel._id}`, riderAssignInfo)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          parcelRefetch();
+          riderRefetch();
+
+          riderModalRef.current?.close();
+
+          Swal.fire({
+            icon: "success",
+            title: "Rider Assigned",
+            text: `${rider.riderName} has been assigned successfully.`,
+            confirmButtonColor: "#009966",
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+
+        Swal.fire({
+          icon: "error",
+          title: "Assignment Failed",
+          text: "Something went wrong while assigning the rider.",
+          confirmButtonColor: "#dc2626",
+        });
+      });
   };
 
   return (
@@ -198,6 +230,9 @@ export default function AssignRiders() {
                 </button>
               </form>
               <div className="overflow-x-auto mt-10">
+                <h3 className="text-2xl font-bold">
+                  Riders Available: {riders.length}
+                </h3>
                 <table className="table table-zebra">
                   {/* head */}
                   <thead>
