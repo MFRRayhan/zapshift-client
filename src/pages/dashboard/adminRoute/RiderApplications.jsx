@@ -149,7 +149,8 @@ export default function RiderApplications() {
                 <th>Index</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Status</th>
+                <th>Application Status</th>
+                <th>Work Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -177,6 +178,12 @@ export default function RiderApplications() {
                     >
                       {rider.status}
                     </span>
+                  </td>
+
+                  <td
+                    className={`capitalize font-semibold ${rider.workStatus === "available" ? "text-primary" : rider.workStatus === "rejected" ? "text-error" : "text-warning"}`}
+                  >
+                    {rider.workStatus}
                   </td>
 
                   <td>

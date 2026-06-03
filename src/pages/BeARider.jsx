@@ -44,6 +44,7 @@ export default function BeARider() {
     const riderInfo = {
       ...data,
       status: "pending",
+      workStatus: "pending",
       createdAt: new Date().toISOString(),
     };
 
