@@ -223,44 +223,64 @@ export default function AssignRiders() {
           </section>
 
           <dialog ref={riderModalRef} className="modal">
-            <div className="modal-box">
+            <div className="modal-box relative">
+              {/* Close Button */}
               <form method="dialog">
                 <button className="btn btn-sm btn-square btn-error btn-outline absolute right-2 top-2">
                   <ImCross />
                 </button>
               </form>
+
               <div className="overflow-x-auto mt-10">
-                <h3 className="text-2xl font-bold">
+                {/* Header */}
+                <h3 className="text-2xl font-bold mb-4">
                   Riders Available: {riders.length}
                 </h3>
-                <table className="table table-zebra">
-                  {/* head */}
-                  <thead>
-                    <tr>
-                      <th>Index</th>
-                      <th>Rider Name</th>
-                      <th>Rider Email</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {riders.map((rider, i) => (
-                      <tr key={rider._id}>
-                        <th>{i + 1}</th>
-                        <td>{rider.riderName}</td>
-                        <td>{rider.riderEmail}</td>
-                        <td>
-                          <button
-                            onClick={() => handleAssignRider(rider)}
-                            className="btn btn-primary btn-sm"
-                          >
-                            Assign Rider
-                          </button>
-                        </td>
+
+                {/* EMPTY STATE */}
+                {riders.length === 0 ? (
+                  <div className="text-center py-10">
+                    <FaMotorcycle className="text-5xl mx-auto text-base-content/40 mb-4" />
+
+                    <p className="text-lg font-semibold text-base-content/70">
+                      No riders available
+                    </p>
+
+                    <p className="text-sm text-base-content/50 mt-1">
+                      No approved and available riders found in this district
+                    </p>
+                  </div>
+                ) : (
+                  /* RIDERS TABLE */
+                  <table className="table table-zebra">
+                    <thead>
+                      <tr>
+                        <th>Index</th>
+                        <th>Rider Name</th>
+                        <th>Rider Email</th>
+                        <th>Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+
+                    <tbody>
+                      {riders.map((rider, i) => (
+                        <tr key={rider._id}>
+                          <th>{i + 1}</th>
+                          <td>{rider.riderName}</td>
+                          <td>{rider.riderEmail}</td>
+                          <td>
+                            <button
+                              onClick={() => handleAssignRider(rider)}
+                              className="btn btn-primary btn-sm"
+                            >
+                              Assign Rider
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
             </div>
           </dialog>
