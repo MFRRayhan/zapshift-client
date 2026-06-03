@@ -332,11 +332,17 @@ export default function RiderApplications() {
                   <p className="font-semibold">{selectedRider.bikeInfo}</p>
                 </div>
 
-                <div className="bg-base-200 rounded-xl p-4 md:col-span-2">
+                <div className="bg-base-200 rounded-xl p-4">
                   <p className="text-xs text-base-content/60">
                     Registration No
                   </p>
                   <p className="font-semibold">{selectedRider.regNo}</p>
+                </div>
+                <div className="bg-base-200 rounded-xl p-4">
+                  <p className="text-xs text-base-content/60">
+                    Rider District:
+                  </p>
+                  <p className="font-semibold">{selectedRider?.district}</p>
                 </div>
               </div>
 

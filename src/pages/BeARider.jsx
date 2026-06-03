@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import {
   FaIdCard,
   FaMotorcycle,
@@ -17,9 +17,9 @@ export default function BeARider() {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
+    control,
   } = useForm();
 
   const axiosSecure = useAxiosSecure();
@@ -30,7 +30,7 @@ export default function BeARider() {
   const allRegions = warehouses.map((warehouse) => warehouse.region);
   const uniqueRegions = [...new Set(allRegions)];
 
-  const selectedRegion = watch("region");
+  const selectedRegion = useWatch({ control, name: "region" }) || "";
 
   const getDistrictsByRegion = (region) => {
     const warehousesInRegion = warehouses.filter(
@@ -41,6 +41,7 @@ export default function BeARider() {
   };
 
   const handleRiderForm = (data) => {
+    console.log(data);
     const riderInfo = {
       ...data,
       status: "pending",

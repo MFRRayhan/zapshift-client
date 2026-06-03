@@ -31,7 +31,7 @@ export default function Login() {
           confirmButtonColor: "#2563eb",
           timer: 2000,
           timerProgressBar: true,
-          showConfirmButton: false,
+          showConfirmButton: true,
           allowOutsideClick: false,
           allowEscapeKey: false,
           position: "center",
@@ -64,7 +64,7 @@ export default function Login() {
               text: "Welcome back!",
               timer: 2000,
               timerProgressBar: true,
-              showConfirmButton: false,
+              showConfirmButton: true,
               allowOutsideClick: false,
               position: "center",
             });

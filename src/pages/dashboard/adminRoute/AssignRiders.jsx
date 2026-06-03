@@ -6,14 +6,17 @@ import {
   FaUserPlus,
 } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { ImCross } from "react-icons/im";
 
 export default function AssignRiders() {
   const axiosSecure = useAxiosSecure();
   const [searchText, setSearchText] = useState("");
+  const riderModalRef = useRef();
+  const [selectedParcel, setSelectedParcel] = useState(null);
 
-  const { data = { parcels: [], totalParcels: 0 } } = useQuery({
+  const { data: parcelData = { parcels: [], totalParcels: 0 } } = useQuery({
     queryKey: ["riders", "pending-pickup", searchText],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -23,7 +26,25 @@ export default function AssignRiders() {
     },
   });
 
-  const { parcels, totalParcels } = data;
+  const { parcels, totalParcels } = parcelData;
+
+  const { data: riderData = { riders: [], totalRiders: 0 } } = useQuery({
+    queryKey: ["riders", "available", selectedParcel?.senderDistrict],
+    enabled: !!selectedParcel,
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/riders?district=${selectedParcel?.senderDistrict}&status=approved&workStatus=available`,
+      );
+
+      return res.data;
+    },
+  });
+  const { riders, totalRiders } = riderData;
+
+  const handleAssignRiderModal = (parcel) => {
+    riderModalRef.current.showModal();
+    setSelectedParcel(parcel);
+  };
 
   return (
     <section className="space-y-6">
@@ -82,72 +103,117 @@ export default function AssignRiders() {
           </div>
         </section>
       ) : (
-        <section className="bg-base-100 border border-base-300 rounded-2xl overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="table w-full text-sm">
-              <thead className="bg-base-200 text-base-content/70">
-                <tr>
-                  <th>Index</th>
-                  <th>Parcel</th>
-                  <th>Tracking ID</th>
-                  <th>Sender</th>
-                  <th>Receiver</th>
-                  <th>Cost</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
+        <>
+          <section className="bg-base-100 border border-base-300 rounded-2xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="table w-full text-sm">
+                <thead className="bg-base-200 text-base-content/70">
+                  <tr>
+                    <th>Index</th>
+                    <th>Parcel</th>
+                    <th>Tracking ID</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Cost</th>
+                    <th>Status</th>
+                    <th>Pickup District</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                {parcels.map((parcel, index) => (
-                  <tr
-                    key={parcel._id}
-                    className="
+                <tbody>
+                  {parcels.map((parcel, index) => (
+                    <tr
+                      key={parcel._id}
+                      className="
                       hover:bg-base-200/50
                       transition-all
                       duration-200
                     "
-                  >
-                    <td>{index + 1}</td>
+                    >
+                      <td>{index + 1}</td>
 
-                    <td>
-                      <p className="font-semibold">{parcel.parcelName}</p>
-                    </td>
+                      <td>
+                        <p className="font-semibold">{parcel.parcelName}</p>
+                      </td>
 
-                    <td className="font-mono text-xs text-primary font-semibold">
-                      {parcel.trackingId}
-                    </td>
+                      <td className="font-mono text-xs text-primary font-semibold">
+                        {parcel.trackingId}
+                      </td>
 
-                    <td>{parcel.senderName}</td>
+                      <td>{parcel.senderName}</td>
 
-                    <td>{parcel.receiverName}</td>
+                      <td>{parcel.receiverName}</td>
 
-                    <td className="font-bold">
-                      <div className="flex items-center gap-1">
-                        <FaBangladeshiTakaSign className="text-primary" />
-                        {parcel.cost}
-                      </div>
-                    </td>
+                      <td className="font-bold">
+                        <div className="flex items-center gap-1">
+                          <FaBangladeshiTakaSign className="text-primary" />
+                          {parcel.cost}
+                        </div>
+                      </td>
 
-                    <td>
-                      <span className="badge badge-warning badge-outline gap-1">
-                        <FaCheckCircle />
-                        Pending Pickup
-                      </span>
-                    </td>
+                      <td>
+                        <span className="badge badge-warning badge-outline gap-1">
+                          <FaCheckCircle />
+                          Pending Pickup
+                        </span>
+                      </td>
 
-                    <td>
-                      <button className="btn btn-primary btn-sm rounded-xl">
-                        <FaUserPlus />
-                        Assign Rider
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+                      <td className="capitalize">{parcel.senderDistrict}</td>
+
+                      <td>
+                        <button
+                          onClick={() => handleAssignRiderModal(parcel)}
+                          className="btn btn-primary btn-sm rounded-xl"
+                        >
+                          <FaUserPlus />
+                          Assign Rider
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <dialog ref={riderModalRef} className="modal">
+            <div className="modal-box">
+              <form method="dialog">
+                <button className="btn btn-sm btn-square btn-error btn-outline absolute right-2 top-2">
+                  <ImCross />
+                </button>
+              </form>
+              <div className="overflow-x-auto mt-10">
+                <table className="table table-zebra">
+                  {/* head */}
+                  <thead>
+                    <tr>
+                      <th>Index</th>
+                      <th>Rider Name</th>
+                      <th>Rider Email</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {riders.map((rider, i) => (
+                      <tr key={rider._id}>
+                        <th>{i + 1}</th>
+                        <td>{rider.riderName}</td>
+                        <td>{rider.riderEmail}</td>
+                        <td>
+                          <button className="btn btn-primary btn-sm">
+                            Assign Rider
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </dialog>
+        </>
       )}
     </section>
   );
