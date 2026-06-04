@@ -11,12 +11,10 @@ import {
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaSearch } from "react-icons/fa";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-export default function MyParcels() {
-  const { user } = useAuth();
+export default function AdminParcels() {
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
 
@@ -30,11 +28,10 @@ export default function MyParcels() {
   const skip = (currentPage - 1) * limit;
 
   const { data = { parcels: [], totalParcels: 0 }, refetch } = useQuery({
-    queryKey: ["myParcels", user?.email, searchText, currentPage],
-    enabled: !!user?.email,
+    queryKey: ["myParcels", searchText, currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/parcels?email=${user?.email}&search=${searchText}&limit=${limit}&skip=${skip}`,
+        `/admin/parcels?&search=${searchText}&limit=${limit}&skip=${skip}`,
       );
       return res.data;
     },
@@ -134,10 +131,12 @@ export default function MyParcels() {
       <div className="bg-base-100 border border-base-300 rounded-2xl p-5">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="text-xl font-bold text-base-content">My Parcels</h2>
+            <h2 className="text-xl font-bold text-base-content">
+              Parcel Management
+            </h2>
 
             <p className="text-sm text-base-content/60 mt-1">
-              Manage and track all your parcel deliveries
+              Monitor, manage and track all parcels across the platform
             </p>
           </div>
 

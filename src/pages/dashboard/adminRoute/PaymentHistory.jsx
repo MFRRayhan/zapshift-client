@@ -14,11 +14,11 @@ export default function PaymentHistory() {
   const [searchText, setSearchText] = useState("");
 
   const { data = { payments: [], totalPayments: 0 } } = useQuery({
-    queryKey: ["payments", user?.email, currentPage, searchText],
+    queryKey: ["payments", currentPage, searchText],
     enabled: !!user?.email,
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/payments?email=${user?.email}&limit=${limit}&skip=${skip}&search=${searchText}`,
+        `/admin/payments?&limit=${limit}&skip=${skip}&search=${searchText}`,
       );
       return data;
     },

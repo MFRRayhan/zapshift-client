@@ -249,33 +249,35 @@ export default function UsersManagement() {
       )}
 
       {/* PAGINATION BTN */}
-      <div className="flex items-center justify-center flex-wrap gap-3">
-        {currentPage > 1 && (
-          <button
-            className="btn btn-sm"
-            onClick={() => setCurrentPage((prev) => prev - 1)}
-          >
-            Prev
-          </button>
-        )}
-        {[...Array(totalPages).keys()].map((page) => (
-          <button
-            key={page + 1}
-            onClick={() => setCurrentPage(page + 1)}
-            className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
-          >
-            {page + 1}
-          </button>
-        ))}
-        {currentPage < totalPages && (
-          <button
-            className="btn btn-sm"
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-          >
-            Next
-          </button>
-        )}
-      </div>
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center flex-wrap gap-3">
+          {currentPage > 1 && (
+            <button
+              className="btn btn-sm"
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              Prev
+            </button>
+          )}
+          {[...Array(totalPages).keys()].map((page) => (
+            <button
+              key={page + 1}
+              onClick={() => setCurrentPage(page + 1)}
+              className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
+            >
+              {page + 1}
+            </button>
+          ))}
+          {currentPage < totalPages && (
+            <button
+              className="btn btn-sm"
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              Next
+            </button>
+          )}
+        </div>
+      )}
 
       <dialog ref={modalRef} className="modal">
         <div className="modal-box max-w-3xl rounded-2xl p-0 overflow-hidden">

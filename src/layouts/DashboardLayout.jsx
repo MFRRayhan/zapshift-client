@@ -14,6 +14,7 @@ import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useRole from "../hooks/useRole";
+import { FaBoxOpen } from "react-icons/fa";
 
 export default function DashboardLayout() {
   const axiosSecure = useAxiosSecure();
@@ -64,40 +65,64 @@ export default function DashboardLayout() {
               Overview
             </NavLink>
 
-            {/* PARCELS */}
-            <NavLink
-              to="/dashboard/my-parcels"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+            {/* USER ROUTES */}
+            {role === "user" && (
+              <>
+                {/* PARCELS */}
+                <NavLink
+                  to="/dashboard/my-parcels"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
                 ${
                   isActive
                     ? "bg-primary/10 text-primary"
                     : "text-base-content/70 hover:bg-base-200"
                 }`
-              }
-            >
-              <FaBox />
-              My Parcels
-            </NavLink>
+                  }
+                >
+                  <FaBox />
+                  My Parcels
+                </NavLink>
 
-            {/* PAYMENT HISTORY */}
-            <NavLink
-              to="/dashboard/payment-history"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+                {/* MY PAYMENTS */}
+                <NavLink
+                  to="/dashboard/my-payments"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
                 ${
                   isActive
                     ? "bg-primary/10 text-primary"
                     : "text-base-content/70 hover:bg-base-200"
                 }`
-              }
-            >
-              <FaCreditCard />
-              Payment History
-            </NavLink>
+                  }
+                >
+                  <FaCreditCard />
+                  My Payments
+                </NavLink>
+              </>
+            )}
 
+            {/* RIDER ROUTES */}
+
+            {/* ADMIN ROUTES */}
             {role === "admin" && (
               <>
+                {/* PARCELS */}
+                <NavLink
+                  to="/dashboard/admin-parcels"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+                    ${
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-base-content/70 hover:bg-base-200"
+                    }`
+                  }
+                >
+                  <FaBoxOpen />
+                  Admin Parcels
+                </NavLink>
+
                 {/* RIDER APPLICATIONS */}
                 <NavLink
                   to="/dashboard/rider-applications"
@@ -144,6 +169,22 @@ export default function DashboardLayout() {
                 >
                   <FaUsers />
                   Users Management
+                </NavLink>
+
+                {/* PAYMENT HISTORY */}
+                <NavLink
+                  to="/dashboard/payment-history"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+                ${
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-base-content/70 hover:bg-base-200"
+                }`
+                  }
+                >
+                  <FaCreditCard />
+                  Payment History
                 </NavLink>
               </>
             )}

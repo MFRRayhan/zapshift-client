@@ -12,7 +12,7 @@ import DashboardHome from "../pages/dashboard/DashboardHome";
 import MyParcels from "../pages/dashboard/MyParcels";
 import Payment from "../pages/dashboard/payment/Payment";
 import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
-import PaymentHistory from "../pages/dashboard/payment/PaymentHistory";
+import PaymentHistory from "../pages/dashboard/adminRoute/PaymentHistory";
 import PaymentSuccess from "../pages/dashboard/payment/PaymentSuccess";
 import RiderApplications from "../pages/dashboard/adminRoute/RiderApplications";
 import UsersManagement from "../pages/dashboard/adminRoute/UsersManagement";
@@ -27,6 +27,8 @@ import Services from "../pages/Services";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import AssignRiders from "../pages/dashboard/adminRoute/AssignRiders";
+import AdminParcels from "../pages/dashboard/adminRoute/AdminParcels";
+import MyPayments from "../pages/dashboard/userRoute/MyPayments";
 
 export const router = createBrowserRouter([
   {
@@ -127,6 +129,16 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "admin-parcels",
+        element: (
+          <AdminRoute>
+            <PrivateRoute>
+              <AdminParcels />
+            </PrivateRoute>
+          </AdminRoute>
+        ),
+      },
+      {
         path: "payments/:parcelId",
         element: (
           <PrivateRoute>
@@ -151,11 +163,21 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "payment-history",
+        path: "my-payments",
         element: (
           <PrivateRoute>
-            <PaymentHistory />
+            <MyPayments />
           </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-history",
+        element: (
+          <AdminRoute>
+            <PrivateRoute>
+              <PaymentHistory />
+            </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
