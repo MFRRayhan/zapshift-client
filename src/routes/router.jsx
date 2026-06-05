@@ -9,7 +9,6 @@ import Blog from "../pages/Blog";
 import Contact from "../pages/Contact";
 import Coverage from "../pages/Coverage";
 import DashboardHome from "../pages/dashboard/DashboardHome";
-import MyParcels from "../pages/dashboard/MyParcels";
 import Payment from "../pages/dashboard/payment/Payment";
 import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
 import PaymentHistory from "../pages/dashboard/adminRoute/PaymentHistory";
@@ -29,6 +28,10 @@ import PrivateRoute from "./PrivateRoute";
 import AssignRiders from "../pages/dashboard/adminRoute/AssignRiders";
 import AdminParcels from "../pages/dashboard/adminRoute/AdminParcels";
 import MyPayments from "../pages/dashboard/userRoute/MyPayments";
+import AssignedDeliveries from "../pages/dashboard/riderRoute/AssignedDeliveries";
+import RiderRoute from "./RiderRoute";
+import RiderPayments from "../pages/dashboard/riderRoute/RiderPayments";
+import MyParcels from "../pages/dashboard/userRoute/MyParcels";
 
 export const router = createBrowserRouter([
   {
@@ -168,6 +171,26 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <MyPayments />
           </PrivateRoute>
+        ),
+      },
+      {
+        path: "assigned-deliveries",
+        element: (
+          <RiderRoute>
+            <PrivateRoute>
+              <AssignedDeliveries />
+            </PrivateRoute>
+          </RiderRoute>
+        ),
+      },
+      {
+        path: "rider-payments",
+        element: (
+          <RiderRoute>
+            <PrivateRoute>
+              <RiderPayments />
+            </PrivateRoute>
+          </RiderRoute>
         ),
       },
       {

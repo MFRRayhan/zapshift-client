@@ -11,8 +11,8 @@ import {
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaSearch } from "react-icons/fa";
 
 export default function MyParcels() {

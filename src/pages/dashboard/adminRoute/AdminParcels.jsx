@@ -268,11 +268,9 @@ export default function AdminParcels() {
                     {/* PAYMENT */}
                     <td>
                       {parcel.paymentStatus === "unpaid" ? (
-                        <Link to={`/dashboard/payments/${parcel._id}`}>
-                          <button className="btn btn-primary btn-sm rounded-lg">
-                            Pay Now
-                          </button>
-                        </Link>
+                        <span className="badge badge-error badge-outline font-semibold">
+                          Unpaid
+                        </span>
                       ) : (
                         <span className="badge badge-success badge-outline font-semibold">
                           Paid
