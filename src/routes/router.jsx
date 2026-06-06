@@ -33,6 +33,7 @@ import RiderRoute from "./RiderRoute";
 import RiderPayments from "../pages/dashboard/riderRoute/RiderPayments";
 import MyParcels from "../pages/dashboard/userRoute/MyParcels";
 import UserRoute from "./UserRoute";
+import CompletedDeliveries from "../pages/dashboard/riderRoute/CompletedDeliveries";
 
 export const router = createBrowserRouter([
   {
@@ -192,6 +193,16 @@ export const router = createBrowserRouter([
           <RiderRoute>
             <PrivateRoute>
               <RiderPayments />
+            </PrivateRoute>
+          </RiderRoute>
+        ),
+      },
+      {
+        path: "completed-deliveries",
+        element: (
+          <RiderRoute>
+            <PrivateRoute>
+              <CompletedDeliveries/>
             </PrivateRoute>
           </RiderRoute>
         ),

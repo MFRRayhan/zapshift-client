@@ -14,7 +14,7 @@ import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useRole from "../hooks/useRole";
-import { FaBoxOpen, FaTruck } from "react-icons/fa";
+import { FaBoxOpen, FaCheckCircle, FaTruck } from "react-icons/fa";
 
 export default function DashboardLayout() {
   const axiosSecure = useAxiosSecure();
@@ -118,6 +118,21 @@ export default function DashboardLayout() {
                 >
                   <FaTruck />
                   Assigned Deliveries
+                </NavLink>
+
+                <NavLink
+                  to="/dashboard/completed-deliveries"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+                    ${
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-base-content/70 hover:bg-base-200"
+                    }`
+                  }
+                >
+                  <FaCheckCircle />
+                  Completed Deliveries
                 </NavLink>
 
                 <NavLink

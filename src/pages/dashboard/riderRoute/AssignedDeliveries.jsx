@@ -19,7 +19,7 @@ export default function AssignedDeliveries() {
   const [currentPage, setCurrentPage] = useState(1);
   const skip = (currentPage - 1) * limit;
 
-  const { data = { parcels: [], totalAssingedDeliveries: 0 }, refetch } =
+  const { data = { parcels: [], totalAssignedDeliveries: 0 }, refetch } =
     useQuery({
       queryKey: [
         "parcels",
@@ -37,39 +37,8 @@ export default function AssignedDeliveries() {
       },
     });
 
-  const { parcels, totalAssingedDeliveries } = data;
-  const totalPages = Math.ceil(totalAssingedDeliveries / limit);
-
-  // const handleRejectedDelivery = (parcel) => {
-  //   const statusInfo = {
-  //     deliveryStatus: "pending_pickup",
-  //     workStatus: "available",
-  //   };
-
-  //   axiosSecure
-  //     .patch(`/parcels/${parcel._id}/status`, statusInfo)
-  //     .then((res) => {
-  //       if (res.data.modifiedCount) {
-  //         refetch();
-
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Delivery Rejected",
-  //           text: "Parcel request has been rejected successfully.",
-  //           confirmButtonColor: "#dc2626",
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Failed",
-  //         text: "Something went wrong while rejecting.",
-  //         confirmButtonColor: "#dc2626",
-  //       });
-  //       console.error(err);
-  //     });
-  // };
+  const { parcels, totalAssignedDeliveries } = data;
+  const totalPages = Math.ceil(totalAssignedDeliveries / limit);
 
   const renderActionButton = (parcel) => {
     const status = parcel.deliveryStatus;
@@ -248,7 +217,7 @@ export default function AssignedDeliveries() {
           <div className="px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
             <p className="text-xs text-base-content/60">Total Parcels</p>
             <h3 className="text-lg font-bold text-primary text-center">
-              {totalAssingedDeliveries}
+              {totalAssignedDeliveries}
             </h3>
           </div>
         </div>
