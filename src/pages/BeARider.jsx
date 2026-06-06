@@ -41,7 +41,6 @@ export default function BeARider() {
   };
 
   const handleRiderForm = (data) => {
-    console.log(data);
     const riderInfo = {
       ...data,
       status: "pending",

@@ -225,37 +225,39 @@ export default function RiderApplications() {
       )}
 
       {/* PAGINATION BTN */}
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        {currentPage > 1 && (
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            className="btn btn-sm"
-          >
-            Prev
-          </button>
-        )}
-        {[
-          ...Array(totalPages)
-            .keys()
-            .map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page + 1)}
-                className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
-              >
-                {page + 1}
-              </button>
-            )),
-        ]}
-        {currentPage < totalPages && (
-          <button
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-            className="btn btn-sm"
-          >
-            Next
-          </button>
-        )}
-      </div>
+      {totalPages > 1 && (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {currentPage > 1 && (
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className="btn btn-sm"
+            >
+              Prev
+            </button>
+          )}
+          {[
+            ...Array(totalPages)
+              .keys()
+              .map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page + 1)}
+                  className={`btn btn-sm btn-square ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
+                >
+                  {page + 1}
+                </button>
+              )),
+          ]}
+          {currentPage < totalPages && (
+            <button
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              className="btn btn-sm"
+            >
+              Next
+            </button>
+          )}
+        </div>
+      )}
 
       {/* MODAL */}
       <dialog ref={modalRef} className="modal">

@@ -128,6 +128,58 @@ export default function MyParcels() {
     });
   };
 
+  // GET BADGE
+  const getBadge = (status) => {
+    switch (status) {
+      case "driver_assigned":
+        return "badge-warning";
+
+      case "rider_accepted":
+        return "badge-primary";
+
+      case "picked_up":
+        return "badge-info";
+
+      case "in_transit":
+        return "badge-secondary";
+
+      case "delivered":
+        return "badge-primary";
+
+      case "driver_rejected":
+        return "badge-error";
+
+      default:
+        return "badge-neutral";
+    }
+  };
+
+  // GET LABEL
+  const getLabel = (status) => {
+    switch (status) {
+      case "driver_assigned":
+        return "Pending";
+
+      case "rider_accepted":
+        return "Accepted";
+
+      case "picked_up":
+        return "Picked Up";
+
+      case "in_transit":
+        return "In Transit";
+
+      case "delivered":
+        return "Delivered";
+
+      case "driver_rejected":
+        return "Rejected";
+
+      default:
+        return status;
+    }
+  };
+
   return (
     <section className="space-y-6">
       {/* HEADER */}
@@ -284,15 +336,9 @@ export default function MyParcels() {
                     {/* DELIVERY STATUS */}
                     <td>
                       <span
-                        className={`badge capitalize ${
-                          parcel.deliveryStatus === "delivered"
-                            ? "badge-success"
-                            : parcel.deliveryStatus === "pending_pickup"
-                              ? "badge-warning"
-                              : "badge-error"
-                        }`}
+                        className={`badge ${getBadge(parcel.deliveryStatus)}`}
                       >
-                        {parcel.deliveryStatus}
+                        {getLabel(parcel.deliveryStatus)}
                       </span>
                     </td>
 

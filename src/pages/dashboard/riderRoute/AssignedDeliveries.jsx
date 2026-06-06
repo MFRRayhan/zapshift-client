@@ -40,30 +40,10 @@ export default function AssignedDeliveries() {
   const { parcels, totalAssingedDeliveries } = data;
   const totalPages = Math.ceil(totalAssingedDeliveries / limit);
 
-  const handleAcceptedDelivery = (parcel) => {
-    const statusInfo = {
-      deliveryStatus: "rider_accepted",
-    };
-
-    axiosSecure
-      .patch(`/parcels/${parcel._id}/status`, statusInfo)
-      .then((res) => {
-        refetch();
-        if (res.data.modifiedCount) {
-          Swal.fire({
-            icon: "success",
-            title: "Rider accepted",
-            text: "Rider accept the parcel request.",
-            confirmButtonColor: "#009966",
-          });
-        }
-      })
-      .catch((err) => console.error(err));
-  };
-
   const handleRejectedDelivery = (parcel) => {
     const statusInfo = {
-      deliveryStatus: "driver_rejected",
+      deliveryStatus: "pending_pickup",
+      workStatus: "available",
     };
 
     axiosSecure
@@ -89,6 +69,166 @@ export default function AssignedDeliveries() {
         });
         console.error(err);
       });
+  };
+
+  const renderActionButton = (parcel) => {
+    const status = parcel.deliveryStatus;
+
+    if (status === "driver_assigned") {
+      return (
+        <td className="flex gap-1">
+          <div className="tooltip" data-tip="Parcel Details">
+            <button
+              onClick={() => {
+                setSelectedParcel(parcel);
+                modalRef.current.showModal();
+              }}
+              className="btn btn-sm btn-outline btn-square"
+            >
+              <FaEye />
+            </button>
+          </div>
+
+          <div className="tooltip" data-tip="Accept Parcel">
+            <button
+              onClick={() => handleStatus(parcel, "rider_accepted")}
+              className="btn btn-sm btn-outline btn-primary btn-square"
+            >
+              <FaCheck />
+            </button>
+          </div>
+
+          <div className="tooltip" data-tip="Reject Parcel">
+            <button
+              onClick={() => handleRejectedDelivery(parcel)}
+              className="btn btn-sm btn-outline btn-error btn-square"
+            >
+              <ImCross />
+            </button>
+          </div>
+        </td>
+      );
+    }
+
+    if (status === "rider_accepted") {
+      return (
+        <button
+          onClick={() => handleStatus(parcel._id, "picked_up")}
+          className="btn btn-sm btn-outline btn-primary"
+        >
+          Mark as Picked Up
+        </button>
+      );
+    }
+
+    if (status === "picked_up") {
+      return (
+        <button
+          onClick={() => handleStatus(parcel._id, "in_transit")}
+          className="btn btn-sm btn-outline btn-info"
+        >
+          Start Transit
+        </button>
+      );
+    }
+
+    if (status === "in_transit") {
+      return (
+        <button
+          onClick={() => handleStatus(parcel._id, "delivered")}
+          className="btn btn-sm btn-outline btn-primary"
+        >
+          Mark Delivered
+        </button>
+      );
+    }
+
+    if (status === "delivered") {
+      return <span className="text-success font-semibold">Delivered</span>;
+    }
+
+    if (status === "driver_rejected") {
+      return <span className="text-error font-semibold">Rejected</span>;
+    }
+
+    return null;
+  };
+
+  const handleStatus = (parcel, status) => {
+    axiosSecure
+      .patch(`/parcels/${parcel._id}/status`, {
+        deliveryStatus: status,
+        riderId: parcel.riderId,
+      })
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            icon: "success",
+            title: "Updated",
+            text: `Status changed to ${status}`,
+          });
+        }
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Failed",
+          text: "Status update failed",
+        });
+      });
+  };
+
+  // GET BADGE
+  const getBadge = (status) => {
+    switch (status) {
+      case "driver_assigned":
+        return "badge-warning";
+
+      case "rider_accepted":
+        return "badge-primary";
+
+      case "picked_up":
+        return "badge-info";
+
+      case "in_transit":
+        return "badge-secondary";
+
+      case "delivered":
+        return "badge-primary";
+
+      case "driver_rejected":
+        return "badge-error";
+
+      default:
+        return "badge-neutral";
+    }
+  };
+
+  // GET LABEL
+  const getLabel = (status) => {
+    switch (status) {
+      case "driver_assigned":
+        return "Pending";
+
+      case "rider_accepted":
+        return "Accepted";
+
+      case "picked_up":
+        return "Picked Up";
+
+      case "in_transit":
+        return "In Transit";
+
+      case "delivered":
+        return "Delivered";
+
+      case "driver_rejected":
+        return "Rejected";
+
+      default:
+        return status;
+    }
   };
 
   return (
@@ -148,62 +288,57 @@ export default function AssignedDeliveries() {
           </div>
         </section>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Index</th>
-                <th>Parcel</th>
-                <th>Type</th>
-                <th>Sender</th>
-                <th>Receiver</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {parcels.map((parcel, i) => (
-                <tr key={parcel._id}>
-                  <td>{i + 1}</td>
-                  <td>{parcel.parcelName}</td>
-                  <td>{parcel.parcelType}</td>
-                  <td>{parcel.senderName}</td>
-                  <td>{parcel.receiverName}</td>
-                  <td>{parcel.senderDistrict}</td>
-                  <td>{parcel.receiverDistrict}</td>
-
-                  <td className="flex gap-1">
-                    <button
-                      onClick={() => {
-                        setSelectedParcel(parcel);
-                        modalRef.current.showModal();
-                      }}
-                      className="btn btn-sm btn-square btn-outline"
-                    >
-                      <FaEye />
-                    </button>
-
-                    <button
-                      onClick={() => handleAcceptedDelivery(parcel)}
-                      className="btn btn-sm btn-square btn-primary btn-outline"
-                    >
-                      <FaCheck />
-                    </button>
-
-                    <button
-                      onClick={() => handleRejectedDelivery(parcel)}
-                      className="btn btn-sm btn-square btn-error btn-outline"
-                    >
-                      <ImCross />
-                    </button>
-                  </td>
+        <section className="bg-base-100 border border-base-300 rounded-2xl overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="table w-full text-sm">
+              <thead className="bg-base-200 text-base-content/70">
+                <tr>
+                  <th>Index</th>
+                  <th>Parcel</th>
+                  <th>Type</th>
+                  <th>Sender</th>
+                  <th>Receiver</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+
+              <tbody>
+                {parcels.map((parcel, i) => (
+                  <tr
+                    key={parcel._id}
+                    className="
+                      hover:bg-base-200/50
+                      transition-all
+                      duration-200
+                      hover:shadow-sm
+                      cursor-default
+                    "
+                  >
+                    <td>{i + 1}</td>
+                    <td>{parcel.parcelName}</td>
+                    <td>{parcel.parcelType}</td>
+                    <td>{parcel.senderName}</td>
+                    <td>{parcel.receiverName}</td>
+                    <td>{parcel.senderDistrict}</td>
+                    <td>{parcel.receiverDistrict}</td>
+                    <td>
+                      <span
+                        className={`badge ${getBadge(parcel.deliveryStatus)}`}
+                      >
+                        {getLabel(parcel.deliveryStatus)}
+                      </span>
+                    </td>
+
+                    <td>{renderActionButton(parcel)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
       )}
 
       {/* PAGINATION  */}

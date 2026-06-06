@@ -32,6 +32,7 @@ import AssignedDeliveries from "../pages/dashboard/riderRoute/AssignedDeliveries
 import RiderRoute from "./RiderRoute";
 import RiderPayments from "../pages/dashboard/riderRoute/RiderPayments";
 import MyParcels from "../pages/dashboard/userRoute/MyParcels";
+import UserRoute from "./UserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -126,9 +127,11 @@ export const router = createBrowserRouter([
       {
         path: "my-parcels",
         element: (
-          <PrivateRoute>
-            <MyParcels />
-          </PrivateRoute>
+          <UserRoute>
+            <PrivateRoute>
+              <MyParcels />
+            </PrivateRoute>
+          </UserRoute>
         ),
       },
       {
