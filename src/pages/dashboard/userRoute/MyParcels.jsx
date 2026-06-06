@@ -131,6 +131,12 @@ export default function MyParcels() {
   // GET BADGE
   const getBadge = (status) => {
     switch (status) {
+      case "not_collected":
+        return "badge-warning";
+
+      case "pending_pickup":
+        return "badge-warning";
+
       case "driver_assigned":
         return "badge-warning";
 
@@ -147,7 +153,7 @@ export default function MyParcels() {
         return "badge-primary";
 
       case "driver_rejected":
-        return "badge-error";
+        return "badge-warning";
 
       default:
         return "badge-neutral";
@@ -157,8 +163,14 @@ export default function MyParcels() {
   // GET LABEL
   const getLabel = (status) => {
     switch (status) {
+      case "not_collected":
+        return "Not Collected";
+
+      case "pending_pickup":
+        return "Pending Pickup";
+
       case "driver_assigned":
-        return "Pending";
+        return "Awaiting Driver Response";
 
       case "rider_accepted":
         return "Accepted";
@@ -173,11 +185,22 @@ export default function MyParcels() {
         return "Delivered";
 
       case "driver_rejected":
-        return "Rejected";
+        return "Pending Pickup";
 
       default:
         return status;
     }
+  };
+
+  const lockedStatuses = [
+    "rider_accepted",
+    "picked_up",
+    "in_transit",
+    "delivered",
+  ];
+
+  const isLocked = (status) => {
+    return lockedStatuses.includes(status);
   };
 
   return (
@@ -352,19 +375,23 @@ export default function MyParcels() {
                           <FaEye />
                         </button>
 
-                        <button
-                          onClick={() => handlePatchParcel(parcel)}
-                          className="btn btn-sm btn-square btn-ghost btn-outline"
-                        >
-                          <FaPen />
-                        </button>
+                        {!isLocked(parcel.deliveryStatus) && (
+                          <>
+                            <button
+                              onClick={() => handlePatchParcel(parcel)}
+                              className="btn btn-sm btn-square btn-ghost btn-outline"
+                            >
+                              <FaPen />
+                            </button>
 
-                        <button
-                          onClick={() => handleParcelDelete(parcel._id)}
-                          className="btn btn-sm btn-square btn-error btn-outline"
-                        >
-                          <FaTrash />
-                        </button>
+                            <button
+                              onClick={() => handleParcelDelete(parcel._id)}
+                              className="btn btn-sm btn-square btn-error btn-outline"
+                            >
+                              <FaTrash />
+                            </button>
+                          </>
+                        )}
                       </div>
                     </td>
                   </tr>

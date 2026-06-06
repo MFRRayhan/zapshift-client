@@ -40,36 +40,36 @@ export default function AssignedDeliveries() {
   const { parcels, totalAssingedDeliveries } = data;
   const totalPages = Math.ceil(totalAssingedDeliveries / limit);
 
-  const handleRejectedDelivery = (parcel) => {
-    const statusInfo = {
-      deliveryStatus: "pending_pickup",
-      workStatus: "available",
-    };
+  // const handleRejectedDelivery = (parcel) => {
+  //   const statusInfo = {
+  //     deliveryStatus: "pending_pickup",
+  //     workStatus: "available",
+  //   };
 
-    axiosSecure
-      .patch(`/parcels/${parcel._id}/status`, statusInfo)
-      .then((res) => {
-        if (res.data.modifiedCount) {
-          refetch();
+  //   axiosSecure
+  //     .patch(`/parcels/${parcel._id}/status`, statusInfo)
+  //     .then((res) => {
+  //       if (res.data.modifiedCount) {
+  //         refetch();
 
-          Swal.fire({
-            icon: "success",
-            title: "Delivery Rejected",
-            text: "Parcel request has been rejected successfully.",
-            confirmButtonColor: "#dc2626",
-          });
-        }
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Failed",
-          text: "Something went wrong while rejecting.",
-          confirmButtonColor: "#dc2626",
-        });
-        console.error(err);
-      });
-  };
+  //         Swal.fire({
+  //           icon: "success",
+  //           title: "Delivery Rejected",
+  //           text: "Parcel request has been rejected successfully.",
+  //           confirmButtonColor: "#dc2626",
+  //         });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Failed",
+  //         text: "Something went wrong while rejecting.",
+  //         confirmButtonColor: "#dc2626",
+  //       });
+  //       console.error(err);
+  //     });
+  // };
 
   const renderActionButton = (parcel) => {
     const status = parcel.deliveryStatus;
@@ -100,7 +100,7 @@ export default function AssignedDeliveries() {
 
           <div className="tooltip" data-tip="Reject Parcel">
             <button
-              onClick={() => handleRejectedDelivery(parcel)}
+              onClick={() => handleStatus(parcel, "pending_pickup")}
               className="btn btn-sm btn-outline btn-error btn-square"
             >
               <ImCross />
@@ -113,7 +113,7 @@ export default function AssignedDeliveries() {
     if (status === "rider_accepted") {
       return (
         <button
-          onClick={() => handleStatus(parcel._id, "picked_up")}
+          onClick={() => handleStatus(parcel, "picked_up")}
           className="btn btn-sm btn-outline btn-primary"
         >
           Mark as Picked Up
@@ -124,7 +124,7 @@ export default function AssignedDeliveries() {
     if (status === "picked_up") {
       return (
         <button
-          onClick={() => handleStatus(parcel._id, "in_transit")}
+          onClick={() => handleStatus(parcel, "in_transit")}
           className="btn btn-sm btn-outline btn-info"
         >
           Start Transit
@@ -135,7 +135,7 @@ export default function AssignedDeliveries() {
     if (status === "in_transit") {
       return (
         <button
-          onClick={() => handleStatus(parcel._id, "delivered")}
+          onClick={() => handleStatus(parcel, "delivered")}
           className="btn btn-sm btn-outline btn-primary"
         >
           Mark Delivered
@@ -209,7 +209,7 @@ export default function AssignedDeliveries() {
   const getLabel = (status) => {
     switch (status) {
       case "driver_assigned":
-        return "Pending";
+        return "Awaiting Driver Response";
 
       case "rider_accepted":
         return "Accepted";

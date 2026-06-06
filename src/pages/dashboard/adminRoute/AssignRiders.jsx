@@ -66,10 +66,12 @@ export default function AssignRiders() {
       .patch(`/parcels/assign-rider/${selectedParcel._id}`, riderAssignInfo)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
+          riderModalRef.current?.close();
+
+          setSelectedParcel(null);
+
           parcelRefetch();
           riderRefetch();
-
-          riderModalRef.current?.close();
 
           Swal.fire({
             icon: "success",
