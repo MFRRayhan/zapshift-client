@@ -34,6 +34,8 @@ import RiderPayments from "../pages/dashboard/riderRoute/RiderPayments";
 import MyParcels from "../pages/dashboard/userRoute/MyParcels";
 import UserRoute from "./UserRoute";
 import CompletedDeliveries from "../pages/dashboard/riderRoute/CompletedDeliveries";
+import ParcelTrack from "../pages/ParcelTrack";
+import ParcelTrackDetails from "../pages/ParcelTrackDetails";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +90,14 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
+      },
+      {
+        path: "parcel-track",
+        Component: ParcelTrack,
+      },
+      {
+        path: "parcel-track/:trackingId",
+        Component: ParcelTrackDetails,
       },
     ],
   },
@@ -202,7 +212,7 @@ export const router = createBrowserRouter([
         element: (
           <RiderRoute>
             <PrivateRoute>
-              <CompletedDeliveries/>
+              <CompletedDeliveries />
             </PrivateRoute>
           </RiderRoute>
         ),

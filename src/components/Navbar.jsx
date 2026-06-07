@@ -31,6 +31,9 @@ export default function Navbar() {
         <NavLink to={"/be-a-rider"}>Be a Rider</NavLink>
       </li>
       <li>
+        <NavLink to={"/parcel-track"}>Track Parcel</NavLink>
+      </li>
+      <li>
         <NavLink to={"/dashboard"}>Dashboard</NavLink>
       </li>
     </>

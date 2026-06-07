@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaSearch } from "react-icons/fa";
+import { FaArrowDown, FaArrowRight, FaSearch } from "react-icons/fa";
 
 export default function MyParcels() {
   const { user } = useAuth();
@@ -273,10 +273,10 @@ export default function MyParcels() {
                 <tr>
                   <th>Index</th>
                   <th>Parcel</th>
-                  <th>Sender</th>
                   <th>Receiver</th>
                   <th>Route</th>
                   <th>Cost</th>
+                  <th>Tracking Id</th>
                   <th>Payment</th>
                   <th>Delivery Status</th>
                   <th>Actions</th>
@@ -312,11 +312,6 @@ export default function MyParcels() {
                       </div>
                     </td>
 
-                    {/* SENDER */}
-                    <td>
-                      <p className="font-medium">{parcel.senderName}</p>
-                    </td>
-
                     {/* RECEIVER */}
                     <td>
                       <div>
@@ -329,8 +324,9 @@ export default function MyParcels() {
                     </td>
 
                     {/* ROUTE */}
-                    <td className="text-xs text-base-content/70">
-                      {parcel.senderDistrict} → {parcel.receiverDistrict}
+                    <td className="text-xs text-base-content/70 flex flex-col items-center">
+                      {parcel.senderDistrict} <FaArrowDown />{" "}
+                      {parcel.receiverDistrict}
                     </td>
 
                     {/* COST */}
@@ -339,6 +335,11 @@ export default function MyParcels() {
                         <FaBangladeshiTakaSign className="text-primary" />
                         {parcel.cost}
                       </div>
+                    </td>
+
+                    {/* TRACKING ID */}
+                    <td>
+                      <p className="font-medium">{parcel.trackingId}</p>
                     </td>
 
                     {/* PAYMENT */}
@@ -469,8 +470,8 @@ export default function MyParcels() {
                     {selectedParcel.parcelName}
                   </h2>
 
-                  <p className="text-sm text-base-content/60 mt-1">
-                    Tracking ID: {selectedParcel._id}
+                  <p className="text-sm text-primary font-semibold mt-2">
+                    Tracking ID: {selectedParcel.trackingId}
                   </p>
                 </div>
 
@@ -584,7 +585,7 @@ export default function MyParcels() {
                   <div>
                     <p className="text-xs text-base-content/60">Parcel Type</p>
 
-                    <p className="font-medium">{selectedParcel.type}</p>
+                    <p className="font-medium">{selectedParcel.parcelType}</p>
                   </div>
 
                   <div>
