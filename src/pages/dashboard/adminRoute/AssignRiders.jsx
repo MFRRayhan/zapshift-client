@@ -60,15 +60,16 @@ export default function AssignRiders() {
       riderEmail: rider.riderEmail,
       phoneNumber: rider.phoneNumber,
       parcelId: selectedParcel._id,
+      trackingId: selectedParcel.trackingId,
     };
 
     axiosSecure
       .patch(`/parcels/assign-rider/${selectedParcel._id}`, riderAssignInfo)
       .then((res) => {
-        if (res.data.modifiedCount > 0) {
+        if (res.data.parcelResult.modifiedCount > 0) {
           riderModalRef.current?.close();
 
-          setSelectedParcel(null);
+          // setSelectedParcel(null);
 
           parcelRefetch();
           riderRefetch();

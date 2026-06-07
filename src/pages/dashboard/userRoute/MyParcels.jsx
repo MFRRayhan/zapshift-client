@@ -478,7 +478,7 @@ export default function MyParcels() {
                   <span
                     className={`badge badge-lg capitalize ${
                       selectedParcel.paymentStatus === "paid"
-                        ? "badge-success"
+                        ? "badge-primary"
                         : "badge-warning"
                     }`}
                   >
@@ -486,7 +486,7 @@ export default function MyParcels() {
                   </span>
 
                   <span className="badge badge-primary badge-lg capitalize">
-                    {selectedParcel.deliveryStatus || "Pending"}
+                    {getLabel(selectedParcel.deliveryStatus) || "Pending"}
                   </span>
                 </div>
               </div>

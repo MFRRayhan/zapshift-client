@@ -140,7 +140,7 @@ export default function Register() {
           <input
             type="text"
             {...register("name", { required: "Name is required" })}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full focus:outline-none focus:border-primary"
           />
           {errors.name && (
             <p className="text-red-500 mt-1">{errors.name.message}</p>
@@ -166,7 +166,7 @@ export default function Register() {
           <input
             type="email"
             {...register("email", { required: "Email is required" })}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full focus:outline-none focus:border-primary"
           />
           {errors.email && (
             <p className="text-red-500 mt-1">{errors.email.message}</p>
@@ -182,7 +182,7 @@ export default function Register() {
               required: "Password is required",
               minLength: { value: 6, message: "Min 6 characters required" },
             })}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full focus:outline-none focus:border-primary"
           />
           {errors.password && (
             <p className="text-red-500 mt-1">{errors.password.message}</p>

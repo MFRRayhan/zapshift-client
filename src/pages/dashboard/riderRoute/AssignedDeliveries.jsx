@@ -128,6 +128,7 @@ export default function AssignedDeliveries() {
       .patch(`/parcels/${parcel._id}/status`, {
         deliveryStatus: status,
         riderId: parcel.riderId,
+        trackingId: parcel.trackingId,
       })
       .then((res) => {
         if (res.data.modifiedCount) {
@@ -135,7 +136,8 @@ export default function AssignedDeliveries() {
           Swal.fire({
             icon: "success",
             title: "Updated",
-            text: `Status changed to ${status}`,
+            text: `Status changed to ${getLabel(status)}`,
+            confirmButtonColor: "#009966",
           });
         }
       })
@@ -345,7 +347,7 @@ export default function AssignedDeliveries() {
         </div>
       )}
 
-      {/* MODAL (UNCHANGED AS REQUESTED) */}
+      {/* MODAL */}
       <dialog ref={modalRef} className="modal">
         <div className="modal-box max-w-5xl">
           <form method="dialog">

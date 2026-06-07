@@ -28,7 +28,7 @@ export default function Login() {
           title: "Login Successful",
           text: "Welcome back!",
           confirmButtonText: "Continue",
-          confirmButtonColor: "#2563eb",
+          confirmButtonColor: "#009966",
           timer: 2000,
           timerProgressBar: true,
           showConfirmButton: true,
@@ -65,6 +65,7 @@ export default function Login() {
               timer: 2000,
               timerProgressBar: true,
               showConfirmButton: true,
+              confirmButtonColor: "#009966",
               allowOutsideClick: false,
               position: "center",
             });
@@ -109,7 +110,7 @@ export default function Login() {
           <input
             type="email"
             {...register("email", { required: "Email is required" })}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full focus:outline-none focus:border-primary"
             placeholder="Enter your email"
           />
 
@@ -126,7 +127,7 @@ export default function Login() {
               required: "Please enter your password",
             })}
             type="password"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full focus:outline-none focus:border-primary"
             placeholder="Enter your password"
           />
 
