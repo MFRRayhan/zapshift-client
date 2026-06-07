@@ -151,13 +151,9 @@ export default function CompletedDeliveries() {
                     </td>
 
                     <td>{parcel.parcelType}</td>
-
                     <td>{parcel.senderName}</td>
-
                     <td>{parcel.receiverName}</td>
-
                     <td>{parcel.senderDistrict}</td>
-
                     <td>{parcel.receiverDistrict}</td>
 
                     <td>

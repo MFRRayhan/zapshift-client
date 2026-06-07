@@ -153,32 +153,50 @@ export default function AssignedDeliveries() {
   // GET BADGE
   const getBadge = (status) => {
     switch (status) {
+      case "parcel_created":
+        return "font-semibold badge-warning";
+
+      case "not_collected":
+        return "font-semibold badge-warning";
+
+      case "pending_pickup":
+        return "font-semibold badge-warning";
+
       case "driver_assigned":
-        return "badge-warning";
+        return "font-semibold badge-warning";
 
       case "rider_accepted":
-        return "badge-primary";
+        return "font-semibold badge-primary";
 
       case "picked_up":
-        return "badge-info";
+        return "font-semibold badge-info";
 
       case "in_transit":
-        return "badge-secondary";
+        return "font-semibold badge-secondary";
 
       case "delivered":
-        return "badge-primary";
+        return "font-semibold badge-primary";
 
       case "driver_rejected":
-        return "badge-error";
+        return "font-semibold badge-warning";
 
       default:
-        return "badge-neutral";
+        return "font-semibold badge-neutral";
     }
   };
 
   // GET LABEL
   const getLabel = (status) => {
     switch (status) {
+      case "parcel_created":
+        return "Payment Pending";
+
+      case "not_collected":
+        return "Not Collected";
+
+      case "pending_pickup":
+        return "Pending Pickup";
+
       case "driver_assigned":
         return "Awaiting Driver Response";
 
@@ -195,7 +213,7 @@ export default function AssignedDeliveries() {
         return "Delivered";
 
       case "driver_rejected":
-        return "Rejected";
+        return "Pending Pickup";
 
       default:
         return status;

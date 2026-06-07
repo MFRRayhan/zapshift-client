@@ -64,7 +64,6 @@ export default function SendParcel() {
       cost,
       createdAt: new Date().toISOString(),
       paymentStatus: "unpaid",
-      deliveryStatus: "not_collected",
     };
 
     Swal.fire({
@@ -86,7 +85,7 @@ export default function SendParcel() {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.post("/parcels", parcelData).then((res) => {
-          if (res.data.insertedId) {
+          if (res.data.result.insertedId) {
             Swal.fire({
               title: "Booking Confirmed!",
               text: "Your parcel booking has been placed successfully.",
@@ -292,6 +291,12 @@ export default function SendParcel() {
                     {...register("senderEmail")}
                     className="input input-bordered w-full focus:outline-none focus:border-primary"
                   />
+
+                  {errors.senderEmail && (
+                    <p className="text-error text-sm mt-2">
+                      {errors.senderEmail.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Sender Address */}

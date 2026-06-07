@@ -85,6 +85,34 @@ export default function RiderApplications() {
     });
   };
 
+  // GET BADGE
+  const getBadge = (status) => {
+    switch (status) {
+      case "in_delivery":
+        return "font-semibold badge-warning";
+
+      case "available":
+        return "font-semibold badge-primary";
+
+      default:
+        return "font-semibold badge-neutral";
+    }
+  };
+
+  // GET LABEL
+  const getLabel = (status) => {
+    switch (status) {
+      case "in_delivery":
+        return "In Delivery";
+
+      case "available":
+        return "Available";
+
+      default:
+        return status;
+    }
+  };
+
   return (
     <section className="space-y-6">
       {/* HEADER (MyParcels style consistency) */}
@@ -180,10 +208,12 @@ export default function RiderApplications() {
                     </span>
                   </td>
 
-                  <td
-                    className={`capitalize font-semibold ${rider.workStatus === "available" ? "text-primary" : rider.workStatus === "rejected" ? "text-error" : "text-warning"}`}
-                  >
-                    {rider.workStatus}
+                  <td>
+                    <span
+                      className={`badge font-semibold ${getBadge(rider.workStatus)}`}
+                    >
+                      {getLabel(rider.workStatus)}
+                    </span>
                   </td>
 
                   <td>

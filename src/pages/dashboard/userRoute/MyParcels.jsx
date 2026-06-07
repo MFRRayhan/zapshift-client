@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaArrowDown, FaArrowRight, FaSearch } from "react-icons/fa";
+import { FaArrowDown, FaSearch } from "react-icons/fa";
 
 export default function MyParcels() {
   const { user } = useAuth();
@@ -131,38 +131,44 @@ export default function MyParcels() {
   // GET BADGE
   const getBadge = (status) => {
     switch (status) {
+      case "parcel_created":
+        return "font-semibold badge-warning";
+
       case "not_collected":
-        return "badge-warning";
+        return "font-semibold badge-warning";
 
       case "pending_pickup":
-        return "badge-warning";
+        return "font-semibold badge-warning";
 
       case "driver_assigned":
-        return "badge-warning";
+        return "font-semibold badge-warning";
 
       case "rider_accepted":
-        return "badge-primary";
+        return "font-semibold badge-primary";
 
       case "picked_up":
-        return "badge-info";
+        return "font-semibold badge-info";
 
       case "in_transit":
-        return "badge-secondary";
+        return "font-semibold badge-secondary";
 
       case "delivered":
-        return "badge-primary";
+        return "font-semibold badge-primary";
 
       case "driver_rejected":
-        return "badge-warning";
+        return "font-semibold badge-warning";
 
       default:
-        return "badge-neutral";
+        return "font-semibold badge-neutral";
     }
   };
 
   // GET LABEL
   const getLabel = (status) => {
     switch (status) {
+      case "parcel_created":
+        return "Parcel Created";
+
       case "not_collected":
         return "Not Collected";
 
@@ -351,7 +357,7 @@ export default function MyParcels() {
                           </button>
                         </Link>
                       ) : (
-                        <span className="badge badge-success badge-outline font-semibold">
+                        <span className="badge badge-primary font-semibold">
                           Paid
                         </span>
                       )}

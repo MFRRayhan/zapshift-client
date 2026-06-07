@@ -3,7 +3,7 @@ import useAxios from "../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { FaCheckCircle } from "react-icons/fa";
 import moment from "moment";
-import trackingImg from "../assets/img/live-tracking.jpg";
+import trackingImg from "../assets/img/live-tracking.png";
 
 export default function ParcelTrackDetails() {
   const { trackingId } = useParams();
@@ -39,7 +39,7 @@ export default function ParcelTrackDetails() {
               ) : (
                 logs.map((log) => (
                   <li key={log._id}>
-                    <div className="timeline-start text-sm text-gray-500">
+                    <div className="timeline-start text-xs text-gray-500">
                       {moment(log.createdAt).format("DD MMM YYYY, hh:mm A")}
                     </div>
 
@@ -59,13 +59,9 @@ export default function ParcelTrackDetails() {
           </div>
         </div>
 
-        {/* RIGHT SIDE - IMAGE (LIKE LOGIN UI STYLE) */}
+        {/* RIGHT SIDE */}
         <div className="flex justify-center">
-          <img
-            src={trackingImg}
-            alt="Parcel Tracking"
-            className="w-full max-w-md"
-          />
+          <img src={trackingImg} alt="Parcel Tracking" className="w-full" />
         </div>
       </div>
     </div>

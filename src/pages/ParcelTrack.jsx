@@ -18,7 +18,7 @@ export default function ParcelTrack() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-6xl grid md:grid-cols-2 gap-10 items-center">
-        {/* LEFT SIDE - FORM (LOGIN STYLE) */}
+        {/* LEFT SIDE */}
         <form
           onSubmit={handleSubmit(handleParcelTrack)}
           className="w-full max-w-md space-y-5"
@@ -62,13 +62,9 @@ export default function ParcelTrack() {
           </fieldset>
         </form>
 
-        {/* RIGHT SIDE - IMAGE (LOGIN STYLE MATCH) */}
+        {/* RIGHT SIDE  */}
         <div className="flex justify-center">
-          <img
-            src={trackingImg}
-            alt="Parcel Tracking"
-            className="w-full max-w-md"
-          />
+          <img src={trackingImg} alt="Parcel Tracking" className="w-full" />
         </div>
       </div>
     </div>

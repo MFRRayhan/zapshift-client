@@ -94,6 +94,76 @@ export default function AssignRiders() {
       });
   };
 
+  // GET BADGE
+  const getBadge = (status) => {
+    switch (status) {
+      case "parcel_created":
+        return "badge-warning";
+
+      case "not_collected":
+        return "badge-warning";
+
+      case "pending_pickup":
+        return "badge-warning";
+
+      case "driver_assigned":
+        return "badge-warning";
+
+      case "rider_accepted":
+        return "badge-primary";
+
+      case "picked_up":
+        return "badge-info";
+
+      case "in_transit":
+        return "badge-secondary";
+
+      case "delivered":
+        return "badge-primary";
+
+      case "driver_rejected":
+        return "badge-warning";
+
+      default:
+        return "badge-neutral";
+    }
+  };
+
+  // GET LABEL
+  const getLabel = (status) => {
+    switch (status) {
+      case "parcel_created":
+        return "Payment Pending";
+
+      case "not_collected":
+        return "Not Collected";
+
+      case "pending_pickup":
+        return "Pending Pickup";
+
+      case "driver_assigned":
+        return "Awaiting Driver Response";
+
+      case "rider_accepted":
+        return "Accepted";
+
+      case "picked_up":
+        return "Picked Up";
+
+      case "in_transit":
+        return "In Transit";
+
+      case "delivered":
+        return "Delivered";
+
+      case "driver_rejected":
+        return "Pending Pickup";
+
+      default:
+        return status;
+    }
+  };
+
   return (
     <section className="space-y-6">
       {/* HEADER */}
@@ -201,9 +271,10 @@ export default function AssignRiders() {
                       </td>
 
                       <td>
-                        <span className="badge badge-warning badge-outline gap-1">
-                          <FaCheckCircle />
-                          Pending Pickup
+                        <span
+                          className={`badge font-semibold ${getBadge(parcel.deliveryStatus)}`}
+                        >
+                          {getLabel(parcel.deliveryStatus)}
                         </span>
                       </td>
 

@@ -33,6 +33,7 @@ export default function Payment() {
       parcelId: parcel?._id,
       senderEmail: parcel.senderEmail,
       cost: parcel.cost,
+      trackingId: parcel.trackingId,
     };
 
     const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
@@ -59,7 +60,7 @@ export default function Payment() {
             Parcel Information
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-4 text-sm">
+          <div className="grid md:grid-cols-4 gap-4 text-sm">
             <div>
               <p className="text-xs text-base-content/60">Parcel Name</p>
               <p className="font-medium text-base-content">
@@ -78,6 +79,13 @@ export default function Payment() {
               <p className="text-xs text-base-content/60">Weight</p>
               <p className="font-medium text-base-content">
                 {parcel.parcelWeight} kg
+              </p>
+            </div>
+
+            <div>
+              <p className="text-xs text-base-content/60">Tracking ID</p>
+              <p className="font-medium text-base-content">
+                {parcel.trackingId}
               </p>
             </div>
           </div>
