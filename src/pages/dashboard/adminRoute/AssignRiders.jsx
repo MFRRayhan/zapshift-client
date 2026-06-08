@@ -1,10 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  FaCheckCircle,
-  FaMotorcycle,
-  FaSearch,
-  FaUserPlus,
-} from "react-icons/fa";
+import { FaMotorcycle, FaSearch, FaUserPlus } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useRef, useState } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";

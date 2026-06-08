@@ -6,14 +6,12 @@ export default function NotFound() {
     <div className="min-h-screen bg-base-200 px-4 py-10 flex items-center justify-center">
       <div className="w-full max-w-3xl bg-base-100 rounded-3xl shadow-sm border border-base-300 p-8 md:p-12 text-center">
         {/* Icon */}
-        <div className="w-24 h-24 mx-auto rounded-3xl bg-warning/10 flex items-center justify-center text-warning mb-8">
+        <div className="w-24 h-24 mx-auto rounded-3xl bg-error/10 flex items-center justify-center text-error mb-8">
           <FaExclamationTriangle size={40} />
         </div>
 
         {/* Error Code */}
-        <h1 className="text-6xl md:text-7xl font-bold text-warning mb-4">
-          404
-        </h1>
+        <h1 className="text-6xl md:text-7xl font-bold text-error mb-4">404</h1>
 
         {/* Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-base-content mb-4">
