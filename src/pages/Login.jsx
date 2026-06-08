@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
@@ -115,7 +115,7 @@ export default function Login() {
           />
 
           {errors.email && (
-            <p className="text-red-500 mt-1">{errors.email.message}</p>
+            <p className="text-error mt-1">{errors.email.message}</p>
           )}
         </div>
 
@@ -132,7 +132,7 @@ export default function Login() {
           />
 
           {errors.password && (
-            <p className="text-red-500 mt-1">{errors.password.message}</p>
+            <p className="text-error mt-1">{errors.password.message}</p>
           )}
         </div>
 

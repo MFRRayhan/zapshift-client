@@ -37,6 +37,10 @@ h6 {
   @apply font-bold;
 }
 
+.section-title {
+  @apply font-bold text-secondary text-4xl;
+}
+
 /* input {
   @apply w-full focus:outline-none focus:border-primary;
 } */

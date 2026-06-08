@@ -41,6 +41,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
+    hydrateFallbackElement: <Loading />,
     children: [
       {
         index: true,
@@ -53,6 +54,7 @@ export const router = createBrowserRouter([
       {
         path: "coverage",
         Component: Coverage,
+        loader: () => fetch("/warehouses.json"),
       },
       {
         path: "about-us",

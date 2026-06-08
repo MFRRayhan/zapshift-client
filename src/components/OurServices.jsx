@@ -43,7 +43,7 @@ export default function OurServices() {
 
   return (
     <div className="bg-secondary py-16">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="container">
         {/* HEADER */}
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-white">Our Services</h2>

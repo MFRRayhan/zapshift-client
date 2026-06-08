@@ -1,3 +1,3 @@
 export default function LogoSlider() {
-  return <div>LogoSlider</div>;
+  return <div className="container">LogoSlider</div>;
 }

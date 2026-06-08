@@ -30,7 +30,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto py-12">
+    <div className="container py-12">
       {/* HEADER */}
       <div className="mb-10">
         <h2 className="text-4xl font-bold text-base-content">How It Works</h2>
