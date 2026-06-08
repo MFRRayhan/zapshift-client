@@ -7,10 +7,8 @@ export default function App() {
     <div className="">
       <Navbar></Navbar>
       <div className="py-10">
-        <div className="container">
-          <div className="space-y-10">
-            <Outlet></Outlet>
-          </div>
+        <div className="space-y-10">
+          <Outlet></Outlet>
         </div>
       </div>
       <Footer></Footer>

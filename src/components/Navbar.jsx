@@ -80,7 +80,7 @@ export default function Navbar() {
 
   return (
     <div className="shadow-sm">
-      <div className="container">
+      <div className="max-w-6xl mx-auto">
         <div className="navbar px-0">
           <div className="navbar-start">
             <div className="dropdown">
