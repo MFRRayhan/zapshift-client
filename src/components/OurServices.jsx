@@ -46,7 +46,7 @@ export default function OurServices() {
       <div className="container">
         {/* HEADER */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white">Our Services</h2>
+          <h2 className="text-4xl font-bold text-white!">Our Services</h2>
 
           <p className="text-white/80 mt-3 max-w-2xl mx-auto leading-relaxed">
             We provide end-to-end logistics solutions designed for individuals,
