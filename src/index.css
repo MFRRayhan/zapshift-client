@@ -53,7 +53,11 @@ h6 {
 
 .primary-menu li a.active,
 .dashboard-links li a.active {
-  @apply bg-primary text-white font-semibold rounded-xl;
+  @apply bg-primary text-white font-semibold rounded-full;
+}
+
+.primary-menu li a:hover {
+  @apply rounded-full;
 }
 
 .form-error {
