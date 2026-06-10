@@ -68,3 +68,13 @@ h6 {
 .form-error {
   @apply text-error mt-1;
 }
+
+.hero-slider .swiper-pagination-bullet,
+.review-slider .swiper-pagination-bullet {
+  @apply w-6 h-1.5 rounded;
+}
+
+.hero-slider .swiper-pagination-bullet.swiper-pagination-bullet-active,
+.review-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  @apply bg-secondary w-14;
+}

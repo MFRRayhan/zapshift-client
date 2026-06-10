@@ -35,7 +35,7 @@ const slides = [
 
 export default function HeroArea() {
   return (
-    <section className="w-full bg-base-100">
+    <section className="w-full bg-base-100 hero-slider">
       <Swiper
         modules={[Autoplay, Pagination]}
         speed={2000}
