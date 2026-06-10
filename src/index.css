@@ -71,10 +71,14 @@ h6 {
 
 .hero-slider .swiper-pagination-bullet,
 .review-slider .swiper-pagination-bullet {
-  @apply w-6 h-1.5 rounded;
+  @apply w-6 h-1.5 rounded bg-primary;
 }
 
 .hero-slider .swiper-pagination-bullet.swiper-pagination-bullet-active,
 .review-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  @apply bg-secondary w-14;
+  @apply w-14 bg-primary;
+}
+
+.swiper-wrapper {
+  @apply py-20;
 }
