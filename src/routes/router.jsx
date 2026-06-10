@@ -5,7 +5,6 @@ import AuthLayout from "../layouts/AuthLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AboutUs from "../pages/AboutUs";
 import BeARider from "../pages/BeARider";
-import Blog from "../pages/Blog";
 import Contact from "../pages/Contact";
 import Coverage from "../pages/Coverage";
 import DashboardHome from "../pages/dashboard/DashboardHome";
@@ -36,6 +35,7 @@ import UserRoute from "./UserRoute";
 import CompletedDeliveries from "../pages/dashboard/riderRoute/CompletedDeliveries";
 import ParcelTrack from "../pages/ParcelTrack";
 import ParcelTrackDetails from "../pages/ParcelTrackDetails";
+import BecomeAMerchant from "../pages/BecomeAMerchant";
 
 export const router = createBrowserRouter([
   {
@@ -86,8 +86,8 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "blog",
-        Component: Blog,
+        path: "become-a-merchant",
+        Component: BecomeAMerchant,
       },
       {
         path: "contact",

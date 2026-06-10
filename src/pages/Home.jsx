@@ -1,5 +1,7 @@
+import Features from "../components/Features";
 import HeroArea from "../components/HeroArea";
 import HowItWorks from "../components/HowItWorks";
+import JoinUs from "../components/JoinUs";
 import LogoSlider from "../components/LogoSlider";
 import OurServices from "../components/OurServices";
 
@@ -10,6 +12,8 @@ export default function Home() {
       <HowItWorks></HowItWorks>
       <OurServices></OurServices>
       <LogoSlider></LogoSlider>
+      <Features></Features>
+      <JoinUs></JoinUs>
     </>
   );
 }

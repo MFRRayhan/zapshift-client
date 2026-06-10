@@ -2,7 +2,7 @@ import trackingImg from "../assets/img/big-deliveryman.png";
 
 export default function AboutUs() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 space-y-16">
+    <div className="container py-12 space-y-16">
       {/* ================= HERO ================= */}
       <section className="grid md:grid-cols-2 gap-10 items-center">
         {/* LEFT */}
@@ -19,20 +19,25 @@ export default function AboutUs() {
           </p>
 
           <div className="flex gap-3">
-            <button className="btn btn-primary">Get Started</button>
-            <button className="btn btn-outline">Learn More</button>
+            <button className="btn btn-primary transition-all duration-300 hover:scale-[1.03] hover:shadow-lg active:scale-95">
+              Get Started
+            </button>
+
+            <button className="btn btn-outline transition-all duration-300 hover:scale-[1.03] hover:shadow-lg active:scale-95">
+              Learn More
+            </button>
           </div>
         </div>
 
         {/* RIGHT IMAGE */}
         <div className="flex justify-center">
-          <div className="relative">
-            <div className="absolute -inset-4 bg-primary/10 rounded-3xl blur-2xl"></div>
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-primary/10 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition-all duration-500" />
 
             <img
               src={trackingImg}
               alt="About ZapShift"
-              className="relative w-full max-w-md rounded-2xl shadow-xl"
+              className="relative w-full max-w-md rounded-2xl shadow-xl transition-all duration-500 group-hover:scale-[1.02]"
             />
           </div>
         </div>
@@ -47,9 +52,16 @@ export default function AboutUs() {
         ].map((item, i) => (
           <div
             key={i}
-            className="p-6 rounded-2xl border border-base-300 bg-base-100 text-center shadow-sm"
+            className="
+              p-6 rounded-2xl border border-base-300 bg-base-100 text-center
+              shadow-sm transition-all duration-300
+              hover:-translate-y-1 hover:shadow-xl hover:border-primary/30
+              cursor-default
+            "
           >
-            <h2 className="text-3xl font-bold text-primary">{item.value}</h2>
+            <h2 className="text-3xl font-bold text-primary transition-all duration-300">
+              {item.value}
+            </h2>
             <p className="text-base-content/60 mt-2">{item.label}</p>
           </div>
         ))}
@@ -73,40 +85,51 @@ export default function AboutUs() {
         ].map((f, i) => (
           <div
             key={i}
-            className="p-6 rounded-2xl border border-base-300 bg-base-100 hover:shadow-md transition"
+            className="
+              p-6 rounded-2xl border border-base-300 bg-base-100
+              transition-all duration-300
+              hover:-translate-y-1 hover:shadow-xl hover:border-primary/30
+              group cursor-default
+            "
           >
-            <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
+            <h3 className="text-xl font-semibold mb-2 transition-colors duration-300 group-hover:text-primary">
+              {f.title}
+            </h3>
+
             <p className="text-base-content/60 leading-relaxed">{f.desc}</p>
           </div>
         ))}
       </section>
 
       {/* ================= TABS ================= */}
-      <section className="bg-base-100 border border-base-300 rounded-2xl p-6">
+      <section className="bg-base-100 border border-base-300 rounded-2xl p-6 shadow-sm">
         <div className="tabs tabs-lift">
           {/* STORY */}
           <input
             type="radio"
             name="about_tabs"
-            className="tab text-lg font-medium checked:font-bold"
+            className="tab text-lg font-medium transition-all"
             aria-label="Story"
           />
-          <div className="tab-content p-6 space-y-4">
+          <div className="tab-content p-6 space-y-4 animate-fade-in">
             <p className="text-base-content/70 leading-relaxed">
-              ZapShift started with a vision to solve the common problems in
-              traditional delivery systems such as delays, lack of tracking, and
-              poor communication between customers and riders.
+              ZapShift began with a simple but important goal: to modernize the
+              traditional parcel delivery system and solve long-standing issues
+              such as delays, lack of transparency, and unreliable communication
+              between senders and delivery agents.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              We built a smart logistics platform that connects customers,
-              riders, and businesses in a seamless delivery ecosystem powered by
-              technology.
+              We noticed that both businesses and individuals often struggled to
+              track their parcels in real time or trust delivery timelines. This
+              inspired us to build a digital-first logistics platform that
+              connects customers, riders, and merchants in a seamless ecosystem.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              Today we serve thousands of users with a focus on trust, speed,
-              and transparency in every delivery.
+              Today, ZapShift continues to grow as a technology-driven courier
+              service focused on reliability, speed, and transparency in every
+              delivery.
             </p>
           </div>
 
@@ -114,24 +137,27 @@ export default function AboutUs() {
           <input
             type="radio"
             name="about_tabs"
-            className="tab text-lg font-medium checked:font-bold"
+            className="tab text-lg font-medium"
             aria-label="Mission"
             defaultChecked
           />
-          <div className="tab-content p-6 space-y-4">
+          <div className="tab-content p-6 space-y-4 animate-fade-in">
             <p className="text-base-content/70 leading-relaxed">
-              Our mission is to make parcel delivery simple, fast, and reliable
-              for everyone.
+              Our mission is to redefine parcel delivery by making it faster,
+              smarter, and more reliable for everyone—from individual users to
+              large-scale businesses.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              We focus on real-time tracking, secure handling, and efficient
-              logistics management.
+              We aim to eliminate uncertainty in logistics by providing
+              real-time tracking, secure handling, and optimized delivery routes
+              powered by modern technology and data-driven systems.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              Our goal is to become the most trusted delivery platform in the
-              country.
+              Ultimately, our goal is to build a trusted delivery infrastructure
+              that ensures every parcel reaches its destination safely,
+              efficiently, and on time.
             </p>
           </div>
 
@@ -139,23 +165,25 @@ export default function AboutUs() {
           <input
             type="radio"
             name="about_tabs"
-            className="tab text-lg font-medium checked:font-bold"
+            className="tab text-lg font-medium"
             aria-label="Success"
           />
-          <div className="tab-content p-6 space-y-4">
+          <div className="tab-content p-6 space-y-4 animate-fade-in">
             <p className="text-base-content/70 leading-relaxed">
-              We have successfully delivered thousands of parcels with high
-              satisfaction and reliability.
+              Over time, ZapShift has successfully delivered thousands of
+              parcels with a strong focus on customer satisfaction, reliability,
+              and operational efficiency.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              Our growing network of riders and hubs ensures fast and efficient
-              service across regions.
+              Our expanding network of riders, hubs, and delivery partners
+              allows us to maintain fast turnaround times and consistent service
+              quality across different regions.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              Continuous improvement and customer feedback drive our success
-              every day.
+              Continuous improvement, feedback-driven development, and process
+              optimization have played a key role in our ongoing success.
             </p>
           </div>
 
@@ -163,22 +191,25 @@ export default function AboutUs() {
           <input
             type="radio"
             name="about_tabs"
-            className="tab text-lg font-medium checked:font-bold"
+            className="tab text-lg font-medium"
             aria-label="Team"
           />
-          <div className="tab-content p-6 space-y-4">
+          <div className="tab-content p-6 space-y-4 animate-fade-in">
             <p className="text-base-content/70 leading-relaxed">
-              Our team includes developers, logistics experts, support agents,
-              warehouse staff, and professional riders.
+              Our team is a diverse group of professionals including software
+              engineers, logistics coordinators, customer support specialists,
+              and experienced delivery riders working together to ensure smooth
+              operations.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              We believe in teamwork, accountability, and continuous innovation.
+              We believe that strong teamwork, accountability, and continuous
+              learning are the foundation of a successful logistics platform.
             </p>
 
             <p className="text-base-content/70 leading-relaxed">
-              Every parcel reflects our commitment to quality and
-              responsibility.
+              Every member of our team plays a critical role in ensuring that
+              each parcel is handled with care and delivered with precision.
             </p>
           </div>
         </div>

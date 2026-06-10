@@ -70,14 +70,11 @@ export default function HeroArea() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Link
-                        to="/parcel-track"
-                        className="btn btn-primary btn-lg"
-                      >
+                      <Link to="/parcel-track" className="btn btn-primary">
                         Track Your Parcel
                       </Link>
 
-                      <Link to="/be-a-rider" className="btn btn-outline btn-lg">
+                      <Link to="/be-a-rider" className="btn btn-outline">
                         Become A Rider
                       </Link>
                     </div>
