@@ -1,3 +1,4 @@
+import FaqAccordion from "../components/FaqAccordion";
 import Features from "../components/Features";
 import HeroArea from "../components/HeroArea";
 import HowItWorks from "../components/HowItWorks";
@@ -18,6 +19,7 @@ export default function Home() {
       <Features></Features>
       <JoinUs></JoinUs>
       <ReviewSlider reviewPromise={reviewPromise}></ReviewSlider>
+      <FaqAccordion></FaqAccordion>
     </>
   );
 }
