@@ -5,9 +5,11 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import banner1 from "../assets/img/big-deliveryman.png";
-import banner2 from "../assets/img/authImage.png";
-import banner3 from "../assets/img/agent-pending.png";
+import banner1 from "../assets/img/delivery-man.png";
+import banner2 from "../assets/img/delivery-man-2.png";
+import banner3 from "../assets/img/big-deliveryman.png";
+import banner4 from "../assets/img/authImage.png";
+import banner5 from "../assets/img/agent-pending.png";
 
 const slides = [
   {
@@ -30,6 +32,20 @@ const slides = [
     title: "Become A Rider & Earn On Your Schedule",
     description:
       "Join our growing rider network and enjoy flexible work opportunities with competitive earnings.",
+  },
+  {
+    id: 4,
+    image: banner4,
+    title: "Safe & Secure Delivery For Every Parcel",
+    description:
+      "Our trained delivery partners and secure handling process ensure your packages arrive safely and in perfect condition.",
+  },
+  {
+    id: 5,
+    image: banner5,
+    title: "Business Solutions For Merchants & E-Commerce",
+    description:
+      "Scale your business with bulk parcel delivery, cash-on-delivery services, and dedicated logistics support tailored for merchants.",
   },
 ];
 
