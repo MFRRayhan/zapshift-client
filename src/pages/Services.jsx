@@ -6,13 +6,13 @@ import {
   FaBox,
   FaBuilding,
 } from "react-icons/fa";
-import { FaShieldHalved, FaLocationDot, FaHeadset } from "react-icons/fa6";
+import { FaShieldHalved } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 export default function Services() {
   return (
     <div className="container mx-auto px-4 py-16 space-y-24">
-      {/* ================= HERO ================= */}
+      {/*  HERO  */}
       <section className="text-center max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl md:text-5xl font-bold text-base-content">
           Our Delivery Services
@@ -45,7 +45,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ================= SERVICES ================= */}
+      {/*  SERVICES  */}
       <section className="space-y-10">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold mb-3">Service Categories</h2>
@@ -102,7 +102,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ================= FEATURES ================= */}
+      {/*  FEATURES  */}
       <section className="space-y-10">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-3">Why Choose Us</h2>
@@ -131,7 +131,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ================= HOW IT WORKS ================= */}
+      {/*  HOW IT WORKS  */}
       <section className="space-y-10">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-3">How It Works</h2>
@@ -160,7 +160,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ================= BENEFITS ================= */}
+      {/*  BENEFITS  */}
       <section className="grid md:grid-cols-2 gap-10">
         <div className="p-8 rounded-3xl bg-base-100 border border-base-300">
           <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
@@ -187,7 +187,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ================= CTA ================= */}
+      {/*  CTA  */}
       <section className="text-center bg-primary text-primary-content p-12 rounded-3xl space-y-6">
         <h2 className="text-3xl font-bold">Ready to Ship Your Parcel?</h2>
         <p className="opacity-90 max-w-2xl mx-auto">
