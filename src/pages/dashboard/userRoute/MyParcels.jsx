@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaArrowDown, FaSearch } from "react-icons/fa";
+import StatusBadge from "../../../components/StatusBadge";
 
 export default function MyParcels() {
   const { user } = useAuth();
@@ -126,76 +127,6 @@ export default function MyParcels() {
           });
       }
     });
-  };
-
-  // GET BADGE
-  const getBadge = (status) => {
-    switch (status) {
-      case "parcel_created":
-        return "font-semibold badge-warning";
-
-      case "not_collected":
-        return "font-semibold badge-warning";
-
-      case "pending_pickup":
-        return "font-semibold badge-warning";
-
-      case "driver_assigned":
-        return "font-semibold badge-warning";
-
-      case "rider_accepted":
-        return "font-semibold badge-primary";
-
-      case "picked_up":
-        return "font-semibold badge-info";
-
-      case "in_transit":
-        return "font-semibold badge-secondary";
-
-      case "delivered":
-        return "font-semibold badge-primary";
-
-      case "driver_rejected":
-        return "font-semibold badge-warning";
-
-      default:
-        return "font-semibold badge-neutral";
-    }
-  };
-
-  // GET LABEL
-  const getLabel = (status) => {
-    switch (status) {
-      case "parcel_created":
-        return "Parcel Created";
-
-      case "not_collected":
-        return "Not Collected";
-
-      case "pending_pickup":
-        return "Pending Pickup";
-
-      case "driver_assigned":
-        return "Awaiting Driver Response";
-
-      case "rider_accepted":
-        return "Accepted";
-
-      case "picked_up":
-        return "Picked Up";
-
-      case "in_transit":
-        return "In Transit";
-
-      case "delivered":
-        return "Delivered";
-
-      case "driver_rejected":
-        return "Pending Pickup";
-
-      default:
-        return status;
-    }
   };
 
   const lockedStatuses = [
@@ -365,11 +296,7 @@ export default function MyParcels() {
 
                     {/* DELIVERY STATUS */}
                     <td>
-                      <span
-                        className={`badge ${getBadge(parcel.deliveryStatus)}`}
-                      >
-                        {getLabel(parcel.deliveryStatus)}
-                      </span>
+                      <StatusBadge status={parcel.deliveryStatus} />
                     </td>
 
                     {/* ACTIONS */}

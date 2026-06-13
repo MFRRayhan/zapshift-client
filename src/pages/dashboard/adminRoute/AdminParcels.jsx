@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaSearch } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import StatusBadge from "../../../components/StatusBadge";
 
 export default function AdminParcels() {
   const axiosSecure = useAxiosSecure();
@@ -272,7 +273,7 @@ export default function AdminParcels() {
                           Unpaid
                         </span>
                       ) : (
-                        <span className="badge badge-success badge-outline font-semibold">
+                        <span className="badge badge-primary badge-outline font-semibold">
                           Paid
                         </span>
                       )}
@@ -280,17 +281,7 @@ export default function AdminParcels() {
 
                     {/* DELIVERY STATUS */}
                     <td>
-                      <span
-                        className={`badge capitalize ${
-                          parcel.deliveryStatus === "delivered"
-                            ? "badge-success"
-                            : parcel.deliveryStatus === "pending_pickup"
-                              ? "badge-warning"
-                              : "badge-error"
-                        }`}
-                      >
-                        {parcel.deliveryStatus}
-                      </span>
+                      <StatusBadge status={parcel.deliveryStatus} />
                     </td>
 
                     {/* ACTIONS */}
@@ -402,7 +393,7 @@ export default function AdminParcels() {
                   <span
                     className={`badge badge-lg capitalize ${
                       selectedParcel.paymentStatus === "paid"
-                        ? "badge-success"
+                        ? "badge-primary"
                         : "badge-warning"
                     }`}
                   >

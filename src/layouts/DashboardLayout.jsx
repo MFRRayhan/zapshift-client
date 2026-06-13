@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import {
   FaBox,
   FaCreditCard,
-  FaGear,
   FaMotorcycle,
   FaUserCheck,
   FaUsers,
@@ -54,6 +53,23 @@ export default function DashboardLayout() {
             </p>
 
             {/* HOME */}
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
+                ${
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-base-content/70 hover:bg-base-200"
+                }`
+              }
+            >
+              <IoHomeOutline />
+              Home
+            </NavLink>
+
+            {/* PROFILE */}
             <NavLink
               to="/dashboard"
               end

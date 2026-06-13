@@ -175,7 +175,7 @@ export default function RiderApplications() {
             <thead className="bg-base-200 text-sm text-base-content/70">
               <tr>
                 <th>Index</th>
-                <th>Name</th>
+                <th>Details</th>
                 <th>Email</th>
                 <th>Application Status</th>
                 <th>Work Status</th>

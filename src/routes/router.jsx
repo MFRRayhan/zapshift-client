@@ -7,7 +7,7 @@ import AboutUs from "../pages/AboutUs";
 import BeARider from "../pages/BeARider";
 import Contact from "../pages/Contact";
 import Coverage from "../pages/Coverage";
-import DashboardHome from "../pages/dashboard/DashboardHome";
+import Profile from "../pages/dashboard/Profile";
 import Payment from "../pages/dashboard/payment/Payment";
 import PaymentCancel from "../pages/dashboard/payment/PaymentCancel";
 import PaymentHistory from "../pages/dashboard/adminRoute/PaymentHistory";
@@ -135,7 +135,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <DashboardHome />
+            <Profile />
           </PrivateRoute>
         ),
       },
