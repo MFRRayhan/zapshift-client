@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaCalculator, FaMoneyBillWave } from "react-icons/fa";
+import { FaCalculator } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useLoaderData } from "react-router-dom";
 
@@ -35,7 +35,7 @@ export default function PricingCalculator() {
     const isSameDistrict = senderDistrict === receiverDistrict;
     const parcelWeight = parseFloat(weight || 0);
 
-    let cost = 0;
+    let cost;
 
     // DOCUMENT RULE
     if (isDocument) {

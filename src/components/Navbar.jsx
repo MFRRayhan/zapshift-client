@@ -150,7 +150,7 @@ export default function Navbar() {
                       userInfo?.photoURL ||
                       "https://i.ibb.co/31m686y/user-avatar.png"
                     }
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-13 h-13 border-2 p-1 rounded-full object-cover border-base-300"
                   />
                 </div>
                 <button onClick={handleLogout} className="btn btn-sm btn-error">

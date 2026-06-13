@@ -14,7 +14,12 @@ import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useRole from "../hooks/useRole";
-import { FaBoxOpen, FaCheckCircle, FaTruck } from "react-icons/fa";
+import {
+  FaBoxOpen,
+  FaCheckCircle,
+  FaTruck,
+  FaUserCircle,
+} from "react-icons/fa";
 
 export default function DashboardLayout() {
   const axiosSecure = useAxiosSecure();
@@ -61,8 +66,8 @@ export default function DashboardLayout() {
                 }`
               }
             >
-              <IoHomeOutline />
-              Overview
+              <FaUserCircle />
+              My Profile
             </NavLink>
 
             {/* USER ROUTES */}
@@ -241,14 +246,14 @@ export default function DashboardLayout() {
 
         {/* ================= BOTTOM FIXED ================= */}
         <div className="p-4 border-t border-base-300 bg-base-100 shrink-0">
-          <p className="text-xs font-bold uppercase text-base-content/40 px-3 mb-2">
+          {/* <p className="text-xs font-bold uppercase text-base-content/40 px-3 mb-2">
             Support
           </p>
 
           <button className="btn btn-ghost w-full justify-start">
             <FaGear />
             Settings
-          </button>
+          </button> */}
 
           <button
             onClick={logout}
@@ -269,20 +274,23 @@ export default function DashboardLayout() {
           </h1>
 
           {/* USER */}
-          <div className="flex items-center gap-3 border border-primary/30 p-2 rounded-2xl">
-            <div className="hidden sm:block">
-              <p className="text-sm font-semibold">{userInfo?.displayName}</p>
-              <p className="text-xs capitalize text-primary font-semibold">
-                {userInfo?.role || "user"}
-              </p>
-            </div>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 border border-primary/30 p-2 rounded-2xl">
+              <div className="hidden sm:block text-right">
+                <p className="text-sm font-semibold">{userInfo?.displayName}</p>
+                <p className="text-xs capitalize text-primary font-semibold">
+                  {userInfo?.role || "user"}
+                </p>
+              </div>
 
-            <img
-              src={
-                userInfo?.photoURL || "https://i.ibb.co/31m686y/user-avatar.png"
-              }
-              className="w-10 h-10 rounded-full object-cover"
-            />
+              <img
+                src={
+                  userInfo?.photoURL ||
+                  "https://i.ibb.co/31m686y/user-avatar.png"
+                }
+                className="w-13 h-13 border-2 p-1 rounded-full object-cover border-base-300"
+              />
+            </div>
           </div>
         </header>
 

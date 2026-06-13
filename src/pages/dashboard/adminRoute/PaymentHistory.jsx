@@ -165,37 +165,39 @@ export default function PaymentHistory() {
           </div>
         </section>
       )}
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        {currentPage > 1 && (
-          <button
-            onClick={() => setCurrentPage((prev) => prev - 1)}
-            className="btn btn-sm"
-          >
-            Prev
-          </button>
-        )}
-        {[
-          ...Array(totalPages)
-            .keys()
-            .map((page) => (
-              <button
-                onClick={() => setCurrentPage(page + 1)}
-                key={page}
-                className={`btn btn-sm ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
-              >
-                {page + 1}
-              </button>
-            )),
-        ]}
-        {currentPage < totalPages && (
-          <button
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-            className="btn btn-sm"
-          >
-            Next
-          </button>
-        )}
-      </div>
+      {totalPages > 1 && (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {currentPage > 1 && (
+            <button
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+              className="btn btn-sm"
+            >
+              Prev
+            </button>
+          )}
+          {[
+            ...Array(totalPages)
+              .keys()
+              .map((page) => (
+                <button
+                  onClick={() => setCurrentPage(page + 1)}
+                  key={page}
+                  className={`btn btn-sm ${currentPage === page + 1 ? "btn-primary" : "btn-outline"}`}
+                >
+                  {page + 1}
+                </button>
+              )),
+          ]}
+          {currentPage < totalPages && (
+            <button
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              className="btn btn-sm"
+            >
+              Next
+            </button>
+          )}
+        </div>
+      )}
     </section>
   );
 }
