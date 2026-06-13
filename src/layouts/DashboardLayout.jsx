@@ -270,18 +270,19 @@ export default function DashboardLayout() {
 
           {/* USER */}
           <div className="flex items-center gap-3 border border-primary/30 p-2 rounded-2xl">
-            <img
-              src={
-                userInfo?.photoURL || "https://i.ibb.co/31m686y/user-avatar.png"
-              }
-              className="w-10 h-10 rounded-full object-cover"
-            />
             <div className="hidden sm:block">
               <p className="text-sm font-semibold">{userInfo?.displayName}</p>
               <p className="text-xs capitalize text-primary font-semibold">
                 {userInfo?.role || "user"}
               </p>
             </div>
+
+            <img
+              src={
+                userInfo?.photoURL || "https://i.ibb.co/31m686y/user-avatar.png"
+              }
+              className="w-10 h-10 rounded-full object-cover"
+            />
           </div>
         </header>
 
@@ -296,7 +297,7 @@ export default function DashboardLayout() {
 
               <div className="relative space-y-2">
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white!">
-                  Welcome back 👋
+                  Welcome back
                 </h2>
 
                 <p className="text-sm md:text-base text-white/80 max-w-xl">

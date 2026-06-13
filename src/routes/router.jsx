@@ -63,6 +63,8 @@ export const router = createBrowserRouter([
       {
         path: "pricing",
         Component: Pricing,
+        loader: () => fetch("/warehouses.json").then((res) => res.json()),
+        hydrateFallbackElement: <Loading />,
       },
       {
         path: "send-parcel",

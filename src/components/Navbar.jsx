@@ -3,10 +3,23 @@ import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import Loading from "./Loading";
 import Logo from "./Logo";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 export default function Navbar() {
   const { user, loading, logout } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
+  const { data: userInfo = null, isLoading } = useQuery({
+    queryKey: ["userInfo", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users?email=${user?.email}`);
+      return res.data;
+    },
+  });
+
   const links = (
     <>
       <li>
@@ -122,12 +135,24 @@ export default function Navbar() {
           <div className="navbar-end gap-2">
             {user ? (
               <div className="flex items-center gap-2">
-                <img
-                  src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"}
-                  alt={user?.displayName}
-                  referrerPolicy="no-referrer"
-                  className="w-10 h-10 rounded-full border-2 border-primary"
-                />
+                <div className="flex items-center gap-3 border border-primary/30 p-2 rounded-2xl">
+                  <div className="hidden sm:block text-right">
+                    <p className="text-sm font-semibold">
+                      {userInfo?.displayName}
+                    </p>
+                    <p className="text-xs capitalize text-primary font-semibold">
+                      {userInfo?.role || "user"}
+                    </p>
+                  </div>
+
+                  <img
+                    src={
+                      userInfo?.photoURL ||
+                      "https://i.ibb.co/31m686y/user-avatar.png"
+                    }
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                </div>
                 <button onClick={handleLogout} className="btn btn-sm btn-error">
                   Logout
                 </button>
