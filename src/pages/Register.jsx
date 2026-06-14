@@ -7,7 +7,8 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import axios from "axios";
 
 export default function Register() {
-  const { createUser, googleLogin, updateUser } = useAuth();
+  const { createUser, googleLogin, updateUser, sendVerificationEmail } =
+    useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -19,69 +20,80 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  const handleRegistration = (data) => {
-    const displayName = data.name;
-    const userEmail = data.email;
-    const password = data.password;
-    const profileImg = data.photo[0];
+  const handleRegistration = async (data) => {
+    try {
+      const displayName = data.name;
+      const userEmail = data.email;
+      const password = data.password;
+      const profileImg = data.photo[0];
 
-    createUser(userEmail, password)
-      .then((result) => {
-        const user = result.user;
-        const formData = new FormData();
-        formData.append("image", profileImg);
-        const imgApiURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`;
+      // Create Firebase User
+      const result = await createUser(userEmail, password);
+      const user = result.user;
 
-        axios
-          .post(imgApiURL, formData)
-          .then((result) => {
-            const photoURL = result.data.data.url;
-            const profile = {
-              displayName,
-              photoURL,
-            };
+      // Upload image to ImgBB
+      const formData = new FormData();
+      formData.append("image", profileImg);
 
-            updateUser(user, profile)
-              .then(() => {
-                const userInfo = {
-                  displayName,
-                  photoURL,
-                  userEmail,
-                  role: "user",
-                  createdAt: new Date().toISOString(),
-                };
+      const imgApiURL = `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_IMGBB_API
+      }`;
 
-                axiosSecure.post("/users", userInfo).then((res) => {
-                  if (res.data.insertedId) {
-                    Swal.fire({
-                      icon: "success",
-                      title: "Registration Completed",
-                      text: "Your account has been created successfully.",
-                      confirmButtonText: "Continue",
-                      confirmButtonColor: "#2563eb",
-                      timer: 2500,
-                      timerProgressBar: true,
-                      allowOutsideClick: false,
-                      allowEscapeKey: false,
-                      position: "center",
-                    });
-                  }
+      const imgRes = await axios.post(imgApiURL, formData);
+      const photoURL = imgRes.data.data.url;
 
-                  reset();
-                  navigate(location?.state || "/");
-                });
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
+      // Update Firebase Profile
+      await updateUser(user, {
+        displayName,
+        photoURL,
       });
+
+      // Send Verification Email
+      await sendVerificationEmail(user);
+
+      // Save User to Database
+      const userInfo = {
+        displayName,
+        photoURL,
+        userEmail,
+        role: "user",
+        createdAt: new Date().toISOString(),
+      };
+
+      const dbRes = await axiosSecure.post("/users", userInfo);
+
+      if (dbRes.data.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful",
+          html: `
+          <p>Your account has been created successfully.</p>
+          <p style="margin-top:10px;">
+            A verification email has been sent to
+            <strong>${userEmail}</strong>.
+          </p>
+          <p style="margin-top:10px;">
+            Please verify your email.
+          </p>
+        `,
+          confirmButtonText: "Close",
+          confirmButtonColor: "#009966",
+        });
+
+        reset();
+
+        navigate(location?.state || "/");
+      }
+    } catch (error) {
+      console.error(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Registration Failed",
+        text: error?.message || "Something went wrong. Please try again.",
+        confirmButtonColor: "#dc2626",
+      });
+    }
   };
 
   const handleGoogleLogin = () => {

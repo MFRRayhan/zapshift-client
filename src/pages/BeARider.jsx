@@ -24,7 +24,6 @@ export default function BeARider() {
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  console.log(user);
 
   const warehouses = useLoaderData();
 

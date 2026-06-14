@@ -4,13 +4,11 @@ import Loading from "./Loading";
 import Logo from "./Logo";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-import useRole from "../hooks/useRole";
 import UserDropdown from "../utils/UserDropdown";
 
 export default function Navbar() {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const role = useRole();
 
   const { data: userInfo = null } = useQuery({
     queryKey: ["userInfo", user?.email],

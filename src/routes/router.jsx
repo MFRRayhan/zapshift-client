@@ -36,6 +36,7 @@ import CompletedDeliveries from "../pages/dashboard/riderRoute/CompletedDeliveri
 import ParcelTrack from "../pages/ParcelTrack";
 import ParcelTrackDetails from "../pages/ParcelTrackDetails";
 import BecomeAMerchant from "../pages/BecomeAMerchant";
+import EditProfile from "../pages/dashboard/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -136,6 +137,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "edit-profile",
+        element: (
+          <PrivateRoute>
+            <EditProfile />
           </PrivateRoute>
         ),
       },

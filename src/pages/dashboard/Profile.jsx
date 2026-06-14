@@ -8,10 +8,10 @@ import {
   FaUserShield,
   FaCalendarAlt,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const { user } = useAuth();
-  console.log(user);
 
   const { data: userInfo = null, isLoading } = useQuery({
     queryKey: ["userInfo", user?.email],
@@ -53,7 +53,7 @@ export default function Profile() {
         {/* LEFT SIDEBAR */}
         <div className="bg-base-100 border border-base-300 rounded-3xl p-8 shadow-sm h-100% lg:sticky lg:top-24">
           <div className="flex flex-col items-center text-center">
-            <div className="w-80 h-80 rounded-full overflow-hidden ring-2 ring-primary/20 ring-offset-4 ring-offset-base-100 mb-5">
+            <div className="w-72 h-72 rounded-full overflow-hidden ring-2 ring-primary/20 ring-offset-4 ring-offset-base-100 mb-5">
               <img
                 src={userInfo.photoURL}
                 alt={userInfo.displayName}
@@ -70,10 +70,13 @@ export default function Profile() {
               {userInfo.role}
             </div>
 
-            <button className="btn btn-outline btn-primary mt-6">
+            <Link
+              to={"/dashboard/edit-profile"}
+              className="btn btn-outline btn-primary mt-6"
+            >
               <FaEdit />
               Edit Profile
-            </button>
+            </Link>
           </div>
         </div>
 
