@@ -219,7 +219,7 @@ export default function Register() {
           <Link
             to="/login"
             state={location?.state}
-            className="text-secondary font-semibold"
+            className="text-primary font-semibold"
           >
             Login
           </Link>

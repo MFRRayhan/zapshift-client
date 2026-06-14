@@ -137,7 +137,10 @@ export default function Login() {
         </div>
 
         <div className="text-right">
-          <Link to={"/forgot-password"} className="link link-hover text-sm">
+          <Link
+            to={"/forgot-password"}
+            className="link link-hover text-sm text-primary font-semibold"
+          >
             Forgot password?
           </Link>
         </div>
@@ -160,7 +163,7 @@ export default function Login() {
           <Link
             to="/register"
             state={location?.state}
-            className="text-secondary font-semibold"
+            className="text-primary font-semibold"
           >
             Register
           </Link>
