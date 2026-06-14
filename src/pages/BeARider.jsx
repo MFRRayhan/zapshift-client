@@ -24,6 +24,7 @@ export default function BeARider() {
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  console.log(user);
 
   const warehouses = useLoaderData();
 
@@ -46,6 +47,7 @@ export default function BeARider() {
       status: "pending",
       workStatus: "pending",
       createdAt: new Date().toISOString(),
+      riderImg: user.photoURL,
     };
 
     axiosSecure

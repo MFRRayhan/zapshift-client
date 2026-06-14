@@ -163,19 +163,18 @@ export default function UsersManagement() {
                   <td className="text-base-content/70">{i + 1}</td>
                   <td>
                     <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="w-12 h-12 rounded-full">
-                          <img
-                            src={user.photoURL}
-                            alt={user.displayName}
-                            referrerPolicy="no-referrer"
-                          />
-                        </div>
-                      </div>
+                      <img
+                        src={
+                          user.photoURL ||
+                          "https://static.vecteezy.com/system/resources/thumbnails/022/014/184/small/user-icon-member-login-isolated-vector.jpg"
+                        }
+                        alt={user.userName}
+                        className="w-12 h-12 rounded-full p-1 ring ring-primary/20"
+                      />
                       <div>
-                        <p className="font-semibold">{user.displayName}</p>
-                        <p className="text-gray-500 text-xs">
-                          {user?.userEmail}
+                        <h3>{user.displayName}</h3>
+                        <p className="text-sm text-base-content/70">
+                          {user.userEmail}
                         </p>
                       </div>
                     </div>

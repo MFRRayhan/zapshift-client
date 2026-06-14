@@ -5,11 +5,15 @@ import Loading from "./Loading";
 import Logo from "./Logo";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useRole from "../hooks/useRole";
+import { FaChevronDown, FaSignOutAlt, FaUser } from "react-icons/fa";
+import UserDropdown from "../utils/UserDropdown";
 
 export default function Navbar() {
   const { user, loading, logout } = useAuth();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const role = useRole();
 
   const { data: userInfo = null, isLoading } = useQuery({
     queryKey: ["userInfo", user?.email],
@@ -25,30 +29,45 @@ export default function Navbar() {
       <li>
         <NavLink to={"/"}>Home</NavLink>
       </li>
+
       <li>
         <NavLink to={"/services"}>Services</NavLink>
       </li>
+
       <li>
         <NavLink to={"/coverage"}>Coverage</NavLink>
       </li>
+
       <li>
         <NavLink to={"/about-us"}>About Us</NavLink>
       </li>
+
       <li>
         <NavLink to={"/pricing"}>Pricing</NavLink>
       </li>
-      <li>
-        <NavLink to={"/send-parcel"}>Send Parcel</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/be-a-rider"}>Be a Rider</NavLink>
-      </li>
+
       <li>
         <NavLink to={"/parcel-track"}>Track Parcel</NavLink>
       </li>
-      <li>
-        <NavLink to={"/dashboard"}>Dashboard</NavLink>
-      </li>
+
+      {userInfo?.role === "user" && (
+        <>
+          <li>
+            <NavLink to={"/send-parcel"}>Send Parcel</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/be-a-rider"}>Be a Rider</NavLink>
+          </li>
+        </>
+      )}
+
+      {user && (
+        <>
+          <li>
+            <NavLink to={"/dashboard"}>Dashboard</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -134,29 +153,7 @@ export default function Navbar() {
           </div>
           <div className="navbar-end gap-2">
             {user ? (
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-3 border border-primary/30 p-2 rounded-2xl">
-                  <div className="hidden sm:block text-right">
-                    <p className="text-sm font-semibold">
-                      {userInfo?.displayName}
-                    </p>
-                    <p className="text-xs capitalize text-primary font-semibold">
-                      {userInfo?.role || "user"}
-                    </p>
-                  </div>
-
-                  <img
-                    src={
-                      userInfo?.photoURL ||
-                      "https://i.ibb.co/31m686y/user-avatar.png"
-                    }
-                    className="w-13 h-13 border-2 p-1 rounded-full object-cover border-base-300"
-                  />
-                </div>
-                <button onClick={handleLogout} className="btn btn-sm btn-error">
-                  Logout
-                </button>
-              </div>
+              <UserDropdown userInfo={userInfo} />
             ) : (
               <>
                 <Link to={"/login"}>

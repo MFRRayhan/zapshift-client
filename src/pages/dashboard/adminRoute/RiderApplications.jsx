@@ -95,7 +95,7 @@ export default function RiderApplications() {
         return "font-semibold badge-primary";
 
       default:
-        return "font-semibold badge-neutral";
+        return "font-semibold badge-neutral capitalize";
     }
   };
 
@@ -176,7 +176,6 @@ export default function RiderApplications() {
               <tr>
                 <th>Index</th>
                 <th>Details</th>
-                <th>Email</th>
                 <th>Application Status</th>
                 <th>Work Status</th>
                 <th>Actions</th>
@@ -188,10 +187,23 @@ export default function RiderApplications() {
                 <tr key={rider._id} className="hover:bg-base-200/40">
                   <td className="text-base-content/70">{i + 1}</td>
 
-                  <td className="font-medium">{rider.riderName}</td>
-
-                  <td className="text-sm text-base-content/70">
-                    {rider.riderEmail}
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={
+                          rider.riderImg ||
+                          "https://static.vecteezy.com/system/resources/thumbnails/022/014/184/small/user-icon-member-login-isolated-vector.jpg"
+                        }
+                        alt={rider.riderName}
+                        className="w-12 h-12 rounded-full p-1 ring ring-primary/20"
+                      />
+                      <div>
+                        <h3>{rider.riderName}</h3>
+                        <p className="text-sm text-base-content/70">
+                          {rider.riderEmail}
+                        </p>
+                      </div>
+                    </div>
                   </td>
 
                   <td>

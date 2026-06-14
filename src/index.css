@@ -43,7 +43,8 @@ h6 {
 
 .input,
 .textarea,
-.select {
+.select,
+.file-input {
   @apply w-full focus:outline-none focus:border-primary focus:ring-2;
 }
 
