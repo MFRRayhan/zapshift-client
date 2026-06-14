@@ -1,21 +1,18 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Loading from "./Loading";
 import Logo from "./Logo";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useRole from "../hooks/useRole";
-import { FaChevronDown, FaSignOutAlt, FaUser } from "react-icons/fa";
 import UserDropdown from "../utils/UserDropdown";
 
 export default function Navbar() {
-  const { user, loading, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const role = useRole();
 
-  const { data: userInfo = null, isLoading } = useQuery({
+  const { data: userInfo = null } = useQuery({
     queryKey: ["userInfo", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -70,43 +67,6 @@ export default function Navbar() {
       )}
     </>
   );
-
-  const handleLogout = () => {
-    Swal.fire({
-      title: "Log out?",
-      text: "You will need to sign in again to access your account.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d92243",
-      cancelButtonColor: "#6b7280",
-      confirmButtonText: "Yes, Log out",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        logout()
-          .then(() => {
-            Swal.fire({
-              title: "Logged out",
-              text: "You have been successfully logged out.",
-              icon: "success",
-              confirmButtonColor: "#16a34a",
-              timer: 2000,
-              showConfirmButton: false,
-            });
-            navigate("/login");
-          })
-          .catch((err) => {
-            Swal.fire({
-              title: "Error",
-              text: "Something went wrong. Please try again.",
-              icon: "error",
-              confirmButtonColor: "#dc2626",
-            });
-            console.log(err);
-          });
-      }
-    });
-  };
 
   if (loading) return <Loading />;
 

@@ -7,7 +7,7 @@ import {
   FaUsers,
 } from "react-icons/fa6";
 import { IoHomeOutline, IoLogOutOutline } from "react-icons/io5";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import Loading from "../components/Loading";
 import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
@@ -16,20 +16,15 @@ import useRole from "../hooks/useRole";
 import {
   FaBoxOpen,
   FaCheckCircle,
-  FaChevronDown,
-  FaSignOutAlt,
   FaTruck,
-  FaUser,
   FaUserCircle,
 } from "react-icons/fa";
-import Swal from "sweetalert2";
 import UserDropdown from "../utils/UserDropdown";
 
 export default function DashboardLayout() {
   const axiosSecure = useAxiosSecure();
   const { user, logout } = useAuth();
   const { role } = useRole();
-  const navigate = useNavigate();
 
   const { data: userInfo = null, isLoading } = useQuery({
     queryKey: ["userInfo", user?.email],
@@ -39,43 +34,6 @@ export default function DashboardLayout() {
       return res.data;
     },
   });
-
-  const handleLogout = () => {
-    Swal.fire({
-      title: "Log out?",
-      text: "You will need to sign in again to access your account.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d92243",
-      cancelButtonColor: "#6b7280",
-      confirmButtonText: "Yes, Log out",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        logout()
-          .then(() => {
-            Swal.fire({
-              title: "Logged out",
-              text: "You have been successfully logged out.",
-              icon: "success",
-              confirmButtonColor: "#16a34a",
-              timer: 2000,
-              showConfirmButton: false,
-            });
-            navigate("/login");
-          })
-          .catch((err) => {
-            Swal.fire({
-              title: "Error",
-              text: "Something went wrong. Please try again.",
-              icon: "error",
-              confirmButtonColor: "#dc2626",
-            });
-            console.log(err);
-          });
-      }
-    });
-  };
 
   if (isLoading) return <Loading />;
 
