@@ -28,7 +28,7 @@ export default function Payment() {
   }
 
   const handlePayment = async () => {
-    const paymentInfo = {
+    const parcelInfo = {
       parcelName: parcel.parcelName,
       parcelId: parcel?._id,
       senderEmail: parcel.senderEmail,
@@ -36,7 +36,7 @@ export default function Payment() {
       trackingId: parcel.trackingId,
     };
 
-    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    const res = await axiosSecure.post("/create-checkout-session", parcelInfo);
 
     window.location.assign(res.data.url);
   };

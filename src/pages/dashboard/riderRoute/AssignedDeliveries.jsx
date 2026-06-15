@@ -113,7 +113,9 @@ export default function AssignedDeliveries() {
     }
 
     if (status === "delivered") {
-      return <span className="text-success font-semibold">Delivered</span>;
+      return (
+        <span className="text-primary font-semibold">Parcel Delivered</span>
+      );
     }
 
     if (status === "driver_rejected") {

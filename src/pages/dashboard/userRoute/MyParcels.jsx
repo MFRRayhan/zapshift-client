@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaArrowDown, FaSearch } from "react-icons/fa";
+import { FaLongArrowAltDown, FaSearch } from "react-icons/fa";
 import StatusBadge from "../../../components/StatusBadge";
 
 export default function MyParcels() {
@@ -262,7 +262,7 @@ export default function MyParcels() {
 
                     {/* ROUTE */}
                     <td className="text-xs text-base-content/70 flex flex-col items-center">
-                      {parcel.senderDistrict} <FaArrowDown />{" "}
+                      {parcel.senderDistrict} <FaLongArrowAltDown />{" "}
                       {parcel.receiverDistrict}
                     </td>
 
@@ -409,19 +409,9 @@ export default function MyParcels() {
                 </div>
 
                 <div className="flex gap-2 flex-wrap">
-                  <span
-                    className={`badge badge-lg capitalize ${
-                      selectedParcel.paymentStatus === "paid"
-                        ? "badge-primary"
-                        : "badge-warning"
-                    }`}
-                  >
-                    {selectedParcel.paymentStatus}
-                  </span>
+                  <StatusBadge status={selectedParcel.paymentStatus} />
 
-                  <span className="badge badge-primary badge-lg capitalize">
-                    {getLabel(selectedParcel.deliveryStatus) || "Pending"}
-                  </span>
+                  <StatusBadge status={selectedParcel.deliveryStatus} />
                 </div>
               </div>
 

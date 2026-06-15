@@ -390,19 +390,8 @@ export default function AdminParcels() {
                 </div>
 
                 <div className="flex gap-2 flex-wrap">
-                  <span
-                    className={`badge badge-lg capitalize ${
-                      selectedParcel.paymentStatus === "paid"
-                        ? "badge-primary"
-                        : "badge-warning"
-                    }`}
-                  >
-                    {selectedParcel.paymentStatus}
-                  </span>
-
-                  <span className="badge badge-primary badge-lg capitalize">
-                    {selectedParcel.deliveryStatus || "Pending"}
-                  </span>
+                  <StatusBadge status={selectedParcel.paymentStatus} />
+                  <StatusBadge status={selectedParcel.deliveryStatus} />
                 </div>
               </div>
 
@@ -499,7 +488,7 @@ export default function AdminParcels() {
                   <div>
                     <p className="text-xs text-base-content/60">Parcel Type</p>
 
-                    <p className="font-medium">{selectedParcel.type}</p>
+                    <p className="font-medium">{selectedParcel.parcelType}</p>
                   </div>
 
                   <div>

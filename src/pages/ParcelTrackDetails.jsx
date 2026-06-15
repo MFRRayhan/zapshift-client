@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 
 import useAxios from "../hooks/useAxios";
+import StatusBadge from "../components/StatusBadge";
 
 export default function ParcelTrackDetails() {
   const { trackingId } = useParams();
@@ -69,19 +70,7 @@ export default function ParcelTrackDetails() {
                   </p>
                 </div>
 
-                <div
-                  className={`badge badge-lg capitalize ${
-                    parcel?.deliveryStatus === "delivered"
-                      ? "badge-primary"
-                      : parcel?.deliveryStatus === "in-transit"
-                        ? "badge-warning"
-                        : parcel?.deliveryStatus === "cancelled"
-                          ? "badge-error"
-                          : "badge-info"
-                  }`}
-                >
-                  {parcel?.deliveryStatus || "Pending"}
-                </div>
+                <StatusBadge status={parcel.deliveryStatus} />
               </div>
             </div>
 
@@ -283,8 +272,7 @@ export default function ParcelTrackDetails() {
           </div>
         </div>
 
-        {/* RIGHT SIDE IMAGE */}
-        <div className="sticky top-24 hidden lg:flex justify-center">
+        <div className="hidden h-full lg:flex justify-center">
           {/* TRACKING TIMELINE */}
           <div className="bg-base-100 border border-base-300 rounded-3xl p-6 shadow-sm">
             <h3 className="text-2xl font-bold mb-6">Tracking History</h3>
