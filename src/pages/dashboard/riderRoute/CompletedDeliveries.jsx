@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { FaCheck, FaSearch } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 export default function CompletedDeliveries() {
   const axiosSecure = useAxiosSecure();
@@ -20,6 +21,7 @@ export default function CompletedDeliveries() {
       parcels: [],
       totalAssignedDeliveries: 0,
     },
+    refetch,
   } = useQuery({
     queryKey: ["completedDeliveries", user?.email, searchText, currentPage],
 
@@ -44,6 +46,28 @@ export default function CompletedDeliveries() {
     }
 
     return (parcel.cost * 0.8).toFixed(2);
+  };
+
+  const handlePayout = async (parcel) => {
+    const payoutAmount =
+      parcel.senderDistrict === parcel.receiverDistrict
+        ? parcel.cost * 0.7
+        : parcel.cost * 0.8;
+
+    const res = await axiosSecure.patch(
+      `/parcels/${parcel._id}/request-payout`,
+      { payoutAmount },
+    );
+
+    if (res.data.modifiedCount) {
+      Swal.fire({
+        icon: "success",
+        title: "Payout Requested",
+        text: "Your payout request has been submitted.",
+      });
+    }
+
+    refetch();
   };
 
   return (
@@ -171,8 +195,12 @@ export default function CompletedDeliveries() {
                     </td>
 
                     <td>
-                      <button className="btn btn-primary btn-sm">
-                        Payout{" "}
+                      <button
+                        disabled={parcel.payoutStatus}
+                        onClick={() => handlePayout(parcel)}
+                        className="btn btn-primary btn-sm"
+                      >
+                        {parcel.payoutStatus ? "Requested" : "Payout"}
                       </button>
                     </td>
                   </tr>

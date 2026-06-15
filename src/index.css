@@ -37,6 +37,11 @@ h6 {
   @apply font-bold text-secondary;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  color: #333;
+}
+
 .section-title {
   @apply font-bold text-secondary text-4xl;
 }
@@ -50,6 +55,10 @@ h6 {
 
 .btn {
   @apply transition-all duration-300 hover:scale-[1.03] hover:shadow-lg active:scale-95;
+}
+
+.badge {
+  @apply px-6 py-2 rounded font-semibold;
 }
 
 /* -------------------------------------------------------------------------- */

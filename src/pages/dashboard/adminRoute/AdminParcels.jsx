@@ -11,7 +11,7 @@ import {
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { FaSearch } from "react-icons/fa";
+import { FaLongArrowAltDown, FaSearch } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import StatusBadge from "../../../components/StatusBadge";
 
@@ -255,7 +255,13 @@ export default function AdminParcels() {
 
                     {/* ROUTE */}
                     <td className="text-xs text-base-content/70">
-                      {parcel.senderDistrict} → {parcel.receiverDistrict}
+                      <div className="flex flex-col gap-1">
+                        <div>{parcel.senderDistrict}</div>
+                        <div>
+                          <FaLongArrowAltDown />
+                        </div>
+                        <div>{parcel.receiverDistrict}</div>
+                      </div>
                     </td>
 
                     {/* COST */}

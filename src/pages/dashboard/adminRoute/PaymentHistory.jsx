@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 
-export default function PaymentHistory() {
+export default function ParcelPaymentHistory() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const limit = 10;

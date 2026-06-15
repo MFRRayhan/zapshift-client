@@ -8,6 +8,7 @@ import {
   FaUserCheck,
   FaUsers,
 } from "react-icons/fa6";
+import { PiHandWavingBold } from "react-icons/pi";
 import { IoHomeOutline, IoLogOutOutline } from "react-icons/io5";
 import {
   BsLayoutSidebarInset,
@@ -37,7 +38,7 @@ const PortalTooltip = ({ children, content, isVisible }) => {
     const rect = targetRef.current.getBoundingClientRect();
     setCoords({
       top: rect.top + rect.height / 2,
-      left: rect.right + 12, // Gap from the icon container
+      left: rect.right + 12,
     });
     setIsHovered(true);
   };
@@ -65,11 +66,11 @@ const PortalTooltip = ({ children, content, isVisible }) => {
         isHovered &&
         createPortal(
           <div
-            className="fixed z-[99999] px-3 py-1.5 text-xs font-semibold text-neutral-content bg-neutral rounded shadow-xl pointer-events-none transform -translate-y-1/2 whitespace-nowrap flex items-center"
+            className="fixed z-99999 px-3 py-1.5 text-xs font-semibold text-neutral-content bg-neutral rounded shadow-xl pointer-events-none transform -translate-y-1/2 whitespace-nowrap flex items-center"
             style={{ top: coords.top, left: coords.left }}
           >
             {/* Tooltip Arrow pointing left */}
-            <div className="absolute left-0 top-1/2 -translate-x-[4px] -translate-y-1/2 w-2 h-2 bg-neutral rotate-45 rounded-sm"></div>
+            <div className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-neutral rotate-45 rounded-sm"></div>
             {content}
           </div>,
           document.body,
@@ -224,7 +225,7 @@ export default function DashboardLayout() {
                 <NavItem
                   to="/dashboard/payment-history"
                   icon={FaCreditCard}
-                  label="Payment History"
+                  label="Parcel Payment History"
                 />
               </>
             )}
@@ -266,9 +267,16 @@ export default function DashboardLayout() {
                 <BsLayoutSidebarInsetReverse className="text-2xl" />
               )}
             </button>
-            <h1 className="text-lg font-bold hidden md:block">
-              Hello, {userInfo?.displayName || "User"}
-            </h1>
+            <div className="hidden md:block">
+              <h1 className="text-lg font-bold flex items-center gap-2">
+                Hello, {userInfo?.displayName || "User"}
+                <PiHandWavingBold className="text-primary" />
+              </h1>
+
+              <p className="text-sm text-gray-500">
+                Welcome to your ZapShift Dashboard
+              </p>
+            </div>
           </div>
 
           <UserDropdown userInfo={userInfo} />

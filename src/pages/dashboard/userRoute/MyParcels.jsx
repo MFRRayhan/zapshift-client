@@ -261,7 +261,7 @@ export default function MyParcels() {
                     </td>
 
                     {/* ROUTE */}
-                    <td className="text-xs text-base-content/70 flex flex-col items-center">
+                    <td className="text-xs text-base-content/70 flex flex-col">
                       {parcel.senderDistrict} <FaLongArrowAltDown />{" "}
                       {parcel.receiverDistrict}
                     </td>
