@@ -39,7 +39,7 @@ import ParcelTrack from "../pages/ParcelTrack";
 import ParcelTrackDetails from "../pages/ParcelTrackDetails";
 import BecomeAMerchant from "../pages/BecomeAMerchant";
 import EditProfile from "../pages/dashboard/EditProfile";
-import Blog from "../pages/Blog";
+
 
 export const router = createBrowserRouter([
   {
@@ -102,10 +102,6 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
-      },
-      {
-        path: "blog",
-        Component: Blog,
       },
       {
         path: "blog/:id",
