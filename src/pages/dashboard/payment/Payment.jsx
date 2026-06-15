@@ -31,6 +31,7 @@ export default function Payment() {
     const parcelInfo = {
       parcelName: parcel.parcelName,
       parcelId: parcel?._id,
+      senderName: parcel?.senderName,
       senderEmail: parcel.senderEmail,
       cost: parcel.cost,
       trackingId: parcel.trackingId,

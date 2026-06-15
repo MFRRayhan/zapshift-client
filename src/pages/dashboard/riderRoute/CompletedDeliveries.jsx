@@ -29,7 +29,7 @@ export default function CompletedDeliveries() {
 
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/parcels/rider?riderEmail=${user?.email}&deliveryStatus=delivered&search=${searchText}&limit=${limit}&skip=${skip}`,
+        `/parcels/rider/completed-deliveries?riderEmail=${user?.email}&deliveryStatus=delivered&search=${searchText}&limit=${limit}&skip=${skip}`,
       );
 
       return res.data;
@@ -64,6 +64,7 @@ export default function CompletedDeliveries() {
         icon: "success",
         title: "Payout Requested",
         text: "Your payout request has been submitted.",
+        confirmButtonColor: "#009966",
       });
     }
 
@@ -195,13 +196,16 @@ export default function CompletedDeliveries() {
                     </td>
 
                     <td>
-                      <button
-                        disabled={parcel.payoutStatus}
-                        onClick={() => handlePayout(parcel)}
-                        className="btn btn-primary btn-sm"
-                      >
-                        {parcel.payoutStatus ? "Requested" : "Payout"}
-                      </button>
+                      {parcel.payoutStatus === "paid" ? (
+                        <span className="badge badge-primary">Paid</span>
+                      ) : (
+                        <button
+                          onClick={() => handlePayout(parcel)}
+                          className="btn btn-primary btn-sm"
+                        >
+                          Payout
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

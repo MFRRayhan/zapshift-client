@@ -14,6 +14,7 @@ export default function PaymentSuccess() {
       const res = await axiosSecure.patch(
         `/payment-success?session_id=${sessionId}`,
       );
+
       return res.data.payment;
     },
     enabled: !!sessionId,
@@ -66,7 +67,7 @@ export default function PaymentSuccess() {
           <div className="flex justify-between text-sm">
             <span className="text-base-content/60">Sender E-mail:</span>
             <span className="text-base-content font-medium">
-              {paymentInfo?.customerEmail}
+              {paymentInfo?.senderEmail}
             </span>
           </div>
 

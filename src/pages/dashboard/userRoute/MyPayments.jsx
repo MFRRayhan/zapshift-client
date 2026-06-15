@@ -20,6 +20,8 @@ export default function MyPayments() {
       const { data } = await axiosSecure.get(
         `/payments?email=${user?.email}&limit=${limit}&skip=${skip}&search=${searchText}`,
       );
+
+      console.log(data);
       return data;
     },
   });
@@ -153,8 +155,7 @@ export default function MyPayments() {
 
                     {/* STATUS */}
                     <td>
-                      <span className="badge badge-success badge-outline gap-1 font-semibold py-3 px-3">
-                        <FaCheckCircle className="text-xs" />
+                      <span className="badge badge-primary  font-semibold">
                         Paid
                       </span>
                     </td>

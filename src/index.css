@@ -54,11 +54,11 @@ button:disabled {
 }
 
 .btn {
-  @apply transition-all duration-300 hover:scale-[1.03] hover:shadow-lg active:scale-95;
+  @apply transition-all duration-300 hover:shadow-lg active:scale-95 rounded-lg;
 }
 
 .badge {
-  @apply px-6 py-2 rounded font-semibold;
+  @apply px-6 py-2 rounded font-semibold badge-outline;
 }
 
 /* -------------------------------------------------------------------------- */

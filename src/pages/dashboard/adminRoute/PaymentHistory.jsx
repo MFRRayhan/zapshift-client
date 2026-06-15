@@ -153,7 +153,7 @@ export default function ParcelPaymentHistory() {
 
                     {/* STATUS */}
                     <td>
-                      <span className="badge badge-success badge-outline gap-1 font-semibold py-3 px-3">
+                      <span className="badge badge-primary badge-outline gap-1 font-semibold py-3 px-3">
                         <FaCheckCircle className="text-xs" />
                         Paid
                       </span>
