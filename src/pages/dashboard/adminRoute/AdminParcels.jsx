@@ -275,11 +275,11 @@ export default function AdminParcels() {
                     {/* PAYMENT */}
                     <td>
                       {parcel.paymentStatus === "unpaid" ? (
-                        <span className="badge badge-error badge-outline font-semibold">
+                        <span className="badge badge-error font-semibold">
                           Unpaid
                         </span>
                       ) : (
-                        <span className="badge badge-primary badge-outline font-semibold">
+                        <span className="badge badge-primary font-semibold">
                           Paid
                         </span>
                       )}

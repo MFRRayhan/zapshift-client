@@ -1,4 +1,5 @@
 import trackingImg from "../assets/img/big-deliveryman.png";
+import { FadeInUp, HoverScale, StaggerContainer, StaggerItem } from "../components/AnimationWrappers";
 
 export default function AboutUs() {
   return (
@@ -6,7 +7,7 @@ export default function AboutUs() {
       {/* ================= HERO ================= */}
       <section className="grid md:grid-cols-2 gap-10 items-center">
         {/* LEFT */}
-        <div className="space-y-5">
+        <FadeInUp className="space-y-5 text-center md:text-left">
           <h1 className="text-5xl font-bold text-base-content leading-tight">
             About <span className="text-primary">ZapShift</span>
           </h1>
@@ -18,19 +19,23 @@ export default function AboutUs() {
             tracking.
           </p>
 
-          <div className="flex gap-3">
-            <button className="btn btn-primary transition-all duration-300 hover:scale-[1.03] hover:shadow-lg active:scale-95">
-              Get Started
-            </button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+            <HoverScale>
+              <button className="btn btn-primary w-full sm:w-auto shadow-md">
+                Get Started
+              </button>
+            </HoverScale>
 
-            <button className="btn btn-outline transition-all duration-300 hover:scale-[1.03] hover:shadow-lg active:scale-95">
-              Learn More
-            </button>
+            <HoverScale>
+              <button className="btn btn-outline w-full sm:w-auto shadow-md">
+                Learn More
+              </button>
+            </HoverScale>
           </div>
-        </div>
+        </FadeInUp>
 
         {/* RIGHT IMAGE */}
-        <div className="flex justify-center">
+        <FadeInUp delay={0.2} className="flex justify-center">
           <div className="relative group">
             <div className="absolute -inset-4 bg-primary/10 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition-all duration-500" />
 
@@ -40,17 +45,17 @@ export default function AboutUs() {
               className="relative w-full max-w-md rounded-2xl shadow-xl transition-all duration-500 group-hover:scale-[1.02]"
             />
           </div>
-        </div>
+        </FadeInUp>
       </section>
 
       {/* ================= STATS ================= */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <StaggerContainer className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {[
           { label: "Parcels Delivered", value: "10,000+" },
           { label: "Active Riders", value: "500+" },
           { label: "Coverage Areas", value: "64 Districts" },
         ].map((item, i) => (
-          <div
+          <StaggerItem
             key={i}
             className="
               p-6 rounded-2xl border border-base-300 bg-base-100 text-center
@@ -63,12 +68,12 @@ export default function AboutUs() {
               {item.value}
             </h2>
             <p className="text-base-content/60 mt-2">{item.label}</p>
-          </div>
+          </StaggerItem>
         ))}
-      </section>
+      </StaggerContainer>
 
       {/* ================= FEATURES ================= */}
-      <section className="grid md:grid-cols-3 gap-6">
+      <StaggerContainer className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
         {[
           {
             title: "Fast Delivery",
@@ -83,7 +88,7 @@ export default function AboutUs() {
             desc: "Every parcel is handled with care using verified riders and secure logistics processes.",
           },
         ].map((f, i) => (
-          <div
+          <StaggerItem
             key={i}
             className="
               p-6 rounded-2xl border border-base-300 bg-base-100
@@ -97,12 +102,12 @@ export default function AboutUs() {
             </h3>
 
             <p className="text-base-content/60 leading-relaxed">{f.desc}</p>
-          </div>
+          </StaggerItem>
         ))}
-      </section>
+      </StaggerContainer>
 
       {/* ================= TABS ================= */}
-      <section className="bg-base-100 border border-base-300 rounded-2xl p-6 shadow-sm">
+      <FadeInUp className="bg-base-100 border border-base-300 rounded-2xl p-6 shadow-sm">
         <div className="tabs tabs-lift">
           {/* STORY */}
           <input
@@ -213,7 +218,7 @@ export default function AboutUs() {
             </p>
           </div>
         </div>
-      </section>
+      </FadeInUp>
     </div>
   );
 }

@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import { FadeInUp } from "./AnimationWrappers";
 
 export default function ReviewSlider({ reviewPromise }) {
   const reviews = use(reviewPromise);
@@ -18,16 +19,16 @@ export default function ReviewSlider({ reviewPromise }) {
 
   return (
     <div className="container">
-      <div className="text-center max-w-4xl mx-auto mb-10">
+      <FadeInUp className="text-center max-w-4xl mx-auto mb-10">
         <h2 className="section-title mb-5">What our customers are saying</h2>
-        <p className="text-gray-500">
+        <p className="text-base-content/70">
           Enhance posture, mobility, and well-being effortlessly with Posture
           Pro. Achieve proper alignment, reduce pain, and strengthen your body
           with ease!
         </p>
-      </div>
+      </FadeInUp>
 
-      <div className="relative">
+      <FadeInUp delay={0.2} className="relative">
         <button
           onClick={() => swiperRef.current?.slidePrev()}
           className="review-prev absolute left-0 bottom-0 z-20 flex h-10 w-10 items-center justify-center btn btn-square rounded-full btn-outline btn-primary"
@@ -47,8 +48,13 @@ export default function ReviewSlider({ reviewPromise }) {
           effect="coverflow"
           grabCursor
           centeredSlides
-          spaceBetween={60}
-          slidesPerView={3}
+          spaceBetween={30}
+          slidesPerView={1}
+          breakpoints={{
+            640: { slidesPerView: 1, spaceBetween: 30 },
+            768: { slidesPerView: 2, spaceBetween: 40 },
+            1024: { slidesPerView: 3, spaceBetween: 60 },
+          }}
           loop
           autoplay={{
             delay: 3000,
@@ -113,7 +119,7 @@ export default function ReviewSlider({ reviewPromise }) {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </FadeInUp>
     </div>
   );
 }

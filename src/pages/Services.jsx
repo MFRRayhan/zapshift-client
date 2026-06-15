@@ -189,7 +189,7 @@ export default function Services() {
 
       {/*  CTA  */}
       <section className="text-center bg-primary text-primary-content p-12 rounded-3xl space-y-6">
-        <h2 className="text-3xl font-bold">Ready to Ship Your Parcel?</h2>
+        <h2 className="text-3xl font-bold text-white!">Ready to Ship Your Parcel?</h2>
         <p className="opacity-90 max-w-2xl mx-auto">
           Experience fast, secure, and reliable delivery services across
           Bangladesh.

@@ -4,6 +4,7 @@ import {
   FaWarehouse,
   FaBuilding,
 } from "react-icons/fa6";
+import { FadeInUp, StaggerContainer, StaggerItem } from "./AnimationWrappers";
 
 export default function HowItWorks() {
   const steps = [
@@ -32,23 +33,23 @@ export default function HowItWorks() {
   return (
     <div className="container py-12">
       {/* HEADER */}
-      <div className="mb-10">
+      <FadeInUp className="mb-10 text-center md:text-left">
         <h2 className="text-4xl font-bold text-base-content">How It Works</h2>
-        <p className="text-base-content/60 mt-2 max-w-2xl">
+        <p className="text-base-content/60 mt-2 max-w-2xl mx-auto md:mx-0">
           A simple and transparent process designed to make your parcel delivery
           fast, secure, and hassle-free from booking to delivery.
         </p>
-      </div>
+      </FadeInUp>
 
       {/* GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {steps.map((step, index) => {
           const Icon = step.icon;
 
           return (
-            <div
+            <StaggerItem
               key={index}
-              className="bg-white rounded-2xl border border-base-300 p-6 space-y-4
+              className="bg-base-100 rounded-2xl border border-base-300 p-6 space-y-4
               transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               {/* ICON */}
@@ -65,10 +66,10 @@ export default function HowItWorks() {
               <p className="text-sm text-base-content/60 leading-relaxed">
                 {step.desc}
               </p>
-            </div>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerContainer>
     </div>
   );
 }

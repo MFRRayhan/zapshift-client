@@ -1,9 +1,11 @@
+import { FadeInUp, StaggerContainer, StaggerItem } from "./AnimationWrappers";
+
 export default function FaqAccordion() {
   return (
     <div className="container py-14 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <FadeInUp className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-base-content mb-4">
             Frequently Asked Questions
           </h2>
@@ -13,12 +15,12 @@ export default function FaqAccordion() {
             it is suitable for, and how it can help improve your daily comfort,
             alignment, and long-term spinal health.
           </p>
-        </div>
+        </FadeInUp>
 
         {/* Accordion */}
-        <div className="space-y-4">
+        <StaggerContainer className="space-y-4">
           {/* 1 */}
-          <div className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
+          <StaggerItem className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
             <input type="radio" name="faq" defaultChecked />
             <div className="collapse-title font-semibold text-base-content text-lg">
               How does this posture corrector actually work?
@@ -36,10 +38,10 @@ export default function FaqAccordion() {
                 are not wearing it.
               </p>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* 2 */}
-          <div className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
+          <StaggerItem className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
             <input type="radio" name="faq" />
             <div className="collapse-title font-semibold text-base-content text-lg">
               Is it suitable for all ages and body types?
@@ -57,10 +59,10 @@ export default function FaqAccordion() {
                 any posture support device.
               </p>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* 3 */}
-          <div className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
+          <StaggerItem className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
             <input type="radio" name="faq" />
             <div className="collapse-title font-semibold text-base-content text-lg">
               Can it really help reduce back pain and improve posture?
@@ -78,10 +80,10 @@ export default function FaqAccordion() {
                 a few weeks of regular use.
               </p>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* 4 */}
-          <div className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
+          <StaggerItem className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
             <input type="radio" name="faq" />
             <div className="collapse-title font-semibold text-base-content text-lg">
               Does it include smart vibration or posture alerts?
@@ -97,10 +99,10 @@ export default function FaqAccordion() {
                 suitable for office, study, or daily home use.
               </p>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* 5 */}
-          <div className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
+          <StaggerItem className="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl">
             <input type="radio" name="faq" />
             <div className="collapse-title font-semibold text-base-content text-lg">
               How will I know when the product is back in stock?
@@ -116,13 +118,13 @@ export default function FaqAccordion() {
                 short timeframe based on availability and demand trends.
               </p>
             </div>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
 
         {/* CTA Button */}
-        <div className="flex justify-center mt-10">
+        <FadeInUp className="flex justify-center mt-10">
           <button className="btn btn-primary">See More FAQs</button>
-        </div>
+        </FadeInUp>
       </div>
     </div>
   );

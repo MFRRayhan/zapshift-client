@@ -118,7 +118,7 @@ export default function EditProfile() {
           </p>
         </div>
 
-        <Link to="/dashboard/profile" className="btn btn-outline btn-primary">
+        <Link to="/dashboard" className="btn btn-outline btn-primary">
           <FaArrowLeft />
           Back To Profile
         </Link>

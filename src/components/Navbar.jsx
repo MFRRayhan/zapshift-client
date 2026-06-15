@@ -1,14 +1,27 @@
 import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import Loading from "./Loading";
 import Logo from "./Logo";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import UserDropdown from "../utils/UserDropdown";
+import { useTheme } from "../contexts/ThemeContext";
+import { Sun, Moon } from "lucide-react";
 
 export default function Navbar() {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const { theme, toggleTheme } = useTheme();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const { data: userInfo = null } = useQuery({
     queryKey: ["userInfo", user?.email],
@@ -69,7 +82,13 @@ export default function Navbar() {
   if (loading) return <Loading />;
 
   return (
-    <div className="shadow-sm">
+    <div
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-base-100/80 backdrop-blur-lg shadow-md border-b border-base-200/50"
+          : "bg-base-100 shadow-sm"
+      }`}
+    >
       <div className="container">
         <div className="navbar px-0">
           <div className="navbar-start">
@@ -97,7 +116,7 @@ export default function Navbar() {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[100] mt-3 w-52 p-2 shadow-lg border border-base-200"
               >
                 {links}
               </ul>
@@ -110,6 +129,13 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="navbar-end gap-2">
+            <button
+              onClick={toggleTheme}
+              className="btn btn-ghost btn-circle"
+              aria-label="Toggle Theme"
+            >
+              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
             {user ? (
               <UserDropdown userInfo={userInfo} />
             ) : (

@@ -13,6 +13,7 @@ import {
 
 import useAxios from "../hooks/useAxios";
 import StatusBadge from "../components/StatusBadge";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
 export default function ParcelTrackDetails() {
   const { trackingId } = useParams();
@@ -96,10 +97,11 @@ export default function ParcelTrackDetails() {
                     {parcel?.parcelWeight || 0} KG
                   </p>
 
-                  <p>
+                  <p className="flex items-center">
                     <span className="font-semibold">Delivery Cost:</span>{" "}
-                    <span className="text-primary font-semibold">
-                      ৳{parcel?.cost || 0}
+                    <span className="text-primary font-semibold flex items-center">
+                      <FaBangladeshiTakaSign />
+                      {parcel?.cost || 0}
                     </span>
                   </p>
 
@@ -128,10 +130,10 @@ export default function ParcelTrackDetails() {
                   <p>
                     <span className="font-semibold">Payment Status:</span>{" "}
                     <span
-                      className={`badge capitalize ${
+                      className={`capitalize ${
                         parcel?.paymentStatus === "paid"
-                          ? "badge-primary"
-                          : "badge-warning"
+                          ? "text-primary"
+                          : "text-warning"
                       }`}
                     >
                       {parcel?.paymentStatus || "Unpaid"}

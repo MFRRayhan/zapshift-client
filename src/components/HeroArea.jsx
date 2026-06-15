@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import { FadeInUp, HoverScale } from "./AnimationWrappers";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -70,7 +71,7 @@ export default function HeroArea() {
               <div className="container mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                   {/* Left Content */}
-                  <div className="space-y-8">
+                  <FadeInUp className="space-y-8 text-center lg:text-left">
                     <div className="space-y-5">
                       <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-medium">
                         Trusted Logistics Platform
@@ -80,61 +81,65 @@ export default function HeroArea() {
                         {slide.title}
                       </h1>
 
-                      <p className="text-lg text-base-content/70 max-w-xl leading-relaxed">
+                      <p className="text-lg text-base-content/70 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                         {slide.description}
                       </p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <Link to="/parcel-track" className="btn btn-primary">
-                        Track Your Parcel
-                      </Link>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                      <HoverScale>
+                        <Link to="/parcel-track" className="btn btn-primary w-full sm:w-auto">
+                          Track Your Parcel
+                        </Link>
+                      </HoverScale>
 
-                      <Link to="/be-a-rider" className="btn btn-outline">
-                        Become A Rider
-                      </Link>
+                      <HoverScale>
+                        <Link to="/be-a-rider" className="btn btn-outline w-full sm:w-auto">
+                          Become A Rider
+                        </Link>
+                      </HoverScale>
                     </div>
 
-                    <div className="flex gap-10 pt-4">
+                    <div className="flex gap-6 sm:gap-10 pt-4 justify-center lg:justify-start">
                       <div>
-                        <h3 className="text-3xl font-bold text-primary">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-primary">
                           10K+
                         </h3>
-                        <p className="text-sm text-base-content/60">
+                        <p className="text-xs sm:text-sm text-base-content/60">
                           Parcels Delivered
                         </p>
                       </div>
 
                       <div>
-                        <h3 className="text-3xl font-bold text-primary">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-primary">
                           500+
                         </h3>
-                        <p className="text-sm text-base-content/60">
+                        <p className="text-xs sm:text-sm text-base-content/60">
                           Active Riders
                         </p>
                       </div>
 
                       <div>
-                        <h3 className="text-3xl font-bold text-primary">64</h3>
-                        <p className="text-sm text-base-content/60">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-primary">64</h3>
+                        <p className="text-xs sm:text-sm text-base-content/60">
                           District Coverage
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </FadeInUp>
 
                   {/* Right Image */}
-                  <div className="flex justify-center">
+                  <FadeInUp delay={0.2} className="flex justify-center">
                     <div className="relative">
                       <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full" />
 
                       <img
                         src={slide.image}
                         alt={slide.title}
-                        className="relative z-10 w-full max-w-xl object-contain"
+                        className="relative z-10 w-full max-w-sm sm:max-w-md lg:max-w-xl object-contain"
                       />
                     </div>
-                  </div>
+                  </FadeInUp>
                 </div>
               </div>
             </div>

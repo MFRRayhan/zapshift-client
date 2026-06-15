@@ -6,10 +6,11 @@ import {
 } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import { HoverScale } from "./AnimationWrappers";
 
 export default function Footer() {
   return (
-    <div className="py-20 bg-black text-white">
+    <div className="py-20 bg-neutral text-neutral-content">
       <div className="container">
         <div className="flex flex-col gap-5 items-center justify-center max-w-3xl mx-auto">
           <div className="flex flex-col items-center justify-center">
@@ -33,36 +34,45 @@ export default function Footer() {
 
           {/* social links */}
           <div className="flex items-center gap-5">
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
-            >
-              <FaFacebookF />
-            </a>
+            <HoverScale>
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                className="bg-primary text-primary-content rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary block"
+              >
+                <FaFacebookF />
+              </a>
+            </HoverScale>
 
-            <a
-              href="https://www.x.com"
-              target="_blank"
-              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
-            >
-              <FaXTwitter />
-            </a>
+            <HoverScale>
+              <a
+                href="https://www.x.com"
+                target="_blank"
+                className="bg-primary text-primary-content rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary block"
+              >
+                <FaXTwitter />
+              </a>
+            </HoverScale>
 
-            <a
-              href="https://www.linkedin.com"
-              target="_blank"
-              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
-            >
-              <FaLinkedinIn />
-            </a>
-            <a
-              href="https://www.youtube.com"
-              target="_blank"
-              className="bg-primary rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary"
-            >
-              <FaYoutube />
-            </a>
+            <HoverScale>
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                className="bg-primary text-primary-content rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary block"
+              >
+                <FaLinkedinIn />
+              </a>
+            </HoverScale>
+
+            <HoverScale>
+              <a
+                href="https://www.youtube.com"
+                target="_blank"
+                className="bg-primary text-primary-content rounded-full p-2 transition-all ease-in-out duration-100 hover:bg-white hover:text-primary block"
+              >
+                <FaYoutube />
+              </a>
+            </HoverScale>
           </div>
         </div>
       </div>

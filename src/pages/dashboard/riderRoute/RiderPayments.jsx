@@ -84,8 +84,21 @@ export default function RiderPayments() {
 
       {/* EMPTY STATE */}
       {parcels.length === 0 ? (
-        <section className="bg-base-100 border border-base-300 rounded-2xl p-10 text-center text-base-content/60">
-          No payment records found
+        <section className="bg-base-100 border border-base-300 rounded-2xl p-10">
+          <div className="flex flex-col items-center justify-center text-center">
+            <div className="w-24 h-24 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
+              <FaBangladeshiTakaSign className="text-4xl text-primary" />
+            </div>
+
+            <h2 className="text-2xl font-bold text-base-content">
+              No Payout Requests Yet
+            </h2>
+
+            <p className="text-base-content/60 mt-3 max-w-md">
+              You haven't submitted any payout requests. Completed delivery
+              payouts will appear here once requested.
+            </p>
+          </div>
         </section>
       ) : (
         <section className="bg-base-100 border border-base-300 rounded-2xl overflow-hidden">

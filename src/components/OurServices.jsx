@@ -6,6 +6,7 @@ import {
   FaBuilding,
   FaRotateLeft,
 } from "react-icons/fa6";
+import { FadeInUp, StaggerContainer, StaggerItem } from "./AnimationWrappers";
 
 export default function OurServices() {
   const services = [
@@ -45,7 +46,7 @@ export default function OurServices() {
     <div className="bg-secondary py-16">
       <div className="container">
         {/* HEADER */}
-        <div className="text-center mb-12">
+        <FadeInUp className="text-center mb-12">
           <h2 className="text-4xl font-bold text-white!">Our Services</h2>
 
           <p className="text-white/80 mt-3 max-w-2xl mx-auto leading-relaxed">
@@ -53,20 +54,20 @@ export default function OurServices() {
             e-commerce businesses, and enterprises with speed, reliability, and
             full transparency.
           </p>
-        </div>
+        </FadeInUp>
 
         {/* CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => {
             const Icon = s.icon;
 
             return (
-              <div
+              <StaggerItem
                 key={i}
-                className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group bg-base-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 {/* ICON */}
-                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-white transition">
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-primary-content transition">
                   <Icon size={22} />
                 </div>
 
@@ -76,13 +77,13 @@ export default function OurServices() {
                 </h3>
 
                 {/* DESCRIPTION */}
-                <p className="text-sm text-gray-500 leading-relaxed">
+                <p className="text-sm text-base-content/70 leading-relaxed">
                   {s.desc}
                 </p>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
       </div>
     </div>
   );

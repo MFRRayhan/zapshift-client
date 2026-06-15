@@ -27,6 +27,8 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 import UserDropdown from "../utils/UserDropdown";
+import { useTheme } from "../contexts/ThemeContext";
+import { Sun, Moon } from "lucide-react";
 
 const PortalTooltip = ({ children, content, isVisible }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -84,6 +86,7 @@ export default function DashboardLayout() {
   const { user, logout } = useAuth();
   const { role } = useRole();
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+  const { theme, toggleTheme } = useTheme();
 
   const { data: userInfo = null, isLoading } = useQuery({
     queryKey: ["userInfo", user?.email],
@@ -279,7 +282,16 @@ export default function DashboardLayout() {
             </div>
           </div>
 
-          <UserDropdown userInfo={userInfo} />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="btn btn-ghost btn-circle"
+              aria-label="Toggle Theme"
+            >
+              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+            <UserDropdown userInfo={userInfo} />
+          </div>
         </header>
 
         {/* ================= CONTENT (ONLY SCROLL AREA) ================= */}

@@ -4,6 +4,8 @@ import Loading from "../components/Loading";
 import AuthLayout from "../layouts/AuthLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AboutUs from "../pages/AboutUs";
+import Blog from "../pages/Blog";
+import BlogDetails from "../pages/BlogDetails";
 import BeARider from "../pages/BeARider";
 import Contact from "../pages/Contact";
 import Coverage from "../pages/Coverage";
@@ -95,6 +97,14 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
+      },
+      {
+        path: "blog",
+        Component: Blog,
+      },
+      {
+        path: "blog/:id",
+        Component: BlogDetails,
       },
       {
         path: "parcel-track",
