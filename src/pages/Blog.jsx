@@ -1,8 +1,6 @@
-import { FaCalendarAlt, FaUser, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { blogsData as blogs } from "../utils/blogData";
 import { FadeInUp, StaggerContainer, StaggerItem } from "../components/AnimationWrappers";
-
 export default function Blog() {
   return (
     <div className="container">
