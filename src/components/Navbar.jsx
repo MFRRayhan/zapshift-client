@@ -10,7 +10,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { Sun, Moon } from "lucide-react";
 
 export default function Navbar() {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,8 +79,6 @@ export default function Navbar() {
     </>
   );
 
-  if (loading) return <Loading />;
-
   return (
     <div
       className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -116,7 +114,7 @@ export default function Navbar() {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[100] mt-3 w-52 p-2 shadow-lg border border-base-200"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-100 mt-3 w-52 p-2 shadow-lg border border-base-200"
               >
                 {links}
               </ul>
