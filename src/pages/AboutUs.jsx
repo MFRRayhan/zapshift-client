@@ -1,5 +1,10 @@
 import trackingImg from "../assets/img/big-deliveryman.png";
-import { FadeInUp, HoverScale, StaggerContainer, StaggerItem } from "../components/AnimationWrappers";
+import {
+  FadeInUp,
+  HoverScale,
+  StaggerContainer,
+  StaggerItem,
+} from "../components/AnimationWrappers";
 
 export default function AboutUs() {
   return (

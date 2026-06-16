@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark;
+  themes:
+    light --default,
+    dark;
 }
 
 @plugin "daisyui/theme" {
@@ -13,7 +15,7 @@
   --color-base-content: oklch(20% 0.05 240);
   --color-primary: #009966;
   --color-primary-content: #fff;
-  --color-warning: #ffd400;
+  --color-warning: #ff6500;
   --color-warning-content: #333;
   --color-secondary: #03373d;
   --color-secondary-content: #fff;

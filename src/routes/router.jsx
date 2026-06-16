@@ -39,7 +39,7 @@ import ParcelTrack from "../pages/ParcelTrack";
 import ParcelTrackDetails from "../pages/ParcelTrackDetails";
 import BecomeAMerchant from "../pages/BecomeAMerchant";
 import EditProfile from "../pages/dashboard/EditProfile";
-
+import DashboardHome from "../pages/dashboard/DashboardHome/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -72,18 +72,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "send-parcel",
-        // element: (
-        //   <PrivateRoute>
-        //     <SendParcel />
-        //   </PrivateRoute>
-        // ),
         Component: SendParcel,
         loader: () => fetch("/warehouses.json").then((res) => res.json()),
         hydrateFallbackElement: <Loading />,
       },
       {
         path: "be-a-rider",
-        // Component: BeARider,
         loader: () => fetch("/warehouses.json").then((res) => res.json()),
         element: (
           <PrivateRoute>
@@ -151,6 +145,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      // {
+      //   path: "profile",
+      //   element: (
+      //     <PrivateRoute>
+      //       <Profile />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "edit-profile",
         element: (

@@ -26,7 +26,7 @@ export default function MyParcels() {
   const [selectedParcel, setSelectedParcel] = useState(null);
   const [patchParcel, setPatchParcel] = useState(null);
   const [searchText, setSearchText] = useState("");
-  const limit = 20;
+  const limit = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const skip = (currentPage - 1) * limit;
 
