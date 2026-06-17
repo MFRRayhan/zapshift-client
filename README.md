@@ -2,6 +2,10 @@
 
 ZapShift frontend is the client-side application for users, riders, and admins to manage parcel delivery operations, payments, and tracking.
 
+## Live Demo
+
+🔗 https://zapshift-651c0.web.app/
+
 ## Overview
 
 - Built with **React + Vite**
@@ -52,16 +56,16 @@ ZapShift frontend is the client-side application for users, riders, and admins t
 
 ## Required Environment Variables
 
-| Variable | Purpose |
-|---|---|
-| `VITE_APIKEY` | Firebase API key |
-| `VITE_AUTHDOMAIN` | Firebase auth domain |
-| `VITE_PROJECTID` | Firebase project ID |
-| `VITE_STORAGEBUCKET` | Firebase storage bucket |
-| `VITE_MESSAGINGSENDERID` | Firebase messaging sender ID |
-| `VITE_APPID` | Firebase app ID |
-| `VITE_SITE_DOMAIN` | Backend API base URL |
-| `VITE_IMGBB_API` | Optional image upload API key |
+| Variable                 | Purpose                       |
+| ------------------------ | ----------------------------- |
+| `VITE_APIKEY`            | Firebase API key              |
+| `VITE_AUTHDOMAIN`        | Firebase auth domain          |
+| `VITE_PROJECTID`         | Firebase project ID           |
+| `VITE_STORAGEBUCKET`     | Firebase storage bucket       |
+| `VITE_MESSAGINGSENDERID` | Firebase messaging sender ID  |
+| `VITE_APPID`             | Firebase app ID               |
+| `VITE_SITE_DOMAIN`       | Backend API base URL          |
+| `VITE_IMGBB_API`         | Optional image upload API key |
 
 ## Core App Flow
 
