@@ -93,82 +93,136 @@ export default function Login() {
       });
   };
 
+  const handleDemoLogin = (role) => {
+    let email = "";
+    const password = import.meta.env.VITE_DEMO_LOGIN_PASSWORD;
+
+    if (role === "admin") email = "admin@gmail.com";
+    if (role === "rider") email = "rider@gmail.com";
+    if (role === "user") email = "user@gmail.com";
+
+    logIn(email, password)
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: `Logged in as ${role}`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        navigate(location?.state || "/dashboard");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit(handleLogin)}
-      className="w-full max-w-md space-y-5"
-    >
-      <fieldset className="fieldset">
-        <div>
-          <h2 className="text-4xl font-bold mb-2">Welcome Back</h2>
-          <p className="text-gray-500">Login to continue your account</p>
-        </div>
+    <div className="w-full max-w-md mx-auto space-y-6">
+      <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
+        <fieldset className="fieldset">
+          {/* HEADER */}
+          <div>
+            <h2 className="text-4xl font-bold mb-2">Welcome Back</h2>
+            <p className="text-gray-500">Login to continue your account</p>
+          </div>
 
-        {/* Email */}
-        <div className="mt-10">
-          <label className="label mb-1">Email</label>
-          <input
-            type="email"
-            {...register("email", { required: "Email is required" })}
-            className="input input-bordered w-full focus:outline-none focus:border-primary"
-            placeholder="Enter your email"
-          />
+          {/* EMAIL */}
+          <div>
+            <label className="label mb-1">Email</label>
+            <input
+              type="email"
+              {...register("email", { required: "Email is required" })}
+              className="input input-bordered w-full focus:outline-none focus:border-primary"
+              placeholder="Enter your email"
+            />
+            {errors.email && (
+              <p className="text-error mt-1">{errors.email.message}</p>
+            )}
+          </div>
 
-          {errors.email && (
-            <p className="text-error mt-1">{errors.email.message}</p>
-          )}
-        </div>
+          {/* PASSWORD */}
+          <div>
+            <label className="label mb-1">Password</label>
+            <input
+              type="password"
+              {...register("password", {
+                required: "Please enter your password",
+              })}
+              className="input input-bordered w-full focus:outline-none focus:border-primary"
+              placeholder="Enter your password"
+            />
+            {errors.password && (
+              <p className="text-error mt-1">{errors.password.message}</p>
+            )}
+          </div>
 
-        {/* Password */}
-        <div>
-          <label className="label mb-1">Password</label>
-          <input
-            {...register("password", {
-              required: "Please enter your password",
-            })}
-            type="password"
-            className="input input-bordered w-full focus:outline-none focus:border-primary"
-            placeholder="Enter your password"
-          />
+          {/* FORGOT */}
+          <div className="text-right">
+            <Link
+              to="/forgot-password"
+              className="link link-hover text-sm text-primary font-semibold"
+            >
+              Forgot password?
+            </Link>
+          </div>
 
-          {errors.password && (
-            <p className="text-error mt-1">{errors.password.message}</p>
-          )}
-        </div>
+          {/* LOGIN */}
+          <button className="btn btn-primary w-full">Login</button>
 
-        <div className="text-right">
-          <Link
-            to={"/forgot-password"}
-            className="link link-hover text-sm text-primary font-semibold"
+          {/* DIVIDER */}
+          <div className="divider">OR</div>
+
+          {/* GOOGLE */}
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="btn btn-outline w-full"
           >
-            Forgot password?
-          </Link>
-        </div>
+            <FcGoogle size={22} />
+            Login with Google
+          </button>
 
-        <button className="btn btn-primary w-full">Login</button>
+          {/* REGISTER */}
+          <p className="text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link
+              to="/register"
+              state={location?.state}
+              className="text-primary font-semibold"
+            >
+              Register
+            </Link>
+          </p>
+        </fieldset>
+      </form>
 
-        <div className="divider">OR</div>
+      {/* ================= DEMO SECTION ================= */}
+      <div className="bg-base-100 border border-base-300 rounded-xl p-4 space-y-3">
+        <div className="divider text-sm text-gray-500">Quick Demo Access</div>
 
         <button
           type="button"
-          onClick={handleGoogleLogin}
-          className="btn btn-outline w-full"
+          onClick={() => handleDemoLogin("admin")}
+          className="btn btn-primary btn-outline w-full"
         >
-          <FcGoogle size={22} />
-          Login with Google
+          Continue as Admin
         </button>
 
-        <p className="text-center text-sm text-gray-600">
-          Don&apos;t have an account?{" "}
-          <Link
-            to="/register"
-            state={location?.state}
-            className="text-primary font-semibold"
-          >
-            Register
-          </Link>
-        </p>
-      </fieldset>
-    </form>
+        <button
+          type="button"
+          onClick={() => handleDemoLogin("rider")}
+          className="btn btn-primary btn-outline w-full"
+        >
+          Continue as Rider
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleDemoLogin("user")}
+          className="btn btn-primary btn-outline w-full"
+        >
+          Continue as User
+        </button>
+      </div>
+    </div>
   );
 }
