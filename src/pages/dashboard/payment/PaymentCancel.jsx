@@ -8,7 +8,7 @@ export default function PaymentCancel() {
         {/* HEADER */}
         <div className="text-center space-y-2">
           <div className="flex justify-center">
-            <FaCircleXmark className="text-5xl text-red-400/80" />
+            <FaCircleXmark className="text-5xl text-error" />
           </div>
           <h1 className="text-2xl font-bold text-base-content">
             Payment Cancelled
@@ -40,7 +40,7 @@ export default function PaymentCancel() {
           </Link>
 
           <Link to={"/dashboard/my-parcels"}>
-            <button className="btn rounded-xl bg-red-400/80 text-white border-none hover:bg-red-300">
+            <button className="btn rounded-xl bg-error text-white border-none">
               Try Again
             </button>
           </Link>

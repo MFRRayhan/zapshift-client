@@ -1,7 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
-import Loading from "./Loading";
 import Logo from "./Logo";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -143,7 +142,7 @@ export default function Navbar() {
                     Login
                   </button>
                 </Link>
-                <Link to={"/register"}>
+                <Link to={"/register"} className="hidden md:inline-block">
                   <button
                     type="button"
                     className="btn btn-outline btn-secondary transition-all duration-100 ease-in-out hover:btn-primary"
